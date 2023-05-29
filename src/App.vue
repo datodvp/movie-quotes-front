@@ -1,18 +1,17 @@
 <script setup>
-import { RouterLink, RouterView } from 'vue-router'
+import { RouterView } from 'vue-router'
 </script>
 
 <template>
-  <header>
-    <div class="wrapper">
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
-    </div>
-  </header>
+  <div class="w-screen h-screen bg-gradient-to-b from-[#11101A] via-[#08080D] to-[#000000]">
 
-  <RouterView />
+    <RouterView />
+
+  </div>
 </template>
 
-<style scoped></style>
+<style>
+body {
+  color: #DDCCAA;
+}
+</style>
