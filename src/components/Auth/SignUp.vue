@@ -14,9 +14,11 @@ const password = ref('')
 const passwordConfirmation = ref('')
 
 const onSubmit = async (values) => {
-    // await authClient.get("/sanctum/csrf-cookie");
     await Auth.registerUser(values).then(response => console.log(response))
-    console.log('dato')
+}
+
+const registerGoogle = async () => {
+    Auth.authGoogle()
 }
 </script>
 
@@ -40,7 +42,7 @@ const onSubmit = async (values) => {
 
                 <PrimaryButton class="mt-6">Get Started</PrimaryButton>
 
-                <SecondaryButton type="button">
+                <SecondaryButton @click="registerGoogle" type="button">
                     <IconGoogle />Sign up with Google
                 </SecondaryButton>
 

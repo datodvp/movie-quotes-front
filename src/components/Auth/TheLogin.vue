@@ -14,9 +14,11 @@ const password = ref('')
 const remember_me = ref(null)
 
 const onSubmit = async (values) => {
-    // await authClient.get("/sanctum/csrf-cookie");
     await Auth.login(values);
-    console.log('dato')
+}
+
+const loginGoogle = async () => {
+    Auth.authGoogle()
 }
 </script>
 
@@ -43,7 +45,7 @@ const onSubmit = async (values) => {
                     Sign in
                 </PrimaryButton>
 
-                <SecondaryButton type="button">
+                <SecondaryButton @click="loginGoogle" type="button">
                     <IconGoogle />Sign in with Google
                 </SecondaryButton>
 

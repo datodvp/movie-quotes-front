@@ -2,6 +2,11 @@
 import PrimaryLinkButton from '../components/Buttons/PrimaryLinkButton.vue';
 import SecondaryLinkButton from '../components/Buttons/SecondaryLinkButton.vue';
 import IconArrow from '../components/icons/IconArrow.vue'
+import Auth from '../services/AuthService'
+
+const logout = () => {
+  Auth.logout();
+}
 
 </script>
 
@@ -13,7 +18,7 @@ import IconArrow from '../components/icons/IconArrow.vue'
         <nav class="flex justify-between">
           <h1>MOVIE QUOTES</h1>
           <div class="flex gap-4">
-            <div class="items-center justify-center hidden gap-2 md:flex mr-7">Eng
+            <div @click="logout" class="items-center justify-center hidden gap-2 md:flex mr-7">Eng
               <IconArrow />
             </div>
             <div class="flex flex-row-reverse gap-2 md:gap-4 md:flex-row">
