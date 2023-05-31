@@ -22,10 +22,10 @@ const onSubmit = async (values) => {
 
 <template>
     <PopUpCard>
-        <div class="flex flex-col items-center justify-center">
-            <h1 class="text-3xl font-medium">Log in to your account</h1>
-            <p class="text-[#6C757D] mt-3">Welcome back! Please enter your details.</p>
-            <Form @submit="onSubmit">
+        <div class="flex flex-col items-center justify-center w-full">
+            <h1 class="p-4 text-3xl font-medium">Log in to your account</h1>
+            <p class="p-4 text-[#6C757D] mt-3">Welcome back! Please enter your details.</p>
+            <Form @submit="onSubmit" class="w-full px-4 md:px-0">
                 <TextInput label="Email or Username" name="login" placeholder="Enter your email or username" v-model="login"
                     :rules="{ required: true }" />
                 <TextInput type="password" label="Password" name="password" placeholder="Password" v-model="password"

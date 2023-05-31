@@ -3,7 +3,6 @@ import PopUpCard from '../PopUpCard.vue'
 import TextInput from '../Form/TextInput.vue'
 import { Form } from 'vee-validate'
 import { ref } from 'vue';
-import { authClient } from '../../services/AuthService'
 import Auth from '../../services/AuthService'
 import PrimaryButton from '../Buttons/PrimaryButton.vue';
 import SecondaryButton from '../Buttons/SecondaryButton.vue'
@@ -23,10 +22,10 @@ const onSubmit = async (values) => {
 
 <template>
     <PopUpCard>
-        <div class="flex flex-col items-center justify-center">
-            <h1 class="text-3xl font-medium">Create an account</h1>
-            <p class="text-[#6C757D] mt-3">Start your journey!</p>
-            <Form @submit="onSubmit">
+        <div class="flex flex-col items-center justify-center w-full">
+            <h1 class="p-4 text-3xl font-medium">Create an account</h1>
+            <p class="p-4 text-[#6C757D] mt-3">Start your journey!</p>
+            <Form @submit="onSubmit" class="w-full px-4 md:px-0">
 
                 <TextInput label="Name" name="username" placeholder="At least 3 & max.15 lower case characters"
                     v-model="username" :rules="{ required: true, min: 3, max: 15, latin: true }" />

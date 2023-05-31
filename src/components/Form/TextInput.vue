@@ -43,11 +43,11 @@ defineEmits(['update:modelValue'])
         <Field v-slot="{ field, meta }" :name="name" :value="modelValue" :rules="rules"
             @input="$emit('update:modelValue', $event.target.value)">
 
-            <div class="relative flex items-center justify-end mt-2 w-fit h-fit">
+            <div class="relative flex items-center justify-end mt-2 md:w-fit h-fit">
 
                 <input v-bind="field" :name="name" :value="modelValue" :id="name" :placeholder="placeholder" :type="type"
                     :class="!meta.valid && meta.touched ? 'border-[1px] border-[#DC3545]' : meta.valid && meta.touched && 'border-[1px] border-[#198754]'"
-                    class="rounded-md py-[7px] pl-3 pr-11 bg-[#CED4DA] text-[#6C757D] lg:w-96 border-[1px] border-[#CED4DA] outline-none focus:shadow-[0px_0px_0px_4px_#0D6EFD40]">
+                    class="rounded-md py-[7px] w-full pl-3 pr-11 bg-[#CED4DA] text-[#6C757D] md:w-96 border-[1px] border-[#CED4DA] outline-none focus:shadow-[0px_0px_0px_4px_#0D6EFD40]">
 
                 <IconValidationWarning v-if="!meta.valid && meta.validated && type !== 'password'"
                     class="absolute right-3" />
@@ -63,3 +63,11 @@ defineEmits(['update:modelValue'])
         <ErrorMessage :name="name" class="max-w-[300px] text-[#DC3545] mt-1" />
     </div>
 </template>
+
+<style>
+/* form {
+    width: 100%;
+    padding-left: 14px;
+    padding-right: 14px;
+} */
+</style>

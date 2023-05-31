@@ -9,14 +9,14 @@ import IconArrow from '../components/icons/IconArrow.vue'
   <div class="relative flex flex-col h-full">
 
     <header>
-      <div class="px-4 mt-6 lg:px-16 wrapper">
+      <div class="px-4 mt-6 md:px-16 wrapper">
         <nav class="flex justify-between">
           <h1>MOVIE QUOTES</h1>
           <div class="flex gap-4">
-            <div class="items-center justify-center hidden gap-2 lg:flex mr-7">Eng
+            <div class="items-center justify-center hidden gap-2 md:flex mr-7">Eng
               <IconArrow />
             </div>
-            <div class="flex gap-2 lg:gap-4">
+            <div class="flex flex-row-reverse gap-2 md:gap-4 md:flex-row">
               <PrimaryLinkButton to="sign-up">Sign up</PrimaryLinkButton>
               <SecondaryLinkButton to="login">Log in</SecondaryLinkButton>
             </div>
@@ -29,7 +29,7 @@ import IconArrow from '../components/icons/IconArrow.vue'
     <RouterView />
 
     <main class="flex items-center justify-center flex-grow">
-      <div class="text-2xl font-bold lg:text-6xl w-72 lg:w-[43rem] text-center">
+      <div class="text-2xl font-bold md:text-6xl w-72 md:w-[43rem] text-center">
         Find any quote in
         millions of movie lines
       </div>
