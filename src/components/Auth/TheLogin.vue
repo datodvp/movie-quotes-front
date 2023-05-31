@@ -6,6 +6,8 @@ import { ref } from 'vue';
 import Auth from '../../services/AuthService'
 import { RouterLink } from 'vue-router';
 import IconGoogle from '../../components/icons/IconGoogle.vue'
+import PrimaryButton from '../Buttons/PrimaryButton.vue';
+import SecondaryButton from '../Buttons/SecondaryButton.vue';
 
 const login = ref('')
 const password = ref('')
@@ -37,14 +39,14 @@ const onSubmit = async (values) => {
                     </RouterLink>
                 </div>
 
-
-                <button to="sign-up" class="bg-[#E31221] w-full mt-4 h-9 flex justify-center items-center rounded">
+                <PrimaryButton class="mt-4">
                     Sign in
-                </button>
+                </PrimaryButton>
 
-                <button to="login" class="flex items-center justify-center w-full gap-2 mt-4 border rounded h-9">
+                <SecondaryButton type="button">
                     <IconGoogle />Sign in with Google
-                </button>
+                </SecondaryButton>
+
                 <div class="flex justify-center gap-1 mt-8">
                     <p>Don't have an account?</p>
                     <RouterLink to="/sign-up" class="text-[#0D6EFD] underline">Sign up</RouterLink>

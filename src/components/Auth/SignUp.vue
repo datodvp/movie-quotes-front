@@ -5,6 +5,9 @@ import { Form } from 'vee-validate'
 import { ref } from 'vue';
 import { authClient } from '../../services/AuthService'
 import Auth from '../../services/AuthService'
+import PrimaryButton from '../Buttons/PrimaryButton.vue';
+import SecondaryButton from '../Buttons/SecondaryButton.vue'
+import IconGoogle from '../icons/IconGoogle.vue';
 
 const username = ref('')
 const email = ref('')
@@ -24,6 +27,7 @@ const onSubmit = async (values) => {
             <h1 class="text-3xl font-medium">Create an account</h1>
             <p class="text-[#6C757D] mt-3">Start your journey!</p>
             <Form @submit="onSubmit">
+
                 <TextInput label="Name" name="username" placeholder="At least 3 & max.15 lower case characters"
                     v-model="username" :rules="{ required: true, min: 3, max: 15, latin: true }" />
                 <TextInput label="Email" name="email" placeholder="Enter your email" v-model="email"
@@ -35,13 +39,12 @@ const onSubmit = async (values) => {
                     placeholder="Confirm password" v-model="passwordConfirmation"
                     :rules="{ required: true, confirmed: 'password' }" />
 
-                <button to="sign-up" class="bg-[#E31221] w-full mt-6 h-9 flex justify-center items-center rounded">
-                    Get Started
-                </button>
+                <PrimaryButton class="mt-6">Get Started</PrimaryButton>
 
-                <button to="login" class="flex items-center justify-center w-full gap-2 mt-4 border rounded h-9">
+                <SecondaryButton type="button">
                     <IconGoogle />Sign up with Google
-                </button>
+                </SecondaryButton>
+
                 <div class="flex justify-center gap-1 mt-8">
                     <p>Already have an account?</p>
                     <RouterLink to="/login" class="text-[#0D6EFD] underline">Log in</RouterLink>
