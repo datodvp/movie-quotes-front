@@ -9,7 +9,7 @@ const closePopUp = () => {
 </script>
 
 <template>
-    <div class="absolute w-full h-full ">
+    <div class="absolute w-full h-full">
         <div class="relative w-full h-full">
             <div class="w-full h-full bg-[#0000008A] relative" @click="closePopUp"></div>
             <div

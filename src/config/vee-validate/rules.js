@@ -39,6 +39,13 @@ defineRule('latin', (value) => {
   return 'მხოლოდ დაბალი რეგისტრის ლათინური სიმბოლოები და რიცხვები.'
 })
 
+defineRule('confirmed', (value, [target], ctx) => {
+  if (value === ctx.form[target]) {
+    return true
+  }
+  return 'პაროლები ერთმანეთს არ ემთხვევა'
+})
+
 configure({
   validateOnInput: true,
   validateOnBlur: true,
