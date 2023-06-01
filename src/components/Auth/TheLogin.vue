@@ -45,7 +45,8 @@ const loginGoogle = async () => {
                         <Field type="checkbox" name="remember" v-model="remember_me" class="w-[16px] h-[16px]" />
                         Remember me
                     </label>
-                    <RouterLink to="/" class="text-[#0D6EFD] underline flex justify-center items-center">Forgot password
+                    <RouterLink :to="{ name: 'forgotPassword' }"
+                        class="text-[#0D6EFD] underline flex justify-center items-center">Forgot password
                     </RouterLink>
                 </div>
 

@@ -3,6 +3,7 @@ import LandingView from '../views/LandingView.vue'
 import HomeView from '../views/HomeView.vue'
 import SignUp from '../components/Auth/SignUp.vue'
 import TheLogin from '../components/Auth/TheLogin.vue'
+import ForgotPassword from '@/components/Auth/ForgotPassword.vue'
 import { useAuthStore } from '../stores/auth'
 
 const router = createRouter({
@@ -21,11 +22,18 @@ const router = createRouter({
       children: [
         {
           path: 'sign-up',
+          name: 'signUp',
           component: SignUp
         },
         {
           path: 'login',
+          name: 'login',
           component: TheLogin
+        },
+        {
+          path: 'forgot-password',
+          name: 'forgotPassword',
+          component: ForgotPassword
         }
       ]
     },

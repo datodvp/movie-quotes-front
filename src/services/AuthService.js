@@ -26,5 +26,9 @@ export default {
 
   async logout() {
     return await authClient.post('/api/logout')
+  },
+
+  async forgotPassword(payload) {
+    return await authClient.post('/api/forgot-password', payload)
   }
 }
