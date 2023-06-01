@@ -7,15 +7,26 @@ import { RouterLink } from 'vue-router';
 import IconGoogle from '../../components/icons/IconGoogle.vue'
 import PrimaryButton from '../Buttons/PrimaryButton.vue';
 import SecondaryButton from '../Buttons/SecondaryButton.vue';
+import AuthService from '../../services/AuthService'
+import { useAuthStore } from '../../stores/auth';
+import { useRouter } from 'vue-router';
+
+const store = useAuthStore();
+const router = useRouter();
 
 const login = ref('')
 const password = ref('')
 const remember_me = ref(null)
 
-const authorize = async () => {
+const authorize = (values) => {
+    AuthService.login(values).then(() => {
+        store.setIsAuthenticated(true)
+        router.push({ name: 'home' })
+    })
 }
 
 const loginGoogle = async () => {
+    AuthService.authGoogle()
 }
 </script>
 

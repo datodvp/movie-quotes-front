@@ -8,7 +8,19 @@ export const authClient = axios.create({
 })
 
 export default {
-  // authGoogle() {
-  //   location.href = `${import.meta.env.VITE_VUE_APP_API_URL}/api/auth/redirect`
-  // }
+  authGoogle() {
+    location.href = `${import.meta.env.VITE_VUE_APP_API_URL}/api/auth/redirect`
+  },
+  async login(payload) {
+    await authClient.get('/sanctum/csrf-cookie')
+    return await authClient.post('/api/login', payload)
+  },
+
+  async checkAuthentication() {
+    return await authClient.get('/api/check-authentication')
+  },
+
+  async logout() {
+    return await authClient.post('/api/logout')
+  }
 }
