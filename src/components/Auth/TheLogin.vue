@@ -11,7 +11,7 @@ import AuthService from '../../services/AuthService'
 import { useAuthStore } from '../../stores/auth';
 import { useRouter } from 'vue-router';
 
-const store = useAuthStore();
+const authStore = useAuthStore();
 const router = useRouter();
 
 const login = ref('')
@@ -20,7 +20,7 @@ const remember_me = ref(null)
 
 const authorize = (values) => {
     AuthService.login(values).then(() => {
-        store.setIsAuthenticated(true)
+        authStore.setIsAuthenticated(true)
         router.push({ name: 'home' })
     })
 }

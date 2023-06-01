@@ -6,14 +6,14 @@ import AuthService from './services/AuthService';
 import { useRouter } from 'vue-router';
 
 onBeforeMount(() => {
-  const store = useAuthStore()
+  const authStore = useAuthStore()
   const router = useRouter()
   AuthService.checkAuthentication().then(() => {
-    store.setIsAuthenticated(true)
+    authStore.setIsAuthenticated(true)
     router.push({ name: 'home' })
 
   }).catch(() => {
-    store.setIsAuthenticated(false)
+    authStore.setIsAuthenticated(false)
     router.push({ name: 'landing' })
   })
 })
