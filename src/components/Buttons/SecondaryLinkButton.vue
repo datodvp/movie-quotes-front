@@ -10,7 +10,7 @@ defineProps({
 </script>
 
 <template>
-    <RouterLink :to="to" class="flex items-center justify-center w-24 border rounded h-9">
+    <RouterLink :to="to" class="flex items-center justify-center w-full px-6 border rounded h-9">
         <slot></slot>
     </RouterLink>
 </template>

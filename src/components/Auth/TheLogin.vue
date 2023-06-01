@@ -3,7 +3,6 @@ import PopUpCard from '../PopUpCard.vue'
 import TextInput from '../Form/TextInput.vue'
 import { Field, Form } from 'vee-validate'
 import { ref } from 'vue';
-import Auth from '../../services/AuthService'
 import { RouterLink } from 'vue-router';
 import IconGoogle from '../../components/icons/IconGoogle.vue'
 import PrimaryButton from '../Buttons/PrimaryButton.vue';
@@ -13,12 +12,10 @@ const login = ref('')
 const password = ref('')
 const remember_me = ref(null)
 
-const onSubmit = async (values) => {
-    await Auth.login(values);
+const authorize = async () => {
 }
 
 const loginGoogle = async () => {
-    Auth.authGoogle()
 }
 </script>
 
@@ -27,7 +24,7 @@ const loginGoogle = async () => {
         <div class="flex flex-col items-center justify-center w-full">
             <h1 class="p-4 text-3xl font-medium">Log in to your account</h1>
             <p class="p-4 text-[#6C757D] mt-3">Welcome back! Please enter your details.</p>
-            <Form @submit="onSubmit" class="w-full px-4 md:px-0">
+            <Form @submit="authorize" class="w-full px-4 md:px-0">
                 <TextInput label="Email or Username" name="login" placeholder="Enter your email or username" v-model="login"
                     :rules="{ required: true }" />
                 <TextInput type="password" label="Password" name="password" placeholder="Password" v-model="password"
@@ -45,7 +42,7 @@ const loginGoogle = async () => {
                     Sign in
                 </PrimaryButton>
 
-                <SecondaryButton @click="loginGoogle" type="button">
+                <SecondaryButton @click="loginGoogle" type="button" class="mt-4">
                     <IconGoogle />Sign in with Google
                 </SecondaryButton>
 

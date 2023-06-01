@@ -1,35 +1,11 @@
 <script setup>
-import PrimaryLinkButton from '../components/Buttons/PrimaryLinkButton.vue';
-import SecondaryLinkButton from '../components/Buttons/SecondaryLinkButton.vue';
-import IconArrow from '../components/icons/IconArrow.vue'
-import Auth from '../services/AuthService'
-
-const logout = () => {
-  Auth.logout();
-}
+import TheHeader from '@/components/TheHeader.vue'
 
 </script>
 
 <template>
-  <div class="relative flex flex-col h-full">
-
-    <header>
-      <div class="px-4 mt-6 md:px-16 wrapper">
-        <nav class="flex justify-between">
-          <h1>MOVIE QUOTES</h1>
-          <div class="flex gap-4">
-            <div @click="logout" class="items-center justify-center hidden gap-2 md:flex mr-7">Eng
-              <IconArrow />
-            </div>
-            <div class="flex flex-row-reverse gap-2 md:gap-4 md:flex-row">
-              <PrimaryLinkButton to="sign-up">Sign up</PrimaryLinkButton>
-              <SecondaryLinkButton to="login">Log in</SecondaryLinkButton>
-            </div>
-
-          </div>
-        </nav>
-      </div>
-    </header>
+  <div class="relative flex flex-col h-full bg-gradient-to-b">
+    <TheHeader />
 
     <RouterView />
 

@@ -1,9 +1,10 @@
 <script setup>
 import { RouterView } from 'vue-router'
+
 </script>
 
 <template>
-  <div class="w-screen h-screen bg-gradient-to-b from-[#11101A] via-[#08080D] to-[#000000]">
+  <div class="w-screen h-screen  from-[#11101A] via-[#08080D] to-[#000000]">
 
     <RouterView />
 
