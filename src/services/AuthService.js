@@ -16,6 +16,10 @@ export default {
     return await authClient.post('/api/login', payload)
   },
 
+  async register(payload) {
+    return await authClient.post('/api/register', payload)
+  },
+
   async checkAuthentication() {
     return await authClient.get('/api/check-authentication')
   },

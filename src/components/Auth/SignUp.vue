@@ -6,16 +6,23 @@ import { ref } from 'vue';
 import PrimaryButton from '../Buttons/PrimaryButton.vue';
 import SecondaryButton from '../Buttons/SecondaryButton.vue'
 import IconGoogle from '../icons/IconGoogle.vue';
+import AuthService from '../../services/AuthService';
 
 const username = ref('')
 const email = ref('')
 const password = ref('')
 const passwordConfirmation = ref('')
 
-const register = async () => {
+const register = (values) => {
+    AuthService.register(values).then(() => {
+        console.log('registered succesfully')
+    }).catch(() => {
+        console.log('could not register the user')
+    })
 }
 
 const registerGoogle = async () => {
+    AuthService.authGoogle()
 }
 </script>
 
