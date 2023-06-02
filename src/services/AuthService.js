@@ -30,5 +30,9 @@ export default {
 
   async forgotPassword(payload) {
     return await authClient.post('/api/forgot-password', payload)
+  },
+
+  async resetPassword(payload) {
+    return await authClient.post('/api/reset-password', payload)
   }
 }

@@ -4,6 +4,7 @@ import HomeView from '../views/HomeView.vue'
 import SignUp from '../components/Auth/SignUp.vue'
 import TheLogin from '../components/Auth/TheLogin.vue'
 import ForgotPassword from '@/components/Auth/ForgotPassword.vue'
+import ResetPassword from '@/components/Auth/ResetPassword.vue'
 import { useAuthStore } from '../stores/auth'
 
 const router = createRouter({
@@ -34,6 +35,11 @@ const router = createRouter({
           path: 'forgot-password',
           name: 'forgotPassword',
           component: ForgotPassword
+        },
+        {
+          path: 'reset-password',
+          name: 'resetPassword',
+          component: ResetPassword
         }
       ]
     },
