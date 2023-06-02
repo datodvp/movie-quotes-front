@@ -7,16 +7,23 @@ import PrimaryButton from '../Buttons/PrimaryButton.vue';
 import SecondaryButton from '../Buttons/SecondaryButton.vue'
 import IconGoogle from '../icons/IconGoogle.vue';
 import { useAuthStore } from '../../stores/auth';
+import { useRouter } from 'vue-router';
 
 const authStore = useAuthStore()
+const router = useRouter()
 
 const username = ref('')
 const email = ref('')
 const password = ref('')
 const passwordConfirmation = ref('')
 
-const register = (values) => {
-    authStore.register(values)
+const register = async (values) => {
+    const response = await authStore.register(values)
+    if (response.status === 200) {
+        router.push({ name: 'mailSent' })
+    } else {
+        throw response
+    }
 }
 
 const registerGoogle = async () => {

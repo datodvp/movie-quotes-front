@@ -5,6 +5,7 @@ import SignUp from '../components/Auth/SignUp.vue'
 import TheLogin from '../components/Auth/TheLogin.vue'
 import ForgotPassword from '@/components/Auth/ForgotPassword.vue'
 import ResetPassword from '@/components/Auth/ResetPassword.vue'
+import MailSentNofitication from '@/components/Auth/MailSentNotification.vue'
 import { useAuthStore } from '../stores/auth'
 
 const router = createRouter({
@@ -25,6 +26,11 @@ const router = createRouter({
           path: 'sign-up',
           name: 'signUp',
           component: SignUp
+        },
+        {
+          path: 'mail-sent',
+          name: 'mailSent',
+          component: MailSentNofitication
         },
         {
           path: 'login',
