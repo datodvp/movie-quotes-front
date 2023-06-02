@@ -3,18 +3,16 @@ import PopUpCard from '../PopUpCard.vue';
 import TextInput from '../Form/TextInput.vue'
 import PrimaryButton from '../Buttons/PrimaryButton.vue';
 import IconBackArrow from '@/components/icons/IconBackArrow.vue'
-import AuthService from '../../services/AuthService';
+import { useAuthStore } from '../../stores/auth';
 import { Form } from 'vee-validate';
 import { ref } from 'vue';
+
+const authStore = useAuthStore()
 
 const email = ref('')
 
 const onSubmit = (values) => {
-    AuthService.forgotPassword(values).then(() => {
-        console.log('password reset instruction sent!')
-    }).catch((error) => {
-        console.log('could not sent instuction sorry... :(')
-    })
+    authStore.forgotPassword(values)
 }
 </script>
 

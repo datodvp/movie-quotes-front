@@ -6,33 +6,3 @@ export const authClient = axios.create({
   // required to handle the CSRF token
   withCredentials: true
 })
-
-export default {
-  authGoogle() {
-    location.href = `${import.meta.env.VITE_VUE_APP_API_URL}/api/auth/redirect`
-  },
-  async login(payload) {
-    await authClient.get('/sanctum/csrf-cookie')
-    return await authClient.post('/api/login', payload)
-  },
-
-  async register(payload) {
-    return await authClient.post('/api/register', payload)
-  },
-
-  async checkAuthentication() {
-    return await authClient.get('/api/check-authentication')
-  },
-
-  async logout() {
-    return await authClient.post('/api/logout')
-  },
-
-  async forgotPassword(payload) {
-    return await authClient.post('/api/forgot-password', payload)
-  },
-
-  async resetPassword(payload) {
-    return await authClient.post('/api/reset-password', payload)
-  }
-}

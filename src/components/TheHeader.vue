@@ -5,16 +5,11 @@ import IconArrow from '../components/icons/IconArrow.vue'
 import { useAuthStore } from '../stores/auth';
 import SecondaryButton from './Buttons/SecondaryButton.vue';
 import IconNotification from '../components/icons/IconNotification.vue'
-import AuthService from '../services/AuthService';
-import { useRouter } from 'vue-router';
 
 const authStore = useAuthStore()
-const router = useRouter()
 
-const logout = async () => {
-    await AuthService.logout()
-    authStore.setIsAuthenticated(false)
-    router.push('/')
+const logout = () => {
+    authStore.logout()
 }
 </script>
 

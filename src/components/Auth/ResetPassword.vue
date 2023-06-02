@@ -3,10 +3,12 @@ import PopUpCard from '../PopUpCard.vue';
 import TextInput from '../Form/TextInput.vue'
 import PrimaryButton from '../Buttons/PrimaryButton.vue';
 import IconBackArrow from '@/components/icons/IconBackArrow.vue'
-import AuthService from '../../services/AuthService';
+import { useAuthStore } from '../../stores/auth'
 import { Form } from 'vee-validate';
 import { ref } from 'vue';
 import { useRoute } from 'vue-router';
+
+const authStore = useAuthStore()
 
 const password = ref('')
 const passwordConfirmation = ref('')
@@ -18,11 +20,7 @@ const onSubmit = (values) => {
     values.email = route.query.email
     values.token = route.query.token
 
-    AuthService.resetPassword(values).then(() => {
-        console.log('password reset instruction sent!')
-    }).catch(() => {
-        console.log('could not sent instuction sorry... :(')
-    })
+    authStore.resetPassword(values)
 }
 </script>
 
