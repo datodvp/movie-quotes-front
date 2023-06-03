@@ -8,6 +8,7 @@ import SecondaryButton from '../Buttons/SecondaryButton.vue'
 import IconGoogle from '../icons/IconGoogle.vue';
 import { useAuthStore } from '../../stores/auth';
 import { useRouter } from 'vue-router';
+import ServerErrorMessage from '../ServerErrorMessage.vue';
 
 const authStore = useAuthStore()
 const router = useRouter()
@@ -17,12 +18,14 @@ const email = ref('')
 const password = ref('')
 const passwordConfirmation = ref('')
 
+const errorMessage = ref('')
+
 const register = async (values) => {
     const response = await authStore.register(values)
     if (response.status === 200) {
         router.push({ name: 'mailSent' })
     } else {
-        throw response
+        errorMessage.value = response.response.data.message
     }
 }
 
@@ -48,6 +51,8 @@ const registerGoogle = async () => {
                 <TextInput type="password" label="Confirm password" name="password_confirmation"
                     placeholder="Confirm password" v-model="passwordConfirmation"
                     :rules="{ required: true, confirmed: 'password' }" />
+
+                <ServerErrorMessage :errorMessage="errorMessage" />
 
                 <PrimaryButton class="mt-6">Get Started</PrimaryButton>
 

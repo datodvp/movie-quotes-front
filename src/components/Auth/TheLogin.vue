@@ -7,6 +7,7 @@ import { RouterLink } from 'vue-router';
 import IconGoogle from '../../components/icons/IconGoogle.vue'
 import PrimaryButton from '../Buttons/PrimaryButton.vue';
 import SecondaryButton from '../Buttons/SecondaryButton.vue';
+import ServerErrorMessage from '../ServerErrorMessage.vue';
 import { useAuthStore } from '../../stores/auth';
 
 const authStore = useAuthStore();
@@ -15,8 +16,14 @@ const login = ref('')
 const password = ref('')
 const remember_me = ref(null)
 
-const authorize = (values) => {
-    authStore.login(values)
+const errorMessage = ref('')
+
+const authorize = async (values) => {
+
+    const response = await authStore.login(values)
+    if (response.response.status !== 200)
+        errorMessage.value = response.response.data.message;
+
 }
 
 const loginGoogle = async () => {
@@ -43,6 +50,8 @@ const loginGoogle = async () => {
                         class="text-[#0D6EFD] underline flex justify-center items-center">Forgot password
                     </RouterLink>
                 </div>
+
+                <ServerErrorMessage :errorMessage="errorMessage" />
 
                 <PrimaryButton class="mt-4">
                     Sign in
