@@ -58,9 +58,9 @@ const loginGoogle = async () => {
                 </PrimaryButton>
 
                 <SecondaryButton @click="loginGoogle" class="mt-4">
-                    <IconGoogle />
+
                     <button type="button">
-                        Sign in with Google
+                        <IconGoogle class="mr-2" />Sign in with Google
                     </button>
                 </SecondaryButton>
 

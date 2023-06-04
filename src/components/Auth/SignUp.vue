@@ -57,9 +57,9 @@ const registerGoogle = async () => {
                 <PrimaryButton class="mt-6"><button>Get Started</button></PrimaryButton>
 
                 <SecondaryButton @click="registerGoogle" class="mt-4">
-                    <IconGoogle />
+
                     <button type="button">
-                        Sign up with Google
+                        <IconGoogle class="mr-2" />Sign up with Google
                     </button>
                 </SecondaryButton>
 
