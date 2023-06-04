@@ -54,7 +54,7 @@ const registerGoogle = async () => {
 
                 <ServerErrorMessage :errorMessage="errorMessage" />
 
-                <PrimaryButton class="mt-6">Get Started</PrimaryButton>
+                <PrimaryButton class="mt-6"><button>Get Started</button></PrimaryButton>
 
                 <SecondaryButton @click="registerGoogle" type="button" class="mt-4">
                     <IconGoogle />Sign up with Google

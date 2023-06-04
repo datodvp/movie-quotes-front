@@ -1,4 +1,5 @@
 <script setup>
+import PrimaryButton from '../Buttons/PrimaryButton.vue';
 import PopUpCard from '../PopUpCard.vue';
 import IconMailSent from '@/components/icons/IconMailSent.vue'
 </script>
@@ -11,9 +12,10 @@ import IconMailSent from '@/components/icons/IconMailSent.vue'
             <p class="mb-10">We have sent a password recover instructions
                 to your email</p>
 
-            <a href="https://gmail.com" target="_blank"
-                class="bg-[#E31221] w-full px-6 h-9 flex whitespace-nowrap justify-center items-center rounded">Go to my
-                email</a>
+            <PrimaryButton>
+                <a href="https://gmail.com" target="_blank">Go to my
+                    email</a>
+            </PrimaryButton>
 
             <RouterLink :to="{ name: 'landing' }" class="text-[#6C757D] mt-8">Skip, I’ll confirm later</RouterLink>
         </div>

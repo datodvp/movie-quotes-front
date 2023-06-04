@@ -42,7 +42,7 @@ const onSubmit = async (values) => {
                 <ServerErrorMessage :errorMessage="errorMessage" />
 
                 <PrimaryButton class="mt-6">
-                    Send instructions
+                    <button>Send instructions</button>
                 </PrimaryButton>
 
                 <RouterLink :to="{ name: 'login' }" class="flex justify-center items-center mt-8 text-[#6C757D] gap-3">

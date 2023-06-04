@@ -54,7 +54,7 @@ const loginGoogle = async () => {
                 <ServerErrorMessage :errorMessage="errorMessage" />
 
                 <PrimaryButton class="mt-4">
-                    Sign in
+                    <button>Sign in</button>
                 </PrimaryButton>
 
                 <SecondaryButton @click="loginGoogle" type="button" class="mt-4">

@@ -1,5 +1,5 @@
 <script setup>
-import PrimaryLinkButton from '../components/Buttons/PrimaryLinkButton.vue';
+import PrimaryButton from '../components/Buttons/PrimaryButton.vue';
 import SecondaryLinkButton from '../components/Buttons/SecondaryLinkButton.vue';
 import IconArrow from '../components/icons/IconArrow.vue'
 import { useAuthStore } from '../stores/auth';
@@ -24,7 +24,9 @@ const logout = () => {
                         <IconArrow />
                     </div>
                     <div v-if="!authStore.isAuthenticated" class="flex flex-row-reverse gap-2 md:gap-4 md:flex-row">
-                        <PrimaryLinkButton to="sign-up">Sign up</PrimaryLinkButton>
+                        <PrimaryButton>
+                            <RouterLink to="sign-up">Sign up</RouterLink>
+                        </PrimaryButton>
                         <SecondaryLinkButton to="login">Log in</SecondaryLinkButton>
                     </div>
                     <div v-else class="flex flex-row-reverse gap-2 md:gap-4 md:flex-row">

@@ -1,7 +1,7 @@
 <script setup>
 import PopUpCard from '../PopUpCard.vue';
 import IconSuccess from '@/components/icons/IconSuccess.vue'
-import PrimaryLinkButton from '../Buttons/PrimaryLinkButton.vue';
+import PrimaryButton from '../Buttons/PrimaryButton.vue';
 </script>
 
 <template>
@@ -10,10 +10,9 @@ import PrimaryLinkButton from '../Buttons/PrimaryLinkButton.vue';
             <IconSuccess />
             <h1 class=" font-medium text-[32px] mt-4 mb-6">Success!</h1>
             <p class="mb-10">Your Password changed successfully.</p>
-
-            <PrimaryLinkButton to="login"
-                class="bg-[#E31221] w-full px-6 h-9 flex whitespace-nowrap justify-center items-center rounded">Go to login
-                page</PrimaryLinkButton>
+            <PrimaryButton>
+                <RouterLink to="login">Go to login page</RouterLink>
+            </PrimaryButton>
         </div>
 
     </PopUpCard>
