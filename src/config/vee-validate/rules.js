@@ -2,28 +2,28 @@ import { configure, defineRule } from 'vee-validate'
 
 defineRule('required', (value) => {
   if (!value || !value.length) {
-    return 'ველის შევსება აუცილებელია.'
+    return 'Field is required!'
   }
   return true
 })
 defineRule('email', (value) => {
   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
   if (!emailRegex.test(value)) {
-    return 'შეიყვანეთ მეილი სწორად'
+    return 'Email must be in correct format!'
   }
   return true
 })
 
 defineRule('min', (value, length) => {
   if (value.length < length) {
-    return `მინიმუმ ${length} სიმბოლო`
+    return `minimum ${length} characters`
   }
   return true
 })
 
 defineRule('max', (value, length) => {
   if (value.length > length) {
-    return `მაქსიმუმ ${length} სიმბოლო`
+    return `maximum ${length} characters`
   }
   return true
 })
@@ -36,14 +36,14 @@ defineRule('latin', (value) => {
   if (/^[a-z0-9]+$/.test(value)) {
     return true
   }
-  return 'მხოლოდ დაბალი რეგისტრის ლათინური სიმბოლოები და რიცხვები.'
+  return 'Lower latin characters and numbers.'
 })
 
 defineRule('confirmed', (value, [target], ctx) => {
   if (value === ctx.form[target]) {
     return true
   }
-  return 'პაროლები ერთმანეთს არ ემთხვევა'
+  return 'Password must be same'
 })
 
 configure({
