@@ -1,5 +1,5 @@
 <template>
-    <div class="w-full border rounded h-9 whitespace-nowrap">
+    <div class="w-full border rounded cursor-pointer h-9 whitespace-nowrap">
         <slot></slot>
     </div>
 </template>

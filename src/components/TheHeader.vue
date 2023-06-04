@@ -33,7 +33,9 @@ const logout = () => {
                         </SecondaryButton>
                     </div>
                     <div v-else class="flex flex-row-reverse gap-2 md:gap-4 md:flex-row">
-                        <SecondaryButton @click="logout">Log out</SecondaryButton>
+                        <SecondaryButton @click="logout">
+                            <a>Log out</a>
+                        </SecondaryButton>
                     </div>
 
                 </div>
