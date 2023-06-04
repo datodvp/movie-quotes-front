@@ -1,6 +1,5 @@
 <script setup>
 import PrimaryButton from '../components/Buttons/PrimaryButton.vue';
-import SecondaryLinkButton from '../components/Buttons/SecondaryLinkButton.vue';
 import IconArrow from '../components/icons/IconArrow.vue'
 import { useAuthStore } from '../stores/auth';
 import SecondaryButton from './Buttons/SecondaryButton.vue';
@@ -27,7 +26,11 @@ const logout = () => {
                         <PrimaryButton>
                             <RouterLink to="sign-up">Sign up</RouterLink>
                         </PrimaryButton>
-                        <SecondaryLinkButton to="login">Log in</SecondaryLinkButton>
+                        <SecondaryButton>
+                            <RouterLink :to="{ name: 'login' }">
+                                Log in
+                            </RouterLink>
+                        </SecondaryButton>
                     </div>
                     <div v-else class="flex flex-row-reverse gap-2 md:gap-4 md:flex-row">
                         <SecondaryButton @click="logout">Log out</SecondaryButton>

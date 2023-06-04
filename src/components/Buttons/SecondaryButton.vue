@@ -1,14 +1,5 @@
-<script setup>
-defineProps({
-    type: {
-        type: String,
-        required: false
-    }
-})
-</script>
-
 <template>
-    <button :type="type" class="flex items-center justify-center w-full gap-2 px-5 border rounded h-9">
+    <div class="flex items-center justify-center w-full gap-2 px-5 border rounded cursor-pointer h-9 whitespace-nowrap">
         <slot></slot>
-    </button>
+    </div>
 </template>

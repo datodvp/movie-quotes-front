@@ -56,8 +56,11 @@ const registerGoogle = async () => {
 
                 <PrimaryButton class="mt-6"><button>Get Started</button></PrimaryButton>
 
-                <SecondaryButton @click="registerGoogle" type="button" class="mt-4">
-                    <IconGoogle />Sign up with Google
+                <SecondaryButton @click="registerGoogle" class="mt-4">
+                    <IconGoogle />
+                    <button type="button">
+                        Sign up with Google
+                    </button>
                 </SecondaryButton>
 
                 <div class="flex justify-center gap-1 mt-8">

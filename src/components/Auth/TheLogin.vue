@@ -57,8 +57,11 @@ const loginGoogle = async () => {
                     <button>Sign in</button>
                 </PrimaryButton>
 
-                <SecondaryButton @click="loginGoogle" type="button" class="mt-4">
-                    <IconGoogle />Sign in with Google
+                <SecondaryButton @click="loginGoogle" class="mt-4">
+                    <IconGoogle />
+                    <button type="button">
+                        Sign in with Google
+                    </button>
                 </SecondaryButton>
 
                 <div class="flex justify-center gap-1 mt-8">
