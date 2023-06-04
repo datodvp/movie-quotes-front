@@ -6,7 +6,8 @@ import IconBackArrow from '@/components/icons/IconBackArrow.vue'
 import { useAuthStore } from '../../stores/auth'
 import { Form } from 'vee-validate';
 import { ref } from 'vue';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
+import ServerErrorMessage from '../ServerErrorMessage.vue';
 
 const authStore = useAuthStore()
 
@@ -14,13 +15,22 @@ const password = ref('')
 const passwordConfirmation = ref('')
 
 const route = useRoute()
+const router = useRouter();
 
-const onSubmit = (values) => {
+const errorMessage = ref('')
+
+const onSubmit = async (values) => {
     // add email and token behind the scenes for backend validation
     values.email = route.query.email
     values.token = route.query.token
 
-    authStore.resetPassword(values)
+    const response = await authStore.resetPassword(values)
+
+    if (response.status === 200) {
+        router.push({ name: 'passwordUpdated' })
+    } else {
+        errorMessage.value = response.response.data.errors.message;
+    }
 }
 </script>
 
@@ -39,6 +49,8 @@ const onSubmit = (values) => {
                 <TextInput type="password" label="Confirm password" name="password_confirmation"
                     placeholder="Confirm password" v-model="passwordConfirmation"
                     :rules="{ required: true, confirmed: 'password' }" />
+
+                <ServerErrorMessage :errorMessage="errorMessage" />
 
                 <PrimaryButton class="mt-6">
                     Reset password

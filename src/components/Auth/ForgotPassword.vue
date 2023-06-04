@@ -6,13 +6,26 @@ import IconBackArrow from '@/components/icons/IconBackArrow.vue'
 import { useAuthStore } from '../../stores/auth';
 import { Form } from 'vee-validate';
 import { ref } from 'vue';
+import { useRouter } from 'vue-router';
+import ServerErrorMessage from '../ServerErrorMessage.vue';
 
 const authStore = useAuthStore()
+const router = useRouter();
 
 const email = ref('')
 
-const onSubmit = (values) => {
-    authStore.forgotPassword(values)
+const errorMessage = ref('')
+
+const onSubmit = async (values) => {
+    const response = await authStore.forgotPassword(values)
+
+    if (response.status === 200) {
+        router.push({ name: 'passwordResetSent' })
+    } else {
+        errorMessage.value = response.response.data.errors.message;
+    }
+
+
 }
 </script>
 
@@ -25,6 +38,8 @@ const onSubmit = (values) => {
             <Form @submit="onSubmit" class="w-full px-4 md:px-0">
                 <TextInput label="Email" name="email" placeholder="Enter your email" v-model="email"
                     :rules="{ required: true, email: true }" />
+
+                <ServerErrorMessage :errorMessage="errorMessage" />
 
                 <PrimaryButton class="mt-6">
                     Send instructions
