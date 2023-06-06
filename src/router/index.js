@@ -20,7 +20,6 @@ const router = createRouter({
       component: LandingView,
       beforeEnter() {
         const authStore = useAuthStore()
-        console.log(authStore.getIsAuthenticated)
         if (authStore.getIsAuthenticated) {
           return { name: 'home' }
         }

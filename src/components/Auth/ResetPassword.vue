@@ -23,7 +23,7 @@ const onSubmit = async (values) => {
     // add email and token behind the scenes for backend validation
     values.email = route.query.email
     values.token = route.query.token
-    console.log('dato')
+
     try {
         await authService.resetPassword(values)
         router.push({ name: 'passwordUpdated' })

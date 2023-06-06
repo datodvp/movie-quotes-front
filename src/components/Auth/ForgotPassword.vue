@@ -17,7 +17,6 @@ const email = ref('')
 const errorMessage = ref('')
 
 const onSubmit = async (values) => {
-    console.log('dato')
     try {
         await authService.forgotPassword(values)
         router.push({ name: 'passwordResetSent' })
