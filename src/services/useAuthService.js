@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { useAuthStore } from '../stores/auth'
+import { useUserStore } from '../stores/user'
 
 // import store from '@/store'
 /*
@@ -23,14 +23,14 @@ import { useAuthStore } from '../stores/auth'
 // )
 
 export const useAuthService = () => {
-  const authStore = useAuthStore()
+  const userStore = useUserStore()
 
   const authClient = axios.create({
     baseURL: import.meta.env.VITE_VUE_APP_API_URL,
     // required to handle the CSRF token
     withCredentials: true,
     headers: {
-      'Accept-Language': authStore.getLocale
+      'Accept-Language': userStore.getLocale
     }
   })
 

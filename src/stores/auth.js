@@ -8,10 +8,6 @@ const authValue = localStorage.isAuthenticated
 export const useAuthStore = defineStore('auth', () => {
   const isAuthenticated = ref(authValue)
 
-  const locale = ref('ka')
-
-  const getLocale = computed(() => locale.value)
-
   const getIsAuthenticated = computed(() => isAuthenticated.value)
 
   const setIsAuthenticated = (payload) => {
@@ -20,7 +16,6 @@ export const useAuthStore = defineStore('auth', () => {
   }
 
   return {
-    getLocale,
     isAuthenticated,
     getIsAuthenticated,
     setIsAuthenticated
