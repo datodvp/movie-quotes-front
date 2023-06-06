@@ -21,7 +21,8 @@ const errorMessage = ref('')
 const authorize = async (values) => {
 
     const response = await authStore.login(values)
-    if (response.response.status !== 200)
+    console.log(response)
+    if (response.status !== 200)
         errorMessage.value = response.response.data.message;
 
 }
