@@ -8,7 +8,13 @@ const authValue = localStorage.isAuthenticated
 
 export const useAuthStore = defineStore('auth', () => {
   const isAuthenticated = ref(authValue)
+  const locale = ref('ka')
 
+  const getLocale = computed(() => locale.value)
+
+  const setLocale = (payload) => {
+    locale.value = payload
+  }
   const getIsAuthenticated = computed(() => isAuthenticated.value)
 
   const setIsAuthenticated = (payload) => {
@@ -18,7 +24,7 @@ export const useAuthStore = defineStore('auth', () => {
   const checkAuthentication = async () => {
     // checks if user is authenticated and sets isAuthenticated value properly
     try {
-      const response = await authClient.get('/api/check-authentication')
+      const response = await authClient(locale.value).get('/api/check-authentication')
       setIsAuthenticated(true)
       return response
     } catch (error) {
@@ -29,8 +35,8 @@ export const useAuthStore = defineStore('auth', () => {
 
   const login = async (payload) => {
     try {
-      await authClient.get('/sanctum/csrf-cookie')
-      const response = await authClient.post('/api/login', payload)
+      await authClient(locale.value).get('/sanctum/csrf-cookie')
+      const response = await authClient(locale.value).post('/api/login', payload)
       setIsAuthenticated(true)
       return response
     } catch (error) {
@@ -45,7 +51,7 @@ export const useAuthStore = defineStore('auth', () => {
 
   const register = async (payload) => {
     try {
-      const response = await authClient.post('/api/register', payload)
+      const response = await authClient(locale.value).post('/api/register', payload)
       return response
     } catch (error) {
       return error
@@ -54,7 +60,7 @@ export const useAuthStore = defineStore('auth', () => {
 
   const logout = async () => {
     try {
-      const response = await authClient.post('/api/logout')
+      const response = await authClient(locale.value).post('/api/logout')
       setIsAuthenticated(false)
       return response
     } catch (error) {
@@ -64,7 +70,7 @@ export const useAuthStore = defineStore('auth', () => {
 
   const forgotPassword = async (payload) => {
     try {
-      const response = await authClient.post('/api/forgot-password', payload)
+      const response = await authClient(locale.value).post('/api/forgot-password', payload)
       return response
     } catch (error) {
       return error
@@ -73,13 +79,15 @@ export const useAuthStore = defineStore('auth', () => {
 
   const resetPassword = async (payload) => {
     try {
-      return await authClient.post('/api/reset-password', payload)
+      return await authClient(locale.value).post('/api/reset-password', payload)
     } catch (error) {
       return error
     }
   }
 
   return {
+    getLocale,
+    setLocale,
     isAuthenticated,
     getIsAuthenticated,
     setIsAuthenticated,
