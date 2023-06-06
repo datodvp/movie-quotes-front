@@ -1,26 +1,6 @@
 import axios from 'axios'
 import { useUserStore } from '../stores/user'
-
-// import store from '@/store'
-/*
- * Add a response interceptor
- */
-// authClient.interceptors.response.use(
-//   (response) => {
-//     return response
-//   },
-//   function (error) {
-//     if (
-//       error.response &&
-//       [401, 419].includes(error.response.status) &&
-//       store.getters['auth/authUser'] &&
-//       !store.getters['auth/guest']
-//     ) {
-//       store.dispatch('auth/logout')
-//     }
-//     return Promise.reject(error)
-//   }
-// )
+import { useAuthStore } from '../stores/auth'
 
 export const useAuthService = () => {
   const userStore = useUserStore()
@@ -33,6 +13,20 @@ export const useAuthService = () => {
       'Accept-Language': userStore.getLocale
     }
   })
+
+  // If ever request returns 401 or 419 that will set Authenticated state to FALSE
+  authClient.interceptors.response.use(
+    (response) => {
+      return response
+    },
+    function (error) {
+      const authStore = useAuthStore()
+      if (error.response && [401, 419].includes(error.response.status)) {
+        authStore.setIsAuthenticated(false)
+      }
+      return Promise.reject(error)
+    }
+  )
 
   return {
     async authGoogle() {
@@ -57,24 +51,5 @@ export const useAuthService = () => {
     async resetPassword(payload) {
       return authClient.post('/api/reset-password', payload)
     }
-    // async forgotPassword(payload) {
-    //   return authClient.post('/forgot-password', payload)
-    // },
-    // getAuthUser() {
-    //   return authClient.get('/api/users/auth')
-    // },
-    // async resetPassword(payload) {
-    //   return authClient.post('/reset-password', payload)
-    // },
-    // updatePassword(payload) {
-    //   return authClient.put('/user/password', payload)
-    // },
-
-    // sendVerification(payload) {
-    //   return authClient.post('/email/verification-notification', payload)
-    // },
-    // updateUser(payload) {
-    //   return authClient.put('/user/profile-information', payload)
-    // }
   }
 }
