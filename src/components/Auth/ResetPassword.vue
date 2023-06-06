@@ -3,13 +3,13 @@ import PopUpCard from '../PopUpCard.vue';
 import TextInput from '../Form/TextInput.vue'
 import PrimaryButton from '../Buttons/PrimaryButton.vue';
 import IconBackArrow from '@/components/icons/IconBackArrow.vue'
-import { useAuthStore } from '../../stores/auth'
+import { useAuthService } from '../../services/useAuthService';
 import { Form } from 'vee-validate';
 import { ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import ServerErrorMessage from '../ServerErrorMessage.vue';
 
-const authStore = useAuthStore()
+const authService = useAuthService()
 
 const password = ref('')
 const passwordConfirmation = ref('')
@@ -23,13 +23,12 @@ const onSubmit = async (values) => {
     // add email and token behind the scenes for backend validation
     values.email = route.query.email
     values.token = route.query.token
-
-    const response = await authStore.resetPassword(values)
-
-    if (response.status === 200) {
+    console.log('dato')
+    try {
+        await authService.resetPassword(values)
         router.push({ name: 'passwordUpdated' })
-    } else {
-        errorMessage.value = response.response.data.errors.message;
+    } catch (error) {
+        errorMessage.value = error.response.data.errors.message;
     }
 }
 </script>

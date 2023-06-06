@@ -3,14 +3,18 @@ import PopUpCard from '../PopUpCard.vue'
 import TextInput from '../Form/TextInput.vue'
 import { Field, Form } from 'vee-validate'
 import { ref } from 'vue';
-import { RouterLink } from 'vue-router';
+import { RouterLink, useRouter } from 'vue-router';
 import IconGoogle from '../../components/icons/IconGoogle.vue'
 import PrimaryButton from '../Buttons/PrimaryButton.vue';
 import SecondaryButton from '../Buttons/SecondaryButton.vue';
 import ServerErrorMessage from '../ServerErrorMessage.vue';
+import { useAuthService } from '../../services/useAuthService';
 import { useAuthStore } from '../../stores/auth';
 
-const authStore = useAuthStore();
+const authStore = useAuthStore()
+const router = useRouter()
+
+const authService = useAuthService()
 
 const login = ref('')
 const password = ref('')
@@ -19,15 +23,19 @@ const remember_me = ref(null)
 const errorMessage = ref('')
 
 const authorize = async (values) => {
+    try {
+        await authService.login(values)
+        authStore.setIsAuthenticated(true)
+        router.push({ name: 'home' })
+    } catch (error) {
+        errorMessage.value = error.response.data.message
+    }
 
-    const response = await authStore.login(values)
-    if (response.status !== 200)
-        errorMessage.value = response.response.data.message;
 
 }
 
 const loginGoogle = async () => {
-    authStore.authGoogle()
+    authService.authGoogle()
 }
 </script>
 

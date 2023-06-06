@@ -20,7 +20,8 @@ const router = createRouter({
       component: LandingView,
       beforeEnter() {
         const authStore = useAuthStore()
-        if (authStore.isAuthenticated) {
+        console.log(authStore.getIsAuthenticated)
+        if (authStore.getIsAuthenticated) {
           return { name: 'home' }
         }
       },
@@ -73,7 +74,7 @@ const router = createRouter({
       component: HomeView,
       beforeEnter() {
         const authStore = useAuthStore()
-        if (!authStore.isAuthenticated) {
+        if (!authStore.getIsAuthenticated) {
           return { name: 'landing' }
         }
       }

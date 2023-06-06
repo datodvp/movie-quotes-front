@@ -6,11 +6,11 @@ import { ref } from 'vue';
 import PrimaryButton from '../Buttons/PrimaryButton.vue';
 import SecondaryButton from '../Buttons/SecondaryButton.vue'
 import IconGoogle from '../icons/IconGoogle.vue';
-import { useAuthStore } from '../../stores/auth';
+import { useAuthService } from '../../services/useAuthService'
 import { useRouter } from 'vue-router';
 import ServerErrorMessage from '../ServerErrorMessage.vue';
 
-const authStore = useAuthStore()
+const authService = useAuthService()
 const router = useRouter()
 
 const username = ref('')
@@ -21,16 +21,16 @@ const passwordConfirmation = ref('')
 const errorMessage = ref('')
 
 const register = async (values) => {
-    const response = await authStore.register(values)
-    if (response.status === 200) {
+    try {
+        await authService.register(values)
         router.push({ name: 'mailSent' })
-    } else {
-        errorMessage.value = response.response.data.message
+    } catch (error) {
+        errorMessage.value = error.response.data.message
     }
 }
 
 const registerGoogle = async () => {
-    authStore.authGoogle()
+    authService.authGoogle()
 }
 </script>
 
