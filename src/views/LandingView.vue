@@ -1,6 +1,5 @@
 <script setup>
 import TheHeader from '@/components/TheHeader.vue'
-
 </script>
 
 <template>
@@ -11,8 +10,7 @@ import TheHeader from '@/components/TheHeader.vue'
 
     <main class="flex items-center justify-center flex-grow">
       <div class="text-2xl font-bold md:text-6xl w-72 md:w-[43rem] text-center">
-        Find any quote in
-        millions of movie lines
+        {{ $t("texts.find_any_movies") }}
       </div>
     </main>
   </div>
