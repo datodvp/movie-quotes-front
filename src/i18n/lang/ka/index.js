@@ -1,7 +1,11 @@
 import texts from './texts.json'
+import header from './header.json'
+import auth from './auth.json'
 
 const translations = {
-  texts
+  texts,
+  header,
+  auth
 }
 
 export default translations

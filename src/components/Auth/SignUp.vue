@@ -37,35 +37,35 @@ const registerGoogle = async () => {
 <template>
     <PopUpCard>
         <div class="flex flex-col items-center justify-center w-full">
-            <h1 class="p-4 text-3xl font-medium">Create an account</h1>
-            <p class="p-4 text-[#6C757D] mt-3">Start your journey!</p>
+            <h1 class="p-4 text-3xl font-medium">{{ $t("auth.create_an_account") }}</h1>
+            <p class="p-4 text-[#6C757D] mt-3">{{ $t("auth.start_your_journey") }}</p>
             <Form @submit="register" class="w-full px-4 md:px-0">
 
-                <TextInput label="Name" name="username" placeholder="At least 3 & max.15 lower case characters"
+                <TextInput :label="$t('auth.name')" name="username" :placeholder="$t('auth.name_placeholder')"
                     v-model="username" :rules="{ required: true, min: 3, max: 15, latin: true }" />
-                <TextInput label="Email" name="email" placeholder="Enter your email" v-model="email"
-                    :rules="{ required: true, email: true }" />
-                <TextInput type="password" label="Password" name="password"
-                    placeholder="At least 8 & max.15 lower case characters" v-model="password"
+                <TextInput :label="$t('auth.email')" name="email" :placeholder="$t('auth.email_placeholder')"
+                    v-model="email" :rules="{ required: true, email: true }" />
+                <TextInput type="password" :label="$t('auth.password')" name="password"
+                    :placeholder="$t('auth.password_placeholder')" v-model="password"
                     :rules="{ required: true, latin: true, min: 8, max: 15 }" />
-                <TextInput type="password" label="Confirm password" name="password_confirmation"
-                    placeholder="Confirm password" v-model="passwordConfirmation"
+                <TextInput type="password" :label="$t('auth.confirm_password')" name="password_confirmation"
+                    :placeholder="$t('auth.confirm_password_placeholder')" v-model="passwordConfirmation"
                     :rules="{ required: true, confirmed: 'password' }" />
 
                 <ServerErrorMessage :errorMessage="errorMessage" />
 
-                <PrimaryButton class="mt-6"><button>Get Started</button></PrimaryButton>
+                <PrimaryButton class="mt-6"><button>{{ $t("auth.get_started") }}</button></PrimaryButton>
 
                 <SecondaryButton @click="registerGoogle" class="mt-4">
 
                     <button type="button">
-                        <IconGoogle class="mr-2" />Sign up with Google
+                        <IconGoogle class="mr-2" />{{ $t("auth.sign_up_google") }}
                     </button>
                 </SecondaryButton>
 
                 <div class="flex justify-center gap-1 mt-8">
-                    <p>Already have an account?</p>
-                    <RouterLink to="/login" class="text-[#0D6EFD] underline">Log in</RouterLink>
+                    <p>{{ $t("auth.have_account") }}</p>
+                    <RouterLink to="/login" class="text-[#0D6EFD] underline">{{ $t("auth.log_in") }}</RouterLink>
                 </div>
             </Form>
         </div>

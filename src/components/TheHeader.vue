@@ -8,6 +8,7 @@ import { useAuthService } from '../services/useAuthService';
 import { useUserStore } from '../stores/user';
 import { useRouter } from 'vue-router';
 import { computed, ref } from 'vue';
+import { useI18n } from 'vue-i18n';
 
 
 const authStore = useAuthStore()
@@ -15,12 +16,14 @@ const userStore = useUserStore()
 const authService = useAuthService()
 const router = useRouter()
 
+const { t } = useI18n()
+
 const isLanguageOpen = ref(false)
 const currentLanguageLabel = computed(() => {
     if (userStore.getLocale === 'en') {
-        return 'Eng'
+        return t("header.eng")
     } else {
-        return 'Geo'
+        return t("header.geo")
     }
 })
 
@@ -52,24 +55,26 @@ const toggleLanguage = () => {
                         {{ currentLanguageLabel }}
                         <IconArrow />
                         <div v-if="isLanguageOpen" class="absolute top-[7%] border w-fit flex flex-col">
-                            <p class="p-1 cursor-pointer hover:bg-slate-700" @click="setLocale('en')">English</p>
-                            <p class="p-1 cursor-pointer hover:bg-slate-700" @click="setLocale('ka')">Georgian</p>
+                            <p class="p-1 cursor-pointer hover:bg-slate-700" @click="setLocale('en')">{{
+                                $t("header.english") }}</p>
+                            <p class="p-1 cursor-pointer hover:bg-slate-700" @click="setLocale('ka')">{{
+                                $t("header.georgian") }}</p>
                         </div>
                     </div>
 
                     <div v-if="!authStore.isAuthenticated" class="flex flex-row-reverse gap-2 md:gap-4 md:flex-row">
                         <PrimaryButton>
-                            <RouterLink to="sign-up">Sign up</RouterLink>
+                            <RouterLink to="sign-up">{{ $t("header.sign_up") }}</RouterLink>
                         </PrimaryButton>
                         <SecondaryButton>
                             <RouterLink :to="{ name: 'login' }">
-                                Log in
+                                {{ $t("header.log_in") }}
                             </RouterLink>
                         </SecondaryButton>
                     </div>
                     <div v-else class="flex flex-row-reverse gap-2 md:gap-4 md:flex-row">
                         <SecondaryButton @click="logout">
-                            <a>Log out</a>
+                            <a>{{ $t("header.log_out") }}</a>
                         </SecondaryButton>
                     </div>
 
