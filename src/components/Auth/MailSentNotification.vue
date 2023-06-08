@@ -8,13 +8,11 @@ import PrimaryButton from '../Buttons/PrimaryButton.vue';
     <PopUpCard>
         <div class="flex flex-col items-center justify-center max-w-[385px] text-center">
             <IconMailSent />
-            <h1 class=" font-medium text-[32px] mt-4 mb-6">Thank you!</h1>
-            <p class="mb-10">Please check your email and follow the instructions to
-                activate your account.</p>
+            <h1 class=" font-medium text-[32px] mt-4 mb-6">{{ $t('auth.thank_you') }}</h1>
+            <p class="mb-10">{{ $t('auth.check_your_email_verification') }}</p>
 
             <PrimaryButton>
-                <a href="https://gmail.com" target="_blank">Go to my
-                    email</a>
+                <a href="https://gmail.com" target="_blank">{{ $t('auth.go_to_my_email') }}</a>
             </PrimaryButton>
 
         </div>
