@@ -8,11 +8,11 @@ import PrimaryButton from '../Buttons/PrimaryButton.vue';
     <PopUpCard>
         <div class="flex flex-col items-center justify-center max-w-[385px] text-center">
             <IconSuccess />
-            <h1 class=" font-medium text-[32px] mt-4 mb-6">Thank you!</h1>
-            <p class="mb-10">Your account has been activated.</p>
+            <h1 class=" font-medium text-[32px] mt-4 mb-6">{{ $t('auth.thank_you') }}</h1>
+            <p class="mb-10">{{ $t('auth.account_activated') }}</p>
 
             <PrimaryButton>
-                <RouterLink to="login">Go to login page</RouterLink>
+                <RouterLink to="login">{{ $t('auth.go_to_log_in') }}</RouterLink>
             </PrimaryButton>
         </div>
 
