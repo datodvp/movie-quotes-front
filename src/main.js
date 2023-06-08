@@ -6,6 +6,7 @@ import i18n from '@/i18n'
 import router from './router'
 import './assets/tailwind.css'
 import './config/vee-validate/rules'
+import './config/vee-validate/messages'
 
 const app = createApp(App)
 

@@ -1,32 +1,11 @@
 import { configure, defineRule } from 'vee-validate'
+import { required, email, min, max, confirmed } from '@vee-validate/rules'
 
-defineRule('required', (value) => {
-  if (!value || !value.length) {
-    return 'Field is required!'
-  }
-  return true
-})
-defineRule('email', (value) => {
-  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
-  if (!emailRegex.test(value)) {
-    return 'Email must be in correct format!'
-  }
-  return true
-})
-
-defineRule('min', (value, length) => {
-  if (value.length < length) {
-    return `minimum ${length} characters`
-  }
-  return true
-})
-
-defineRule('max', (value, length) => {
-  if (value.length > length) {
-    return `maximum ${length} characters`
-  }
-  return true
-})
+defineRule('required', required)
+defineRule('email', email)
+defineRule('min', min)
+defineRule('max', max)
+defineRule('confirmed', confirmed)
 
 defineRule('latin', (value) => {
   if (!value || !value.length) {
@@ -36,14 +15,7 @@ defineRule('latin', (value) => {
   if (/^[a-z0-9]+$/.test(value)) {
     return true
   }
-  return 'Lower latin characters and numbers.'
-})
-
-defineRule('confirmed', (value, [target], ctx) => {
-  if (value === ctx.form[target]) {
-    return true
-  }
-  return 'Password must be same'
+  return false
 })
 
 configure({

@@ -13,6 +13,8 @@
     "test:e2e:dev": "start-server-and-test 'vite dev --port 4173' http://localhost:4173 'cypress open --e2e'"
   },
   "dependencies": {
+    "@vee-validate/i18n": "^4.9.6",
+    "@vee-validate/rules": "^4.9.6",
     "autoprefixer": "^10",
     "axios": "^1.4.0",
     "pinia": "^2.0.36",
