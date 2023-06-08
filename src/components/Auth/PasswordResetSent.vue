@@ -8,16 +8,15 @@ import IconMailSent from '@/components/icons/IconMailSent.vue'
     <PopUpCard>
         <div class="flex flex-col items-center justify-center max-w-[385px] text-center">
             <IconMailSent />
-            <h1 class=" font-medium text-[32px] mt-4 mb-6">Check your email</h1>
-            <p class="mb-10">We have sent a password recover instructions
-                to your email</p>
+            <h1 class=" font-medium text-[32px] mt-4 mb-6">{{ $t('auth.check_your_email') }}</h1>
+            <p class="mb-10">{{ $t('auth.we_have_sent_email') }}</p>
 
             <PrimaryButton>
-                <a href="https://gmail.com" target="_blank">Go to my
-                    email</a>
+                <a href="https://gmail.com" target="_blank">{{ $t('auth.go_to_my_email') }}</a>
             </PrimaryButton>
 
-            <RouterLink :to="{ name: 'landing' }" class="text-[#6C757D] mt-8">Skip, I’ll confirm later</RouterLink>
+            <RouterLink :to="{ name: 'landing' }" class="text-[#6C757D] mt-8">{{ $t('auth.i_will_confirm_later') }}
+            </RouterLink>
         </div>
 
     </PopUpCard>
