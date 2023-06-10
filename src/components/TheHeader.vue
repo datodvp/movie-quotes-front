@@ -27,7 +27,11 @@ const currentLanguageLabel = computed(() => {
 })
 
 const logout = async () => {
-  await authService.logout()
+  try {
+    await authService.logout()
+  } catch (error) {
+    // it will not throw unexpected error just logs out user
+  }
   authStore.setIsAuthenticated(false)
   router.push({ name: 'landing' })
 }
