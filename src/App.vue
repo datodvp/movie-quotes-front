@@ -1,14 +1,16 @@
 <script setup>
-import { onBeforeMount } from 'vue'
-import { RouterView, useRouter } from 'vue-router'
+import { onMounted, watch } from 'vue'
+import { RouterView, useRoute, useRouter } from 'vue-router'
 import { useAuthService } from './services/useAuthService'
 import { useAuthStore } from './stores/auth'
 
 const authService = useAuthService()
 const authStore = useAuthStore()
 const router = useRouter()
+const route = useRoute()
 
-onBeforeMount(async () => {
+onMounted(async () => {
+  // checks if user authentication status changes and pushes on according page
   authStore.$subscribe((_, state) => {
     if (state.isAuthenticated) {
       router.push({ name: 'home' })
@@ -17,12 +19,12 @@ onBeforeMount(async () => {
     }
   })
 
-  try {
-    await authService.checkAuthentication()
-    authStore.setIsAuthenticated(true)
-  } catch (_) {
-    authStore.setIsAuthenticated(false)
-  }
+  // checks if route query has google token and sets user on authenticated
+  watch(route, (state) => {
+    if (state.query.token) {
+      authStore.setIsAuthenticated(true)
+    }
+  })
 })
 </script>
 

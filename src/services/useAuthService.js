@@ -36,9 +36,6 @@ export const useAuthService = () => {
       await authClient.get('/sanctum/csrf-cookie')
       return authClient.post('/api/login', payload)
     },
-    async checkAuthentication() {
-      return authClient.get('/api/check-authentication')
-    },
     async logout() {
       return authClient.post('/api/logout')
     },
