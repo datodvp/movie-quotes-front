@@ -19,7 +19,7 @@ onMounted(async () => {
 
   // checks if route query has google token and sets user on authenticated
   watch(route, (state) => {
-    if (state.query.token) {
+    if (state.query.tokenGoogle) {
       authStore.setIsAuthenticated(true)
     }
   })
