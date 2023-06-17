@@ -4,6 +4,8 @@ import IconArrow from '../components/icons/IconArrow.vue'
 import { useAuthStore } from '../stores/auth'
 import SecondaryButton from './Buttons/SecondaryButton.vue'
 import IconNotification from '../components/icons/IconNotification.vue'
+import IconBurger from '@/components/icons/IconBurger.vue'
+import IconSearch from '@/components/icons/IconSearch.vue'
 import { useAuthService } from '../services/useAuthService'
 import { useUserStore } from '../stores/user'
 import { useRouter } from 'vue-router'
@@ -48,13 +50,15 @@ const toggleLanguage = () => {
 <template>
   <header>
     <div
-      class="w-full max-w-[1920px] px-4 py-6 md:px-16"
+      class="w-full max-w-[1920px] px-9 py-6 md:px-16"
       :class="authStore.getIsAuthenticated ? 'bg-[#222030]' : 'fixed'"
     >
-      <nav class="flex justify-between">
-        <h1>MOVIE QUOTES</h1>
-        <div class="relative flex items-center gap-4">
-          <IconNotification v-if="authStore.getIsAuthenticated" class="mr-11" />
+      <nav class="flex items-center justify-between">
+        <IconBurger v-if="authStore.getIsAuthenticated" class="cursor-pointer md:hidden" />
+        <h1 :class="authStore.getIsAuthenticated && 'hidden md:block'">MOVIE QUOTES</h1>
+        <div class="relative flex items-center gap-5">
+          <IconSearch v-if="authStore.getIsAuthenticated" class="cursor-pointer md:hidden" />
+          <IconNotification v-if="authStore.getIsAuthenticated" class="cursor-pointer" />
           <div
             tabindex="0"
             @click="toggleLanguage"
@@ -86,7 +90,7 @@ const toggleLanguage = () => {
               </RouterLink>
             </SecondaryButton>
           </div>
-          <div v-else class="flex flex-row-reverse gap-2 md:gap-4 md:flex-row">
+          <div v-else class="flex-row-reverse hidden gap-2 md:flex md:gap-4 md:flex-row">
             <SecondaryButton @click="logout">
               <a>{{ $t('header.log_out') }}</a>
             </SecondaryButton>
