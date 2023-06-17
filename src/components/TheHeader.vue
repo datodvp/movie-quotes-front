@@ -49,12 +49,12 @@ const toggleLanguage = () => {
   <header>
     <div
       class="w-full max-w-[1920px] px-4 py-6 md:px-16"
-      :class="authStore.isAuthenticated ? 'bg-[#222030]' : 'fixed'"
+      :class="authStore.getIsAuthenticated ? 'bg-[#222030]' : 'fixed'"
     >
       <nav class="flex justify-between">
         <h1>MOVIE QUOTES</h1>
         <div class="relative flex items-center gap-4">
-          <IconNotification v-if="authStore.isAuthenticated" class="mr-11" />
+          <IconNotification v-if="authStore.getIsAuthenticated" class="mr-11" />
           <div
             tabindex="0"
             @click="toggleLanguage"
@@ -74,7 +74,7 @@ const toggleLanguage = () => {
           </div>
 
           <div
-            v-if="!authStore.isAuthenticated"
+            v-if="!authStore.getIsAuthenticated"
             class="flex flex-row-reverse gap-2 md:gap-4 md:flex-row"
           >
             <PrimaryButton>
