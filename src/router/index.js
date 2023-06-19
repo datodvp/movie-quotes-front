@@ -1,15 +1,15 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import LandingView from '../views/LandingView.vue'
-import HomeView from '../views/HomeView.vue'
-import SignUp from '../components/Auth/SignUp.vue'
-import TheLogin from '../components/Auth/TheLogin.vue'
+import LandingView from '@/views/LandingView.vue'
+import HomeView from '@/views/HomeView.vue'
+import SignUp from '@/components/Auth/SignUp.vue'
+import TheLogin from '@/components/Auth/TheLogin.vue'
 import ForgotPassword from '@/components/Auth/ForgotPassword.vue'
 import ResetPassword from '@/components/Auth/ResetPassword.vue'
 import MailSentNofitication from '@/components/Auth/MailSentNotification.vue'
 import MailVerified from '@/components/Auth/MailVerified.vue'
 import PasswordResetSent from '@/components/Auth/PasswordResetSent.vue'
 import PasswordUpdated from '@/components/Auth/PasswordUpdated.vue'
-import { useAuthStore } from '../stores/auth'
+import { useAuthStore } from '@/stores/auth'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),

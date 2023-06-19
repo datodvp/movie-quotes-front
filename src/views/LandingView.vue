@@ -1,6 +1,6 @@
 <script setup>
 import TheHeader from '@/components/TheHeader.vue'
-import LandingMovie from '../components/LandingMovie.vue'
+import LandingMovie from '@/components/LandingMovie.vue'
 import ImageInterstellar from '@/assets/images/interstellar.png'
 import ImageTenenbaums from '@/assets/images/tenenbaums.png'
 import ImageLotr from '@/assets/images/lotr.png'

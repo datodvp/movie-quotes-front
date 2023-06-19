@@ -1,13 +1,13 @@
 <script setup>
-import PopUpCard from '../PopUpCard.vue'
-import TextInput from '../Form/TextInput.vue'
-import PrimaryButton from '../Buttons/PrimaryButton.vue'
+import PopUpCard from '@/components/PopUpCard.vue'
+import TextInput from '@/components/Form/TextInput.vue'
+import PrimaryButton from '@/components/Buttons/PrimaryButton.vue'
 import IconBackArrow from '@/components/icons/IconBackArrow.vue'
-import { useAuthService } from '../../services/useAuthService'
+import { useAuthService } from '@/services/useAuthService'
 import { Form } from 'vee-validate'
 import { ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import ServerErrorMessage from '../ServerErrorMessage.vue'
+import ServerErrorMessage from '@/components/ServerErrorMessage.vue'
 
 const authService = useAuthService()
 

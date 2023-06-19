@@ -1,6 +1,5 @@
 <script setup>
-import TheHeader from '../components/TheHeader.vue';
-
+import TheHeader from '@/components/TheHeader.vue'
 </script>
 
 <template>
@@ -9,4 +8,3 @@ import TheHeader from '../components/TheHeader.vue';
     <h1>This is an about page</h1>
   </div>
 </template>
-

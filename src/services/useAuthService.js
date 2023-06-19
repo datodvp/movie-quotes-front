@@ -1,6 +1,6 @@
 import axios from 'axios'
-import { useUserStore } from '../stores/user'
-import { useAuthStore } from '../stores/auth'
+import { useUserStore } from '@/stores/user'
+import { useAuthStore } from '@/stores/auth'
 
 export const useAuthService = () => {
   const userStore = useUserStore()

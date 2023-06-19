@@ -1,7 +1,7 @@
 <script setup>
 import { onMounted, watch } from 'vue'
 import { RouterView, useRoute, useRouter } from 'vue-router'
-import { useAuthStore } from './stores/auth'
+import { useAuthStore } from '@/stores/auth'
 
 const authStore = useAuthStore()
 const router = useRouter()
