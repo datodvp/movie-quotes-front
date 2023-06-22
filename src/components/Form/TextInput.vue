@@ -7,19 +7,21 @@ import IconPasswordHide from '@/components/icons/IconPasswordHide.vue'
 const props = defineProps({
   name: {
     type: String,
-    required: true
+    required: false,
+    default: ''
   },
   modelValue: {
     type: String,
-    required: true
+    required: false
   },
   placeholder: {
     type: String,
-    required: true
+    required: false
   },
   rules: {
     type: Object,
-    required: false
+    required: false,
+    default: new Object()
   },
   label: {
     type: String,
@@ -29,6 +31,11 @@ const props = defineProps({
     type: String,
     required: false,
     default: 'text'
+  },
+  disabled: {
+    type: Boolean,
+    required: false,
+    default: false
   }
 })
 
@@ -56,12 +63,13 @@ defineEmits(['update:modelValue'])
           :id="name"
           :placeholder="placeholder"
           :type="type"
+          :disabled="disabled"
           :class="
             !meta.valid && meta.touched
               ? 'border-[1px] border-[#DC3545]'
               : meta.valid && meta.touched && 'border-[1px] border-[#198754]'
           "
-          class="rounded-md py-[7px] w-full pl-3 pr-11 bg-[#CED4DA] text-[#6C757D] md:w-96 border-[1px] border-[#CED4DA] outline-none focus:shadow-[0px_0px_0px_4px_#0D6EFD40]"
+          class="rounded-md text-[#212529] py-[7px] w-full pl-3 pr-11 bg-[#CED4DA] md:w-96 border-[1px] border-[#CED4DA] outline-none focus:shadow-[0px_0px_0px_4px_#0D6EFD40]"
         />
 
         <IconValidationWarning

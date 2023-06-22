@@ -12,6 +12,7 @@ onMounted(async () => {
     const response = await authService.getUserData()
     const userData = response.data.data.user
     userStore.setUserData('username', userData.username)
+    userStore.setUserData('email', userData.email)
   } catch (err) {
     console.log(err)
   }

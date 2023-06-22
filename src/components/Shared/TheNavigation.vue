@@ -29,7 +29,7 @@ const interfaceStore = useInterfaceStore()
         />
         <div>
           <p class="text-xl md:text-2xl">{{ userData.username }}</p>
-          <p class="text-sm md:text-base text-[#CED4DA;]">Edit your profile</p>
+          <p class="text-sm md:text-base text-[#CED4DA;]">{{ $t('texts.edit_your_profile') }}</p>
         </div>
       </RouterLink>
 
@@ -44,7 +44,7 @@ const interfaceStore = useInterfaceStore()
           />
         </div>
 
-        <p class="text-xl md:text-2xl">News feed</p>
+        <p class="text-xl md:text-2xl">{{ $t('texts.news_feed') }}</p>
       </RouterLink>
 
       <RouterLink
@@ -58,7 +58,7 @@ const interfaceStore = useInterfaceStore()
           />
         </div>
 
-        <p class="text-xl md:text-2xl">List of movies</p>
+        <p class="text-xl md:text-2xl">{{ $t('texts.list_of_movies') }}</p>
       </RouterLink>
     </div>
   </div>
