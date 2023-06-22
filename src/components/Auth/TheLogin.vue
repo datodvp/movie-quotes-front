@@ -10,8 +10,10 @@ import SecondaryButton from '@/components/Buttons/SecondaryButton.vue'
 import ServerErrorMessage from '@/components/ServerErrorMessage.vue'
 import { useAuthService } from '@/services/useAuthService'
 import { useAuthStore } from '@/stores/auth'
+import { useUserStore } from '../../stores/user'
 
 const authStore = useAuthStore()
+const userStore = useUserStore()
 const router = useRouter()
 
 const authService = useAuthService()
@@ -24,8 +26,11 @@ const errorMessage = ref('')
 
 const authorize = async (values) => {
   try {
-    await authService.login(values)
+    const response = await authService.login(values)
+    const userData = response.data.data.user
     authStore.setIsAuthenticated(true)
+    console.log(userData)
+    userStore.setUserData('username', userData.username)
     router.push({ name: 'home' })
   } catch (error) {
     errorMessage.value = error.response.data.message

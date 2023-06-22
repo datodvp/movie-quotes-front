@@ -1,16 +1,16 @@
 import axios from 'axios'
-import { useUserStore } from '@/stores/user'
 import { useAuthStore } from '@/stores/auth'
+import { useInterfaceStore } from '@/stores/interface'
 
 export const useAuthService = () => {
-  const userStore = useUserStore()
+  const interfaceStore = useInterfaceStore()
 
   const authClient = axios.create({
     baseURL: import.meta.env.VITE_VUE_APP_API_URL,
     // required to handle the CSRF token
     withCredentials: true,
     headers: {
-      'Accept-Language': userStore.getLocale
+      'Accept-Language': interfaceStore.getLocale
     }
   })
 

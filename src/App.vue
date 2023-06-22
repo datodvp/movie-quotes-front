@@ -37,7 +37,7 @@ html {
   scroll-behavior: smooth;
 }
 body {
-  color: #ddccaa;
+  color: white;
   background: #08080d;
 }
 </style>

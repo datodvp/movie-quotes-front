@@ -7,13 +7,13 @@ import IconNotification from '@/components/icons/IconNotification.vue'
 import IconBurger from '@/components/icons/IconBurger.vue'
 import IconSearch from '@/components/icons/IconSearch.vue'
 import { useAuthService } from '@/services/useAuthService'
-import { useUserStore } from '@/stores/user'
+import { useInterfaceStore } from '@/stores/interface'
 import { useRouter } from 'vue-router'
 import { computed, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 const authStore = useAuthStore()
-const userStore = useUserStore()
+const interfateStore = useInterfaceStore()
 const authService = useAuthService()
 const router = useRouter()
 
@@ -21,7 +21,7 @@ const { t } = useI18n()
 
 const isLanguageOpen = ref(false)
 const currentLanguageLabel = computed(() => {
-  if (userStore.getLocale === 'en') {
+  if (interfateStore.getLocale === 'en') {
     return t('header.eng')
   } else {
     return t('header.geo')
@@ -39,7 +39,7 @@ const logout = async () => {
 }
 
 const setLocale = (locale) => {
-  userStore.setLocale(locale)
+  interfateStore.setLocale(locale)
 }
 
 const toggleLanguage = () => {
@@ -50,11 +50,15 @@ const toggleLanguage = () => {
 <template>
   <header>
     <div
-      class="w-full max-w-[1920px] px-9 py-6 md:px-16"
+      class="w-full max-w-[1920px] px-9 py-6 md:px-16 z-10"
       :class="authStore.getIsAuthenticated ? 'bg-[#222030]' : 'fixed'"
     >
       <nav class="flex items-center justify-between">
-        <IconBurger v-if="authStore.getIsAuthenticated" class="cursor-pointer md:hidden" />
+        <IconBurger
+          @click="interfateStore.toggleShowNavigation"
+          v-if="authStore.getIsAuthenticated"
+          class="cursor-pointer md:hidden"
+        />
         <h1 :class="authStore.getIsAuthenticated && 'hidden md:block'">MOVIE QUOTES</h1>
         <div class="relative flex items-center gap-5">
           <IconSearch v-if="authStore.getIsAuthenticated" class="cursor-pointer md:hidden" />

@@ -1,29 +1,26 @@
 import { defineStore } from 'pinia'
-import { computed, ref } from 'vue'
-import { useI18n } from 'vue-i18n'
-import { setLocale as setLocaleValidation } from '@vee-validate/i18n'
+import { computed, reactive } from 'vue'
 
-const localeValue = localStorage.locale ? localStorage.locale : (localStorage.locale = 'en')
+const userDataLocalStorage = localStorage.userData
+  ? JSON.parse(localStorage.userData)
+  : (localStorage.userData = JSON.stringify({
+      username: '',
+      email: '',
+      avatarUrl: ''
+    }))
 
 export const useUserStore = defineStore('user', () => {
-  const locale = ref(localeValue)
+  const userData = reactive(userDataLocalStorage)
 
-  // set locale for i18n and validation on load
-  const i18n = useI18n()
-  setLocaleValidation(locale.value)
-  i18n.locale.value = locale.value
+  const getUserData = computed(() => userData)
 
-  const getLocale = computed(() => locale.value)
-
-  const setLocale = (payload) => {
-    locale.value = payload
-    localStorage.locale = payload
-    i18n.locale.value = payload
-    setLocaleValidation(locale.value)
+  const setUserData = (key, value) => {
+    userData[key] = value
+    localStorage.userData = JSON.stringify(userData)
   }
 
   return {
-    getLocale,
-    setLocale
+    getUserData,
+    setUserData
   }
 })

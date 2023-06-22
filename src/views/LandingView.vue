@@ -1,15 +1,13 @@
 <script setup>
-import TheHeader from '@/components/TheHeader.vue'
 import LandingMovie from '@/components/LandingMovie.vue'
 import ImageInterstellar from '@/assets/images/interstellar.png'
 import ImageTenenbaums from '@/assets/images/tenenbaums.png'
 import ImageLotr from '@/assets/images/lotr.png'
+import UnauthorizedLayout from '../layouts/UnauthorizedLayout.vue'
 </script>
 
 <template>
-  <div class="relative flex flex-col h-full bg-gradient-to-b">
-    <TheHeader class="z-10" />
-
+  <UnauthorizedLayout class="relative flex flex-col h-full bg-gradient-to-b">
     <RouterView class="z-10" />
 
     <main class="flex items-center justify-center flex-grow min-h-[808px]">
@@ -32,5 +30,5 @@ import ImageLotr from '@/assets/images/lotr.png'
       name="The Royal Tenenbaums, 2001"
     />
     <LandingMovie :image="ImageLotr" text="You shall not pass" name="The Lord of the rings, 2001" />
-  </div>
+  </UnauthorizedLayout>
 </template>
