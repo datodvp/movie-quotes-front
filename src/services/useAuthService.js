@@ -47,6 +47,9 @@ export const useAuthService = () => {
     },
     async resetPassword(payload) {
       return authClient.post('/api/reset-password', payload)
+    },
+    async getUserData() {
+      return authClient.get('/api/user-data')
     }
   }
 }

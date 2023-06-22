@@ -1,22 +1,12 @@
 <script setup>
 import { onMounted, watch } from 'vue'
-import { RouterView, useRoute, useRouter } from 'vue-router'
+import { RouterView, useRoute } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
 
 const authStore = useAuthStore()
-const router = useRouter()
 const route = useRoute()
 
 onMounted(async () => {
-  // checks if user authentication status changes and pushes on according page
-  authStore.$subscribe((_, state) => {
-    if (state.isAuthenticated) {
-      router.push({ name: 'home' })
-    } else if (!state.isAuthenticated) {
-      router.push({ name: 'landing' })
-    }
-  })
-
   // checks if route query has google token and sets user on authenticated
   watch(route, (state) => {
     if (state.query.tokenGoogle) {
@@ -38,6 +28,7 @@ html {
 }
 body {
   color: white;
-  background: #08080d;
+  background: linear-gradient(187.16deg, #181623 0.07%, #191725 51.65%, #0d0b14 98.75%);
+  height: 100vh;
 }
 </style>

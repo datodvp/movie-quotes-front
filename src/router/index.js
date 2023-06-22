@@ -10,6 +10,9 @@ import MailVerified from '@/components/Auth/MailVerified.vue'
 import PasswordResetSent from '@/components/Auth/PasswordResetSent.vue'
 import PasswordUpdated from '@/components/Auth/PasswordUpdated.vue'
 import { useAuthStore } from '@/stores/auth'
+import NewsFeed from '@/components/NewsFeed.vue'
+import ListOfMovies from '@/components/ListOfMovies.vue'
+import TheProfile from '@/components/TheProfile.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -68,7 +71,7 @@ const router = createRouter({
       ]
     },
     {
-      path: '/home',
+      path: '/user',
       name: 'home',
       component: HomeView,
       beforeEnter() {
@@ -76,7 +79,24 @@ const router = createRouter({
         if (!authStore.getIsAuthenticated) {
           return { name: 'landing' }
         }
-      }
+      },
+      children: [
+        {
+          path: '',
+          name: 'profile',
+          component: TheProfile
+        },
+        {
+          path: 'news-feed',
+          name: 'newsFeed',
+          component: NewsFeed
+        },
+        {
+          path: 'movies-list',
+          name: 'moviesList',
+          component: ListOfMovies
+        }
+      ]
     }
   ]
 })
