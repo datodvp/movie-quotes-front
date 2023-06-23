@@ -10,16 +10,24 @@ import { Form } from 'vee-validate'
 const userStore = useUserStore()
 const authService = useAuthService()
 
+const newUsername = ref('')
 const newPassword = ref('')
 const newPasswordConfirmation = ref('')
+
 const changingPassword = ref(false)
+const changingUsername = ref(false)
 
 const toggleChangingPassword = () => {
   changingPassword.value = !changingPassword.value
 }
 
+const toggleChangingUsername = () => {
+  changingUsername.value = !changingUsername.value
+}
+
 const closeAllInputs = () => {
   changingPassword.value = false
+  changingUsername.value = false
 }
 
 const changePassword = async (values) => {
@@ -31,7 +39,11 @@ const changePassword = async (values) => {
 <template>
   <div>
     <h2 class="mt-8 mb-32 ml-8 text-2xl">{{ $t('texts.my_profile') }}</h2>
-    <div class="w-[998px] h-fit pb-40 bg-[#11101A] rounded-xl flex items-center flex-col">
+    <Form
+      @submit="changePassword"
+      id="password-form"
+      class="w-[998px] h-fit pb-40 bg-[#11101A] rounded-xl flex items-center flex-col"
+    >
       <img :src="DefaultAvatar" alt="image" class="w-[11.5rem] h-[11.5rem] rounded-full -mt-20" />
 
       <p class="mt-2 mb-9">Upload new photo</p>
@@ -44,7 +56,18 @@ const changePassword = async (values) => {
             disabled
             class="w-[33rem]"
           />
-          <p class="mb-2">Edit</p>
+          <p @click="toggleChangingUsername" class="mb-2 cursor-pointer">Edit</p>
+        </div>
+
+        <div v-if="changingUsername" class="flex items-end gap-8">
+          <TextInput
+            label="New username"
+            name="username"
+            placeholder="New username"
+            v-model="newUsername"
+            :rules="{ required: true, min: 3, max: 15, latin: true }"
+            class="w-[33rem]"
+          />
         </div>
 
         <div class="flex items-end gap-8">
@@ -70,13 +93,8 @@ const changePassword = async (values) => {
           <p @click="toggleChangingPassword" class="mb-2 cursor-pointer">Edit</p>
         </div>
 
-        <Form
-          @submit="changePassword"
-          id="password-form"
-          v-if="changingPassword"
-          class="flex flex-col gap-2"
-        >
-          <div class="w-[528px] h-[134px] p-6 border-[#CED4DA33] border rounded-[4px]">
+        <div v-if="changingPassword" class="flex flex-col gap-2 w-[33rem]">
+          <div class="h-[134px] p-6 border-[#CED4DA33] border rounded-[4px]">
             <p class="mb-4">Passwords should contain:</p>
             <ul class="ml-4 list-disc text-[#9C9A9A]">
               <li>8 or more characters</li>
@@ -92,7 +110,6 @@ const changePassword = async (values) => {
               placeholder="New password"
               v-model="newPassword"
               :rules="{ required: true, latin: true, min: 8, max: 15 }"
-              class="w-[33rem]"
             />
           </div>
 
@@ -104,13 +121,12 @@ const changePassword = async (values) => {
               placeholder="Confirm new password"
               v-model="newPasswordConfirmation"
               :rules="{ required: true, confirmed: newPassword }"
-              class="w-[33rem]"
             />
           </div>
-        </Form>
+        </div>
       </div>
-    </div>
-    <div v-if="changingPassword" class="flex justify-end">
+    </Form>
+    <div v-if="changingPassword || changingUsername" class="flex justify-end">
       <div @click="closeAllInputs" class="flex items-center justify-center cursor-pointer mr-7">
         Cancel
       </div>
