@@ -50,6 +50,9 @@ export const useAuthService = () => {
     },
     async getUserData() {
       return authClient.get('/api/user-data')
+    },
+    async changePassword(payload) {
+      return authClient.post('/api/change-password', payload)
     }
   }
 }

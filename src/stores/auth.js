@@ -14,9 +14,14 @@ export const useAuthStore = defineStore('auth', () => {
   const getIsAuthenticated = computed(() => isAuthenticated.value)
 
   const setIsAuthenticated = (payload) => {
-    isAuthenticated.value = payload
-    localStorage.isAuthenticated = payload
-    router.push({ name: 'newsFeed' })
+    if (payload) {
+      isAuthenticated.value = payload
+      localStorage.isAuthenticated = payload
+      router.push({ name: 'newsFeed' })
+    } else {
+      isAuthenticated.value = payload
+      localStorage.isAuthenticated = payload
+    }
   }
 
   return {
