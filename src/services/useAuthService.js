@@ -52,7 +52,7 @@ export const useAuthService = () => {
       return authClient.get('/api/user-data')
     },
     async changePassword(payload) {
-      return authClient.post('/api/change-password', payload)
+      return authClient.post('/api/change-user-credentials', payload)
     }
   }
 }
