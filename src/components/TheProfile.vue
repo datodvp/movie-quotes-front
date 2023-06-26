@@ -37,26 +37,27 @@ const changePassword = async (values) => {
 }
 </script>
 <template>
-  <div>
+  <div class="w-full">
     <h2 class="mt-8 mb-32 ml-8 text-2xl">{{ $t('texts.my_profile') }}</h2>
     <Form
       @submit="changePassword"
       id="password-form"
-      class="w-[998px] h-fit pb-40 bg-[#11101A] rounded-xl flex items-center flex-col"
+      class="w-full md:w-[70%] h-fit pb-40 bg-[#11101A] rounded-xl flex items-center flex-col"
     >
       <img :src="DefaultAvatar" alt="image" class="w-[11.5rem] h-[11.5rem] rounded-full -mt-20" />
 
       <p class="mt-2 mb-9">Upload new photo</p>
-      <div class="flex flex-col gap-11">
-        <div class="flex items-end gap-8">
-          <TextInput
-            name="username-disabled"
-            label="Username"
-            :modelValue="userStore.getUserData.username"
-            disabled
-            class="w-[33rem]"
-          />
-          <p @click="toggleChangingUsername" class="mb-2 cursor-pointer">Edit</p>
+      <div class="flex flex-col gap-11 w-[80%] md:w-[53%]">
+        <div
+          class="relative flex justify-between pb-4 items-end gap-8 border-b-[#CED4DA80] border-b"
+        >
+          <div class="">
+            <p class="pb-1">Username</p>
+            <p>{{ userStore.getUserData.username }}</p>
+          </div>
+          <p @click="toggleChangingUsername" class="cursor-pointer md:absolute md:-right-16">
+            Edit
+          </p>
         </div>
 
         <div v-if="changingUsername" class="flex items-end gap-8">
@@ -66,35 +67,35 @@ const changePassword = async (values) => {
             placeholder="New username"
             v-model="newUsername"
             :rules="{ required: true, min: 3, max: 15, latin: true }"
-            class="w-[33rem]"
           />
         </div>
 
-        <div class="flex items-end gap-8">
-          <TextInput
-            name="email-disabled"
-            label="Email"
-            :modelValue="userStore.getUserData.email"
-            disabled
-            class="w-[33rem]"
-          />
-          <p class="mb-2">Edit</p>
+        <div
+          class="relative flex justify-between pb-4 items-end gap-8 border-b-[#CED4DA80] border-b"
+        >
+          <div class="">
+            <p class="pb-1">Email</p>
+            <p>{{ userStore.getUserData.email }}</p>
+          </div>
+          <p @click="toggleChangingUsername" class="cursor-pointer md:absolute md:-right-16">
+            Edit
+          </p>
         </div>
 
-        <div class="flex items-end gap-8">
-          <TextInput
-            name="password-disabled"
-            label="Password"
-            modelValue="************"
-            type="password"
-            disabled
-            class="w-[33rem]"
-          />
-          <p @click="toggleChangingPassword" class="mb-2 cursor-pointer">Edit</p>
+        <div
+          class="relative flex justify-between pb-4 items-end gap-8 border-b-[#CED4DA80] border-b"
+        >
+          <div>
+            <p class="pb-1">Password</p>
+            <p type="password">************</p>
+          </div>
+          <p @click="toggleChangingPassword" class="cursor-pointer md:absolute md:-right-16">
+            Edit
+          </p>
         </div>
 
-        <div v-if="changingPassword" class="flex flex-col gap-2 w-[33rem]">
-          <div class="h-[134px] p-6 border-[#CED4DA33] border rounded-[4px]">
+        <div v-if="changingPassword" class="flex flex-col gap-2">
+          <div class="h-fit p-6 border-[#CED4DA33] border rounded-[4px]">
             <p class="mb-4">Passwords should contain:</p>
             <ul class="ml-4 list-disc text-[#9C9A9A]">
               <li>8 or more characters</li>
@@ -130,7 +131,7 @@ const changePassword = async (values) => {
       <div @click="closeAllInputs" class="flex items-center justify-center cursor-pointer mr-7">
         Cancel
       </div>
-      <PrimaryButton class="w-40 my-16"
+      <PrimaryButton class="my-16 w-28"
         ><button type="submit" form="password-form">Save changes</button></PrimaryButton
       >
     </div>

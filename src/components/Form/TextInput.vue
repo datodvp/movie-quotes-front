@@ -69,7 +69,7 @@ defineEmits(['update:modelValue'])
               ? 'border-[1px] border-[#DC3545]'
               : meta.valid && meta.touched && 'border-[1px] border-[#198754]'
           "
-          class="rounded-md text-[#212529] py-[7px] w-full pl-3 pr-11 bg-[#CED4DA] md:min-w-[24rem] md:h-12 border-[1px] border-[#CED4DA] outline-none focus:shadow-[0px_0px_0px_4px_#0D6EFD40]"
+          class="rounded-md text-[#212529] py-[7px] w-full pl-3 pr-11 bg-[#CED4DA] md:h-12 border-[1px] border-[#CED4DA] outline-none focus:shadow-[0px_0px_0px_4px_#0D6EFD40]"
         />
 
         <IconValidationWarning
