@@ -38,7 +38,7 @@ const changePassword = async (values) => {
 }
 </script>
 <template>
-  <div class="w-full">
+  <div class="flex flex-col w-full">
     <div class="mt-4 mb-4 ml-8 text-2xl md:mt-8 md:mb-32">
       <h2 class="hidden md:block">{{ $t('texts.my_profile') }}</h2>
       <RouterLink :to="{ name: 'newsFeed' }">
@@ -49,7 +49,7 @@ const changePassword = async (values) => {
     <Form
       @submit="changePassword"
       id="password-form"
-      class="w-full md:w-[70%] h-fit pb-40 bg-[#11101A] rounded-xl flex items-center flex-col"
+      class="w-full md:w-[70%] h-fit bg-[#11101A] rounded-xl pb-32 flex items-center flex-col"
     >
       <img
         :src="DefaultAvatar"
@@ -138,13 +138,18 @@ const changePassword = async (values) => {
         </div>
       </div>
     </Form>
-    <div v-if="changingPassword || changingUsername" class="flex justify-end">
-      <div @click="closeAllInputs" class="flex items-center justify-center cursor-pointer mr-7">
-        Cancel
-      </div>
-      <PrimaryButton class="my-16 w-28"
-        ><button type="submit" form="password-form">Save changes</button></PrimaryButton
+    <div class="w-[70%]">
+      <div
+        v-if="changingPassword || changingUsername"
+        class="flex self-end justify-end my-5 md:my-16 justify-self-end"
       >
+        <div @click="closeAllInputs" class="flex items-center justify-center cursor-pointer mr-7">
+          Cancel
+        </div>
+        <PrimaryButton class="w-28"
+          ><button type="submit" form="password-form">Save changes</button></PrimaryButton
+        >
+      </div>
     </div>
   </div>
 </template>
