@@ -2,6 +2,7 @@
 import DefaultAvatar from '@/assets/images/defaultAvatar.png'
 import TextInput from '@/components/Form/TextInput.vue'
 import PrimaryButton from '@/components/Buttons/PrimaryButton.vue'
+import IconBackArrow from '@/components/icons/IconBackArrow.vue'
 import { useUserStore } from '@/stores/user'
 import { useAuthService } from '@/services/useAuthService'
 import { ref } from 'vue'
@@ -38,15 +39,25 @@ const changePassword = async (values) => {
 </script>
 <template>
   <div class="w-full">
-    <h2 class="mt-8 mb-32 ml-8 text-2xl">{{ $t('texts.my_profile') }}</h2>
+    <div class="mt-4 mb-4 ml-8 text-2xl md:mt-8 md:mb-32">
+      <h2 class="hidden md:block">{{ $t('texts.my_profile') }}</h2>
+      <RouterLink :to="{ name: 'newsFeed' }">
+        <IconBackArrow class="w-5 h-5 md:hidden" />
+      </RouterLink>
+    </div>
+
     <Form
       @submit="changePassword"
       id="password-form"
       class="w-full md:w-[70%] h-fit pb-40 bg-[#11101A] rounded-xl flex items-center flex-col"
     >
-      <img :src="DefaultAvatar" alt="image" class="w-[11.5rem] h-[11.5rem] rounded-full -mt-20" />
+      <img
+        :src="DefaultAvatar"
+        alt="image"
+        class="w-[11.5rem] h-[11.5rem] rounded-full md:-mt-20 mt-6"
+      />
 
-      <p class="mt-2 mb-9">Upload new photo</p>
+      <p class="mt-2 text-xl mb-9">Upload new photo</p>
       <div class="flex flex-col gap-11 w-[80%] md:w-[53%]">
         <div
           class="relative flex justify-between pb-4 items-end gap-8 border-b-[#CED4DA80] border-b"
