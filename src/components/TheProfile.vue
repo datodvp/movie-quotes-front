@@ -3,6 +3,7 @@ import DefaultAvatar from '@/assets/images/defaultAvatar.png'
 import TextInput from '@/components/Form/TextInput.vue'
 import PrimaryButton from '@/components/Buttons/PrimaryButton.vue'
 import IconBackArrow from '@/components/icons/IconBackArrow.vue'
+import ServerErrorMessage from '@/components/ServerErrorMessage.vue'
 import { useUserStore } from '@/stores/user'
 import { useAuthService } from '@/services/useAuthService'
 import { ref } from 'vue'
@@ -14,9 +15,18 @@ const authService = useAuthService()
 const newUsername = ref('')
 const newPassword = ref('')
 const newPasswordConfirmation = ref('')
+const newEmail = ref('')
 
 const changingPassword = ref(false)
 const changingUsername = ref(false)
+const changingEmail = ref(false)
+
+const errorMessage = ref('')
+const successMessage = ref('')
+
+const toggleChangingEmail = () => {
+  changingEmail.value = !changingEmail.value
+}
 
 const toggleChangingPassword = () => {
   changingPassword.value = !changingPassword.value
@@ -29,12 +39,22 @@ const toggleChangingUsername = () => {
 const closeAllInputs = () => {
   changingPassword.value = false
   changingUsername.value = false
+  changingEmail.value = false
 }
 
 const changePassword = async (values) => {
-  console.log(values)
-  const response = await authService.changePassword(values)
-  console.log(response)
+  successMessage.value = ''
+  errorMessage.value = ''
+  try {
+    const response = await authService.changePassword(values)
+    const userData = response.data.data.user
+    userStore.setUserData('username', userData.username)
+    userStore.setUserData('email', userData.email)
+    closeAllInputs()
+    successMessage.value = 'Your profile has been updated.'
+  } catch (error) {
+    errorMessage.value = error.response.data.message
+  }
 }
 </script>
 <template>
@@ -84,13 +104,21 @@ const changePassword = async (values) => {
         <div
           class="relative flex justify-between pb-4 items-end gap-8 border-b-[#CED4DA80] border-b"
         >
-          <div class="">
+          <div>
             <p class="pb-1">Email</p>
             <p>{{ userStore.getUserData.email }}</p>
           </div>
-          <p @click="toggleChangingUsername" class="cursor-pointer md:absolute md:-right-16">
-            Edit
-          </p>
+          <p @click="toggleChangingEmail" class="cursor-pointer md:absolute md:-right-16">Edit</p>
+        </div>
+
+        <div v-if="changingEmail" class="flex items-end gap-8">
+          <TextInput
+            label="Email"
+            name="email"
+            placeholder="New email"
+            v-model="newEmail"
+            :rules="{ required: true, email: true }"
+          />
         </div>
 
         <div
@@ -137,16 +165,19 @@ const changePassword = async (values) => {
           </div>
         </div>
       </div>
+      <ServerErrorMessage :errorMessage="errorMessage" />
+      <p class="text-green-700 mt-5 text-center max-w-[384px]">{{ successMessage }}</p>
     </Form>
+
     <div class="w-[70%]">
       <div
-        v-if="changingPassword || changingUsername"
+        v-if="changingPassword || changingUsername || changingEmail"
         class="flex self-end justify-end my-5 md:my-16 justify-self-end"
       >
         <div @click="closeAllInputs" class="flex items-center justify-center cursor-pointer mr-7">
           Cancel
         </div>
-        <PrimaryButton class="w-28"
+        <PrimaryButton class="w-[8rem]"
           ><button type="submit" form="password-form">Save changes</button></PrimaryButton
         >
       </div>
