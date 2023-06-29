@@ -23,7 +23,8 @@ configure({
         min: '{field} must have at least 0:{min} symbols',
         max: '{field} must have maximum 0:{max} symbols',
         confirmed: 'password confirmation must be exact',
-        latin: '{field} must have lower latin characters and numbers.'
+        latin: '{field} must have lower latin characters and numbers.',
+        digits: 'please fill this field correctly'
       }
     },
     ka: {
@@ -34,7 +35,8 @@ configure({
         min: '{field} უნდა შეიცავდეს მინიმუმ 0:{min} სიმბოლოს',
         max: '{field} უნდა შეიცავდეს მაქსიმუმ 0:{max} სიმბოლოს',
         confirmed: 'ველი უნდა მეორდებოდეს ზუსტად',
-        latin: '{field} უნდა შეიცავდეს დაბალი რეგისტრის სიმბოლოებს და რიცხვებს.'
+        latin: '{field} უნდა შეიცავდეს დაბალი რეგისტრის სიმბოლოებს და რიცხვებს.',
+        digits: 'გთხოვთ შეიყვანოთ მოთხოვნილი ფილდი სწორად'
       },
       names: {
         password: 'პაროლი',

@@ -108,7 +108,13 @@ const changePassword = async (values) => {
             <p class="pb-1">Email</p>
             <p>{{ userStore.getUserData.email }}</p>
           </div>
-          <p @click="toggleChangingEmail" class="cursor-pointer md:absolute md:-right-16">Edit</p>
+          <p
+            v-if="!userStore.getUserData.googleId"
+            @click="toggleChangingEmail"
+            class="cursor-pointer md:absolute md:-right-16"
+          >
+            Edit
+          </p>
         </div>
 
         <div v-if="changingEmail" class="flex items-end gap-8">

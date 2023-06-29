@@ -12,7 +12,6 @@ export const useUserStore = defineStore('user', () => {
 
   const setUserData = (key, value) => {
     userData[key] = value
-    localStorage.userData = JSON.stringify(userData)
   }
 
   return {

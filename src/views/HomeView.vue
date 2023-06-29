@@ -8,14 +8,11 @@ const userStore = useUserStore()
 const authService = useAuthService()
 
 onMounted(async () => {
-  try {
-    const response = await authService.getUserData()
-    const userData = response.data.data.user
-    userStore.setUserData('username', userData.username)
-    userStore.setUserData('email', userData.email)
-  } catch (err) {
-    console.log(err)
-  }
+  const response = await authService.getUserData()
+  const userData = response.data.data.user
+  userStore.setUserData('username', userData.username)
+  userStore.setUserData('email', userData.email)
+  userStore.setUserData('googleId', userData.google_id)
 })
 </script>
 

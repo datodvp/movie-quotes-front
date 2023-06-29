@@ -53,6 +53,15 @@ export const useAuthService = () => {
     },
     async changePassword(payload) {
       return authClient.post('/api/change-user-credentials', payload)
+    },
+    async getMovies() {
+      return authClient.get('/api/movies')
+    },
+    async postMovie(payload) {
+      return authClient.post('/api/movies', payload)
+    },
+    async getGenres() {
+      return authClient.get('/api/movie-genres')
     }
   }
 }

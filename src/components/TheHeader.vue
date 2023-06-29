@@ -71,7 +71,10 @@ const toggleLanguage = () => {
           >
             {{ currentLanguageLabel }}
             <IconArrow />
-            <div v-if="isLanguageOpen" class="absolute top-[100%] border w-fit flex flex-col">
+            <div
+              v-if="isLanguageOpen"
+              class="absolute top-[100%] border w-fit bg-slate-800 flex flex-col"
+            >
               <p class="p-1 cursor-pointer hover:bg-slate-700" @click="setLocale('en')">
                 {{ $t('header.english') }}
               </p>
