@@ -74,7 +74,7 @@ const addMovie = async () => {
   errorMessage.value = ''
   successMessage.value = ''
 
-  const formElement = document.querySelector('#form-element')
+  const formElement = document.querySelector('#add-movie-form')
 
   const formData = new FormData(formElement)
   // genre is an array and needs to be stringified for formData
@@ -97,7 +97,7 @@ const addMovie = async () => {
       <Form
         @submit="addMovie"
         enctype="multipart/form-data"
-        id="form-element"
+        id="add-movie-form"
         class="flex flex-col overflow-y-auto gap-7"
       >
         <div class="flex items-center gap-4 text-xl">
