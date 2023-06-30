@@ -25,10 +25,12 @@ const moviesStore = useMoviesStore()
 const userStore = useUserStore().getUserData
 const authService = useAuthService()
 
+const form = ref(null)
+const imageInputElement = ref(null)
+
 const showDropdown = ref(false)
 
 const genres = ref([])
-
 const nameEn = ref('')
 const nameKa = ref('')
 const year = ref('')
@@ -36,7 +38,6 @@ const directorEn = ref('')
 const directorKa = ref('')
 const descriptionEn = ref('')
 const descriptionKa = ref('')
-const image = ref('')
 
 const successMessage = ref('')
 const errorMessage = ref('')
@@ -47,10 +48,6 @@ onMounted(async () => {
   const response = await authService.getGenres()
   genresList.value = response.data.data.genres
 })
-
-const handleImage = (e) => {
-  image.value = e.target.files[0]
-}
 
 const toggleDropdown = () => {
   showDropdown.value = !showDropdown.value
@@ -84,9 +81,23 @@ const addMovie = async () => {
     const response = await authService.postMovie(formData)
     moviesStore.addMovie(response.data.movie)
     successMessage.value = 'Movie added succesfully!'
+    clearInputs()
   } catch (error) {
     errorMessage.value = error.response.data.message
   }
+}
+
+const clearInputs = () => {
+  form.value.resetForm()
+  genres.value = []
+  nameEn.value = ''
+  nameKa.value = ''
+  year.value = ''
+  directorEn.value = ''
+  directorKa.value = ''
+  descriptionEn.value = ''
+  descriptionKa.value = ''
+  imageInputElement.value.value = null
 }
 </script>
 
@@ -98,6 +109,7 @@ const addMovie = async () => {
         @submit="addMovie"
         enctype="multipart/form-data"
         id="add-movie-form"
+        ref="form"
         class="flex flex-col overflow-y-auto gap-7"
       >
         <div class="flex items-center gap-4 text-xl">
@@ -165,7 +177,7 @@ const addMovie = async () => {
           placeholder="ფილმის აღწერა:"
           language="ქარ"
         />
-        <input type="file" name="image" @change="handleImage" />
+        <input type="file" name="image" ref="imageInputElement" @change="handleImage" />
         <div class="flex justify-center">
           <ServerErrorMessage :errorMessage="errorMessage" />
           <p class="text-green-700 text-center max-w-[384px]">{{ successMessage }}</p>
