@@ -36,6 +36,7 @@ const directorEn = ref('')
 const directorKa = ref('')
 const descriptionEn = ref('')
 const descriptionKa = ref('')
+const image = ref('')
 
 const successMessage = ref('')
 const errorMessage = ref('')
@@ -46,6 +47,10 @@ onMounted(async () => {
   const response = await authService.getGenres()
   genresList.value = response.data.data.genres
 })
+
+const handleImage = (e) => {
+  image.value = e.target.files[0]
+}
 
 const toggleDropdown = () => {
   showDropdown.value = !showDropdown.value
@@ -65,13 +70,18 @@ const removeChosenGenre = (id) => {
   genres.value = genres.value.filter((genre) => genre.id !== id)
 }
 
-const addMovie = async (values) => {
+const addMovie = async () => {
   errorMessage.value = ''
   successMessage.value = ''
-  values['genres'] = genres.value
+
+  const formElement = document.querySelector('#form-element')
+
+  const formData = new FormData(formElement)
+  // genre is an array and needs to be stringified for formData
+  formData.set('genres', JSON.stringify(genres.value))
 
   try {
-    const response = await authService.postMovie(values)
+    const response = await authService.postMovie(formData)
     moviesStore.addMovie(response.data.movie)
     successMessage.value = 'Movie added succesfully!'
   } catch (error) {
@@ -84,13 +94,18 @@ const addMovie = async (values) => {
   <ModalCard :show="showModal" @close="closeModal">
     <template #header><h2>Add Movie</h2></template>
     <template #body>
-      <Form @submit="addMovie" class="flex flex-col overflow-y-auto gap-7">
+      <Form
+        @submit="addMovie"
+        enctype="multipart/form-data"
+        id="form-element"
+        class="flex flex-col overflow-y-auto gap-7"
+      >
         <div class="flex items-center gap-4 text-xl">
           <img :src="DefaultAvatar" alt="avatar" class="w-[60px] h-[60px]" />
           {{ userStore.username }}
         </div>
-        <CustomInput name="name.en" v-model="nameEn" placeholder="Movie name:" language="Eng" />
-        <CustomInput name="name.ka" v-model="nameKa" placeholder="ფილმის სახელი:" language="ქარ" />
+        <CustomInput name="name[en]" v-model="nameEn" placeholder="Movie name:" language="Eng" />
+        <CustomInput name="name[ka]" v-model="nameKa" placeholder="ფილმის სახელი:" language="ქარ" />
         <div
           @click="toggleDropdown"
           class="bg-transparent relative h-11 py-[11px] w-full border border-[#6C757D] flex items-center rounded-[4.8px] text-xl pl-4 pr-12"
@@ -127,34 +142,34 @@ const addMovie = async (values) => {
           :rules="{ required: true, digits: 4 }"
         />
         <CustomInput
-          name="director.en"
+          name="director[en]"
           v-model="directorEn"
           placeholder="Director:"
           language="Eng"
         />
         <CustomInput
-          name="director.ka"
+          name="director[ka]"
           v-model="directorKa"
           placeholder="რეჟისორი:"
           language="ქარ"
         />
         <CustomInput
-          name="description.en"
+          name="description[en]"
           v-model="descriptionEn"
           placeholder="Description:"
           language="Eng"
         />
         <CustomInput
-          name="description.ka"
+          name="description[ka]"
           v-model="descriptionKa"
           placeholder="ფილმის აღწერა:"
           language="ქარ"
         />
+        <input type="file" name="image" @change="handleImage" />
         <div class="flex justify-center">
           <ServerErrorMessage :errorMessage="errorMessage" />
-          <p class="text-green-700 mt-5 text-center max-w-[384px]">{{ successMessage }}</p>
+          <p class="text-green-700 text-center max-w-[384px]">{{ successMessage }}</p>
         </div>
-
         <PrimaryButton><button class="p-2">Add movie</button></PrimaryButton>
       </Form>
     </template>
