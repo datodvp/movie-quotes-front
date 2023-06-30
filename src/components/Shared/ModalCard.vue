@@ -17,7 +17,7 @@ defineProps({
           <slot name="header"></slot>
         </div>
         <hr class="absolute left-0 w-full mt-6 mb-8 border-[#EFEFEF33]" />
-        <div class="max-h-[92%] overflow-y-auto mt-14">
+        <div class="max-h-[92%] overflow-y-auto pr-3 mt-14">
           <slot name="body"></slot>
         </div>
       </div>
@@ -72,5 +72,27 @@ defineProps({
 .modal-leave-to .modal-container {
   -webkit-transform: scale(1.1);
   transform: scale(1.1);
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey;
+  border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: grey;
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #5e5656;
 }
 </style>
