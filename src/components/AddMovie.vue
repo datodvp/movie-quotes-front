@@ -9,6 +9,7 @@ import { useUserStore } from '@/stores/user.js'
 import { onMounted, ref } from 'vue'
 import PrimaryButton from './Buttons/PrimaryButton.vue'
 import { useMoviesStore } from '../stores/movies'
+import IconPhoto from '@/components/icons/IconPhoto.vue'
 
 defineProps({
   showModal: {
@@ -27,6 +28,7 @@ const authService = useAuthService()
 
 const form = ref(null)
 const imageInputElement = ref(null)
+const imagePreview = ref(null)
 
 const showDropdown = ref(false)
 
@@ -51,6 +53,11 @@ onMounted(async () => {
 
 const toggleDropdown = () => {
   showDropdown.value = !showDropdown.value
+}
+
+const handleImagePreview = (e) => {
+  const image = e.target.files[0]
+  imagePreview.value = URL.createObjectURL(image)
 }
 
 const alreadyIsChosen = (id) => {
@@ -110,7 +117,7 @@ const clearInputs = () => {
         enctype="multipart/form-data"
         id="add-movie-form"
         ref="form"
-        class="flex flex-col overflow-y-auto gap-7"
+        class="flex flex-col overflow-x-hidden overflow-y-auto gap-7"
       >
         <div class="flex items-center gap-4 text-xl">
           <img :src="DefaultAvatar" alt="avatar" class="w-[60px] h-[60px]" />
@@ -177,7 +184,39 @@ const clearInputs = () => {
           placeholder="ფილმის აღწერა:"
           language="ქარ"
         />
-        <input type="file" name="image" ref="imageInputElement" @change="handleImage" />
+        <label
+          class="relative flex gap-4 border-[#6C757D] border rounded text-lg h-fit py-[21px] px-6"
+          for="image-input"
+        >
+          <img
+            class="max-h-[180px] object-cover"
+            :class="imagePreview && 'w-[50%]'"
+            :src="imagePreview"
+          />
+          <div class="flex items-center flex-1">
+            <div class="flex flex-col items-center w-full">
+              <p v-if="imagePreview" class="text-base">REPLACE PHOTO</p>
+              <div class="flex items-center gap-4" :class="imagePreview && 'flex-col'">
+                <div class="flex">
+                  <IconPhoto class="ml-4 mr-2" />
+                  <p class="text-xl">Drag & drop your image here or</p>
+                </div>
+
+                <p class="bg-[#9747FF] p-[10px] ml-4">Choose file</p>
+              </div>
+            </div>
+
+            <input
+              type="file"
+              name="image"
+              id="image-input"
+              ref="imageInputElement"
+              class="absolute h-full left-0 text-[0px] w-full cursor-pointer opacity-0"
+              @change="handleImagePreview"
+            />
+          </div>
+        </label>
+
         <div class="flex justify-center">
           <ServerErrorMessage :errorMessage="errorMessage" />
           <p class="text-green-700 text-center max-w-[384px]">{{ successMessage }}</p>
