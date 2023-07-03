@@ -17,7 +17,7 @@ const interfaceStore = useInterfaceStore()
 </script>
 
 <template>
-  <div class="w-[67%] bg-[#11101A] p-6 rounded-xl mb-10">
+  <div class="w-full bg-[#11101A] p-6 rounded-xl mb-10">
     <div class="flex items-center gap-4 mb-4">
       <img :src="DefaultAvatar" alt="avatar" class="w-[52px] h-[52px]" />
       <p>{{ quote.user.username }}</p>
