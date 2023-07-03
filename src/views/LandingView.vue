@@ -10,7 +10,9 @@ import UnauthorizedLayout from '../layouts/UnauthorizedLayout.vue'
   <UnauthorizedLayout class="relative flex flex-col h-full bg-gradient-to-b">
     <RouterView class="z-10" />
 
-    <main class="flex items-center justify-center flex-grow min-h-[808px]">
+    <main
+      class="flex bg-gradient-to-b from-[#11101A] via-[#08080D] to-[#000000] items-center justify-center flex-grow min-h-[710px]"
+    >
       <div class="text-2xl font-bold md:text-6xl w-72 md:w-[43rem] text-center">
         {{ $t('texts.find_any_movies') }}
       </div>

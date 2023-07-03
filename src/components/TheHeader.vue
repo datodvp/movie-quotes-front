@@ -48,10 +48,10 @@ const toggleLanguage = () => {
 </script>
 
 <template>
-  <header>
+  <header class="sticky top-0 z-10">
     <div
-      class="w-full max-w-[1920px] px-9 py-6 md:px-16 z-10"
-      :class="authStore.getIsAuthenticated ? 'bg-[#222030]' : 'fixed'"
+      class="w-full max-w-[1920px] px-9 py-6 md:px-16"
+      :class="authStore.getIsAuthenticated && 'bg-[#222030]'"
     >
       <nav class="flex items-center justify-between">
         <IconBurger

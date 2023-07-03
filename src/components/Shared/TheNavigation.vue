@@ -16,7 +16,7 @@ const interfaceStore = useInterfaceStore()
     :class="!interfaceStore.getShowNavigation && 'hidden md:block'"
     class="bg-[#11101A] absolute md:static md:block pb-11 min-w-fit pr-8 md:bg-transparent w-[90%] md:w-[28%]"
   >
-    <div class="flex flex-col pt-10 md:pl-[4.5rem] md:pt-8 pl-11 gap-11">
+    <div class="flex flex-col sticky top-[84px] pt-10 md:pl-[4.5rem] md:pt-8 pl-11 gap-11">
       <RouterLink
         :to="{ name: 'profile' }"
         class="flex items-center hover:text-[#6C757D] gap-6 cursor-pointer"
