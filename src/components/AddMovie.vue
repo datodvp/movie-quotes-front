@@ -9,6 +9,7 @@ import { useUserStore } from '@/stores/user.js'
 import { onMounted, ref } from 'vue'
 import PrimaryButton from './Buttons/PrimaryButton.vue'
 import { useMoviesStore } from '../stores/movies'
+import { useInterfaceStore } from '@/stores/interface'
 import IconPhoto from '@/components/icons/IconPhoto.vue'
 
 defineProps({
@@ -25,6 +26,7 @@ defineProps({
 const moviesStore = useMoviesStore()
 const userStore = useUserStore().getUserData
 const authService = useAuthService()
+const interfaceStore = useInterfaceStore()
 
 const form = ref(null)
 const imageInputElement = ref(null)
@@ -139,7 +141,7 @@ const clearInputs = () => {
                 :class="alreadyIsChosen(genre.id) && 'bg-slate-500 underline'"
               >
                 <p>
-                  {{ genre.name }}
+                  {{ genre.name[interfaceStore.getLocale] }}
                 </p>
               </div>
             </div>
