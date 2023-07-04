@@ -42,7 +42,6 @@ const chosenMovie = ref('')
 onMounted(async () => {
   const response = await authService.getAllMovies()
   moviesList.value = response.data.data.movies
-  console.log(moviesList.value)
 })
 
 const handleImagePreview = (e) => {
