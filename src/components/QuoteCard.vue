@@ -14,6 +14,7 @@ defineProps({
 })
 
 const interfaceStore = useInterfaceStore()
+const backend_API_URL = import.meta.env.VITE_VUE_APP_API_URL
 </script>
 
 <template>
@@ -22,11 +23,14 @@ const interfaceStore = useInterfaceStore()
       <img :src="DefaultAvatar" alt="avatar" class="w-[52px] h-[52px]" />
       <p>{{ quote.user.username }}</p>
     </div>
-    <p class="mb-7">{{ quote.text }} - {{ quote.movie.name[interfaceStore.getLocale] }} (YEAR)</p>
+    <p class="mb-7">
+      {{ quote.text[interfaceStore.getLocale] }} -
+      {{ quote.movie.name[interfaceStore.getLocale] }} ({{ quote.movie.year }})
+    </p>
     <img
-      :src="DefaultAvatar"
+      :src="`${backend_API_URL}/${quote.image}`"
       alt="avatar"
-      class="w-full bg-white h-[31.3rem] rounded-[10px] mb-6"
+      class="w-full object-cover h-[31.3rem] rounded-[10px] mb-6"
     />
     <div class="flex gap-6">
       <p class="flex gap-3">3 <IconComment /></p>
@@ -36,6 +40,6 @@ const interfaceStore = useInterfaceStore()
     <div v-for="comment in quote.comments" :key="comment.id">
       <TheComment :comment="comment" />
     </div>
-    <AddComment />
+    <AddComment :quoteId="quote.id" />
   </div>
 </template>

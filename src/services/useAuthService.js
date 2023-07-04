@@ -65,6 +65,15 @@ export const useAuthService = () => {
     },
     async getQuotes() {
       return authClient.get('/api/quotes')
+    },
+    async postQuote(payload) {
+      return authClient.post('/api/quotes', payload)
+    },
+    async getAllMovies() {
+      return authClient.get('/api/movies-list')
+    },
+    async postComment(payload) {
+      return authClient.post('/api/comment', payload)
     }
   }
 }

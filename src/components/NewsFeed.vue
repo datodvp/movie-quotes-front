@@ -4,17 +4,18 @@ import { useAuthService } from '@/services/useAuthService'
 import QuoteCard from '@/components/QuoteCard.vue'
 import IconSearch from '@/components/icons/IconSearch.vue'
 import IconWriteQuote from '@/components/icons/IconWriteQuote.vue'
+import AddQuote from '@/components/AddQuote.vue'
 
 const authService = useAuthService()
 const quotes = ref([])
 const showSearch = ref(false)
 
+const showModal = ref(false)
+const closeModal = () => (showModal.value = false)
+const openModal = () => (showModal.value = true)
+
 const openSearch = () => {
   showSearch.value = true
-}
-
-const closeSearch = () => {
-  showSearch.value = false
 }
 
 onMounted(async () => {
@@ -24,10 +25,11 @@ onMounted(async () => {
 </script>
 <template>
   <div class="w-full pt-8">
+    <AddQuote :showModal="showModal" :closeModal="closeModal" />
     <div class="w-[67%]">
       <div class="flex justify-between gap-6 h-[3.25rem] mb-6 items-center">
         <button
-          @click="closeSearch"
+          @click="openModal"
           class="bg-[#24222F] p-[11px] whitespace-nowrap flex-1 rounded-[10px] flex text-xl gap-4"
         >
           <IconWriteQuote /> Write new quote

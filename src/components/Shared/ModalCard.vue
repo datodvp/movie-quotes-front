@@ -11,13 +11,13 @@ defineProps({
 <template>
   <Transition name="modal">
     <div v-if="show" class="modal-mask backdrop-blur-[1px]">
-      <div class="bg-[#11101A] w-[47%] min-h-[10%] modal-container relative h-[95%]">
+      <div class="bg-[#11101A] w-[47%] min-h-[10%] modal-container relative h-fit">
         <button class="float-right modal-default-button" @click="$emit('close')">X</button>
         <div class="flex justify-center">
           <slot name="header"></slot>
         </div>
         <hr class="absolute left-0 w-full mt-6 mb-8 border-[#EFEFEF33]" />
-        <div class="max-h-[92%] overflow-y-auto pr-3 mt-14">
+        <div class="max-h-[810px] overflow-y-auto pr-3 mt-14">
           <slot name="body"></slot>
         </div>
       </div>

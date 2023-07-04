@@ -2,11 +2,25 @@
 import DefaultAvatar from '@/assets/images/defaultAvatar.png'
 import { Field, Form } from 'vee-validate'
 import { ref } from 'vue'
+import { useAuthService } from '@/services/useAuthService.js'
+
+const props = defineProps({
+  quoteId: {
+    type: Number,
+    required: true
+  }
+})
 
 const newComment = ref('')
+const authService = useAuthService()
 
-const onSubmit = (value) => {
-  console.log(value)
+const onSubmit = () => {
+  const data = {
+    text: newComment.value,
+    quote_id: props.quoteId
+  }
+
+  authService.postComment(data)
 }
 </script>
 
