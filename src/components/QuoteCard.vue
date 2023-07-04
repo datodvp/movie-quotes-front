@@ -43,10 +43,12 @@ const backend_API_URL = import.meta.env.VITE_VUE_APP_API_URL
       <p class="flex gap-3">10 <IconLike /></p>
     </div>
     <hr class="border-[#EFEFEF4D] mt-6" />
-    <template v-for="(comment, index) in reversedComments" :key="comment.id">
-      <TheComment v-if="index < 2 && !seeMore" :comment="comment" />
-      <TheComment v-else-if="seeMore" :comment="comment" />
-    </template>
+    <div class="max-h-[500px] overflow-y-auto">
+      <template v-for="(comment, index) in reversedComments" :key="comment.id">
+        <TheComment v-if="index < 2 && !seeMore" :comment="comment" />
+        <TheComment v-else-if="seeMore" :comment="comment" />
+      </template>
+    </div>
     <button
       @click="seeMore = true"
       v-if="!seeMore && quote.comments.length > 2"
