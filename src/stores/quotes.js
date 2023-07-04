@@ -7,7 +7,7 @@ export const useQuotesStore = defineStore('quotes', () => {
   const getQuotes = computed(() => quotes.value)
 
   const addQuote = (quote) => {
-    quotes.value.push(quote)
+    quotes.value.unshift(quote)
   }
 
   const setQuotes = (quotesList) => {

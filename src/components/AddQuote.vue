@@ -9,6 +9,7 @@ import { useUserStore } from '@/stores/user.js'
 import { onMounted, ref } from 'vue'
 import PrimaryButton from './Buttons/PrimaryButton.vue'
 import { useInterfaceStore } from '@/stores/interface'
+import { useQuotesStore } from '@/stores/quotes'
 import IconPhoto from '@/components/icons/IconPhoto.vue'
 
 defineProps({
@@ -25,6 +26,7 @@ defineProps({
 const userStore = useUserStore().getUserData
 const authService = useAuthService()
 const interfaceStore = useInterfaceStore()
+const quotesStore = useQuotesStore()
 
 const form = ref(null)
 const imageInputElement = ref(null)
@@ -59,7 +61,8 @@ const addQuote = async () => {
   formData.append('movie_id', chosenMovie.value)
 
   try {
-    await authService.postQuote(formData)
+    const response = await authService.postQuote(formData)
+    quotesStore.addQuote(response.data.data.quote)
     successMessage.value = 'Quote added succesfully!'
     clearInputs()
   } catch (error) {
