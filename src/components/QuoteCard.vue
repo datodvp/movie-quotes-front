@@ -5,15 +5,15 @@ import IconLike from '@/components/icons/IconLike.vue'
 import TheComment from '@/components/TheComment.vue'
 import AddComment from '@/components/AddComment.vue'
 import { useInterfaceStore } from '@/stores/interface'
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 
-defineProps({
+const props = defineProps({
   quote: {
     type: Object,
     required: true
   }
 })
-
+const reversedComments = computed(() => props.quote.comments.slice().reverse())
 const seeMore = ref(false)
 const interfaceStore = useInterfaceStore()
 const backend_API_URL = import.meta.env.VITE_VUE_APP_API_URL
@@ -22,7 +22,11 @@ const backend_API_URL = import.meta.env.VITE_VUE_APP_API_URL
 <template>
   <div class="w-full bg-[#11101A] p-6 rounded-xl mb-10">
     <div class="flex items-center gap-4 mb-4">
-      <img :src="DefaultAvatar" alt="avatar" class="w-[52px] h-[52px]" />
+      <img
+        :src="quote.user.image ? `${backend_API_URL}/${quote.user.image}` : DefaultAvatar"
+        alt="avatar"
+        class="w-[52px] h-[52px] rounded-full"
+      />
       <p>{{ quote.user.username }}</p>
     </div>
     <p class="mb-7">
@@ -35,11 +39,11 @@ const backend_API_URL = import.meta.env.VITE_VUE_APP_API_URL
       class="w-full object-cover h-[31.3rem] rounded-[10px] mb-6"
     />
     <div class="flex gap-6">
-      <p class="flex gap-3">3 <IconComment /></p>
+      <p class="flex gap-3">{{ quote.comments.length }} <IconComment /></p>
       <p class="flex gap-3">10 <IconLike /></p>
     </div>
     <hr class="border-[#EFEFEF4D] mt-6" />
-    <template v-for="(comment, index) in quote.comments" :key="comment.id">
+    <template v-for="(comment, index) in reversedComments" :key="comment.id">
       <TheComment v-if="index < 2 && !seeMore" :comment="comment" />
       <TheComment v-else-if="seeMore" :comment="comment" />
     </template>

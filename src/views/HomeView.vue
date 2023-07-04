@@ -13,6 +13,7 @@ onMounted(async () => {
   userStore.setUserData('username', userData.username)
   userStore.setUserData('email', userData.email)
   userStore.setUserData('googleId', userData.google_id)
+  userStore.setUserData('image', userData.image)
 })
 </script>
 

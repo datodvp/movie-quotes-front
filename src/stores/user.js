@@ -5,7 +5,8 @@ export const useUserStore = defineStore('user', () => {
   const userData = reactive({
     username: '',
     email: '',
-    avatarUrl: ''
+    avatarUrl: '',
+    image: ''
   })
 
   const getUserData = computed(() => userData)

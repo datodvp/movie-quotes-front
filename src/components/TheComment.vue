@@ -7,12 +7,18 @@ defineProps({
     required: true
   }
 })
+
+const backend_API_URL = import.meta.env.VITE_VUE_APP_API_URL
 </script>
 
 <template>
   <div class="mt-6">
     <div class="flex items-center gap-6">
-      <img :src="DefaultAvatar" alt="avatar" class="w-[52px] h-[52px]" />
+      <img
+        :src="comment.user.image ? `${backend_API_URL}/${comment.user.image}` : DefaultAvatar"
+        alt="avatar"
+        class="w-[52px] h-[52px] rounded-full"
+      />
       <p class="text-xl font-medium">{{ comment.user.username }}</p>
     </div>
     <div class="pl-[4.8rem] text-xl">

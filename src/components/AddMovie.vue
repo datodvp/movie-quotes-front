@@ -108,6 +108,8 @@ const clearInputs = () => {
   descriptionKa.value = ''
   imageInputElement.value.value = null
 }
+
+const backend_API_URL = import.meta.env.VITE_VUE_APP_API_URL
 </script>
 
 <template>
@@ -122,7 +124,11 @@ const clearInputs = () => {
         class="flex flex-col overflow-x-hidden overflow-y-auto gap-7"
       >
         <div class="flex items-center gap-4 text-xl">
-          <img :src="DefaultAvatar" alt="avatar" class="w-[60px] h-[60px]" />
+          <img
+            :src="userStore.image ? `${backend_API_URL}/${userStore.image}` : DefaultAvatar"
+            alt="avatar"
+            class="w-[60px] h-[60px] rounded-full"
+          />
           {{ userStore.username }}
         </div>
         <CustomInput name="name[en]" v-model="nameEn" placeholder="Movie name:" language="Eng" />

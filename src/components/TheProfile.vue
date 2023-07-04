@@ -7,7 +7,7 @@ import ServerErrorMessage from '@/components/ServerErrorMessage.vue'
 import { useUserStore } from '@/stores/user'
 import { useAuthService } from '@/services/useAuthService'
 import { ref } from 'vue'
-import { Form } from 'vee-validate'
+import { Form, Field } from 'vee-validate'
 
 const userStore = useUserStore()
 const authService = useAuthService()
@@ -17,12 +17,20 @@ const newPassword = ref('')
 const newPasswordConfirmation = ref('')
 const newEmail = ref('')
 
+const imagePreviewUrl = ref(null)
+
 const changingPassword = ref(false)
 const changingUsername = ref(false)
 const changingEmail = ref(false)
+const changingImage = ref(false)
 
 const errorMessage = ref('')
 const successMessage = ref('')
+
+const openChangingImage = (e) => {
+  changingImage.value = true
+  imagePreviewUrl.value = URL.createObjectURL(e.target.files[0])
+}
 
 const toggleChangingEmail = () => {
   changingEmail.value = !changingEmail.value
@@ -40,22 +48,30 @@ const closeAllInputs = () => {
   changingPassword.value = false
   changingUsername.value = false
   changingEmail.value = false
+  changingImage.value = false
 }
 
-const changePassword = async (values) => {
+const changePassword = async () => {
   successMessage.value = ''
   errorMessage.value = ''
+  const form = document.getElementById('password-form')
+  const formData = new FormData(form)
+
   try {
-    const response = await authService.changePassword(values)
+    const response = await authService.changePassword(formData)
+
     const userData = response.data.data.user
     userStore.setUserData('username', userData.username)
     userStore.setUserData('email', userData.email)
+    userStore.setUserData('image', userData.image)
     closeAllInputs()
     successMessage.value = 'Your profile has been updated.'
   } catch (error) {
     errorMessage.value = error.response.data.message
   }
 }
+
+const backend_API_URL = import.meta.env.VITE_VUE_APP_API_URL
 </script>
 <template>
   <div class="flex flex-col w-full">
@@ -72,12 +88,21 @@ const changePassword = async (values) => {
       class="w-full md:w-[70%] h-fit bg-[#11101A] rounded-xl pb-32 flex items-center flex-col"
     >
       <img
-        :src="DefaultAvatar"
+        :src="
+          imagePreviewUrl
+            ? imagePreviewUrl
+            : userStore.getUserData.image
+            ? `${backend_API_URL}/${userStore.getUserData.image}`
+            : DefaultAvatar
+        "
         alt="image"
         class="w-[11.5rem] h-[11.5rem] rounded-full md:-mt-20 mt-6"
       />
+      <label class="cursor-pointer">
+        <Field type="file" name="image" @change="openChangingImage" class="hidden" />
+        <p class="mt-2 text-xl mb-9 hover:text-[#CED4DA80]">Upload new photo</p>
+      </label>
 
-      <p class="mt-2 text-xl mb-9">Upload new photo</p>
       <div class="flex flex-col gap-11 w-[80%] md:w-[53%]">
         <div
           class="relative flex justify-between pb-4 items-end gap-8 border-b-[#CED4DA80] border-b"
@@ -177,7 +202,7 @@ const changePassword = async (values) => {
 
     <div class="w-[70%]">
       <div
-        v-if="changingPassword || changingUsername || changingEmail"
+        v-if="changingPassword || changingUsername || changingEmail || changingImage"
         class="flex self-end justify-end my-5 md:my-16 justify-self-end"
       >
         <div @click="closeAllInputs" class="flex items-center justify-center cursor-pointer mr-7">
