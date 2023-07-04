@@ -1,13 +1,14 @@
 <script setup>
 import { onMounted, ref } from 'vue'
 import { useAuthService } from '@/services/useAuthService'
+import { useQuotesStore } from '@/stores/quotes'
 import QuoteCard from '@/components/QuoteCard.vue'
 import IconSearch from '@/components/icons/IconSearch.vue'
 import IconWriteQuote from '@/components/icons/IconWriteQuote.vue'
 import AddQuote from '@/components/AddQuote.vue'
 
 const authService = useAuthService()
-const quotes = ref([])
+const quotesStore = useQuotesStore()
 const showSearch = ref(false)
 
 const showModal = ref(false)
@@ -20,7 +21,7 @@ const openSearch = () => {
 
 onMounted(async () => {
   const response = await authService.getQuotes()
-  quotes.value = response.data.data.quotes
+  quotesStore.setQuotes(response.data.data.quotes)
 })
 </script>
 <template>
@@ -49,7 +50,7 @@ onMounted(async () => {
           />
         </div>
       </div>
-      <div v-for="quote in quotes" :key="quote.id">
+      <div v-for="quote in quotesStore.getQuotes" :key="quote.id">
         <QuoteCard :quote="quote" />
       </div>
     </div>

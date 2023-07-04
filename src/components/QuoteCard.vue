@@ -5,6 +5,7 @@ import IconLike from '@/components/icons/IconLike.vue'
 import TheComment from '@/components/TheComment.vue'
 import AddComment from '@/components/AddComment.vue'
 import { useInterfaceStore } from '@/stores/interface'
+import { ref } from 'vue'
 
 defineProps({
   quote: {
@@ -13,6 +14,7 @@ defineProps({
   }
 })
 
+const seeMore = ref(false)
 const interfaceStore = useInterfaceStore()
 const backend_API_URL = import.meta.env.VITE_VUE_APP_API_URL
 </script>
@@ -37,9 +39,24 @@ const backend_API_URL = import.meta.env.VITE_VUE_APP_API_URL
       <p class="flex gap-3">10 <IconLike /></p>
     </div>
     <hr class="border-[#EFEFEF4D] mt-6" />
-    <div v-for="comment in quote.comments" :key="comment.id">
-      <TheComment :comment="comment" />
-    </div>
+    <template v-for="(comment, index) in quote.comments" :key="comment.id">
+      <TheComment v-if="index < 2 && !seeMore" :comment="comment" />
+      <TheComment v-else-if="seeMore" :comment="comment" />
+    </template>
+    <button
+      @click="seeMore = true"
+      v-if="!seeMore && quote.comments.length > 2"
+      class="mt-1 ml-20 text-blue-600 hover:underline"
+    >
+      See more...
+    </button>
+    <button
+      @click="seeMore = false"
+      v-if="seeMore"
+      class="mt-1 ml-20 text-blue-600 hover:underline"
+    >
+      See less
+    </button>
     <AddComment :quoteId="quote.id" />
   </div>
 </template>

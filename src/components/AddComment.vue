@@ -3,6 +3,7 @@ import DefaultAvatar from '@/assets/images/defaultAvatar.png'
 import { Field, Form } from 'vee-validate'
 import { ref } from 'vue'
 import { useAuthService } from '@/services/useAuthService.js'
+import { useQuotesStore } from '../stores/quotes'
 
 const props = defineProps({
   quoteId: {
@@ -13,14 +14,18 @@ const props = defineProps({
 
 const newComment = ref('')
 const authService = useAuthService()
+const quotesStore = useQuotesStore()
 
-const onSubmit = () => {
+const onSubmit = async () => {
   const data = {
     text: newComment.value,
     quote_id: props.quoteId
   }
 
-  authService.postComment(data)
+  const response = await authService.postComment(data)
+  quotesStore.updateQuote(response.data.data.newComment.quote)
+
+  newComment.value = ''
 }
 </script>
 
@@ -34,6 +39,7 @@ const onSubmit = () => {
           name="comment"
           placeholder="Write a comment"
           class="px-[27px] py-[11px] outline-none bg-[#24222F] w-full rounded-[10px]"
+          rules="required"
         />
       </Form>
     </div>
