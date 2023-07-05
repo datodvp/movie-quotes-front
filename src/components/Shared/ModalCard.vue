@@ -13,7 +13,7 @@ defineProps({
     <div v-if="show" class="modal-mask backdrop-blur-[1px]">
       <div class="bg-[#11101A] w-[47%] min-h-[10%] modal-container relative h-fit">
         <button class="float-right modal-default-button" @click="$emit('close')">X</button>
-        <div class="flex justify-center">
+        <div class="flex justify-center text-2xl font-medium">
           <slot name="header"></slot>
         </div>
         <hr class="absolute left-0 w-full mt-6 mb-8 border-[#EFEFEF33]" />
