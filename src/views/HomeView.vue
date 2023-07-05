@@ -10,6 +10,7 @@ const authService = useAuthService()
 onMounted(async () => {
   const response = await authService.getUserData()
   const userData = response.data.data.user
+  userStore.setUserData('id', userData.id)
   userStore.setUserData('username', userData.username)
   userStore.setUserData('email', userData.email)
   userStore.setUserData('googleId', userData.google_id)

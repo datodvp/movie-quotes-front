@@ -3,6 +3,7 @@ import { computed, reactive } from 'vue'
 
 export const useUserStore = defineStore('user', () => {
   const userData = reactive({
+    id: '',
     username: '',
     email: '',
     avatarUrl: '',

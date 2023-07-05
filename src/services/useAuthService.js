@@ -74,6 +74,12 @@ export const useAuthService = () => {
     },
     async postComment(payload) {
       return authClient.post('/api/comment', payload)
+    },
+    async postLike(payload) {
+      return authClient.post('/api/quote-like', payload)
+    },
+    async removeLike(payload) {
+      return authClient.post('/api/quote-destroy-like', payload)
     }
   }
 }

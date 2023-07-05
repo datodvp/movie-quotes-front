@@ -6,6 +6,8 @@ import TheComment from '@/components/TheComment.vue'
 import AddComment from '@/components/AddComment.vue'
 import { useInterfaceStore } from '@/stores/interface'
 import { computed, ref } from 'vue'
+import { useUserStore } from '../stores/user'
+import { useAuthService } from '@/services/useAuthService'
 
 const props = defineProps({
   quote: {
@@ -17,6 +19,23 @@ const reversedComments = computed(() => props.quote.comments.slice().reverse())
 const seeMore = ref(false)
 const interfaceStore = useInterfaceStore()
 const backend_API_URL = import.meta.env.VITE_VUE_APP_API_URL
+const userStore = useUserStore()
+const authService = useAuthService()
+
+const hasLikedQuote = computed(() =>
+  props.quote.likes.some((like) => like.id === userStore.getUserData.id)
+)
+
+const likePost = (quoteId) => {
+  const data = {
+    quote_id: quoteId
+  }
+  if (!hasLikedQuote.value) {
+    authService.postLike(data)
+  } else {
+    authService.removeLike(data)
+  }
+}
 </script>
 
 <template>
@@ -40,7 +59,10 @@ const backend_API_URL = import.meta.env.VITE_VUE_APP_API_URL
     />
     <div class="flex gap-6">
       <p class="flex gap-3">{{ quote.comments.length }} <IconComment /></p>
-      <p class="flex gap-3">10 <IconLike /></p>
+      <p class="flex gap-3">
+        {{ quote.likes.length }}
+        <IconLike @click="likePost(quote.id)" :class="hasLikedQuote && 'text-red-700'" />
+      </p>
     </div>
     <hr class="border-[#EFEFEF4D] mt-6" />
     <div class="max-h-[500px] overflow-y-auto">
