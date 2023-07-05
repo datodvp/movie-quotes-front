@@ -18,14 +18,16 @@ const authService = useAuthService()
 const quotesStore = useQuotesStore()
 const userStore = useUserStore()
 
-const onSubmit = async () => {
+const onSubmit = () => {
   const data = {
     text: newComment.value,
     quote_id: props.quoteId
   }
 
-  const response = await authService.postComment(data)
-  quotesStore.updateQuote(response.data.data.newComment.quote)
+  authService
+    .postComment(data)
+    .then((response) => response.data.data.updatedQuote)
+    .then((updatedQuote) => quotesStore.updateQuote(updatedQuote))
 
   newComment.value = ''
 }

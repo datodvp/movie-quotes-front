@@ -29,10 +29,15 @@ onMounted(() => {
     const { updatedQuote } = data
     quotesStore.updateQuote(updatedQuote)
   })
+  window.Echo.channel('comment-quote').listen('QuoteCommented', (data) => {
+    const { updatedQuote } = data
+    quotesStore.updateQuote(updatedQuote)
+  })
 })
 
 onUnmounted(() => {
   window.Echo.channel('quote-like-action').stopListening('QuoteLikeAction')
+  window.Echo.channel('comment-quote').stopListening('QuoteCommented')
 })
 </script>
 <template>
