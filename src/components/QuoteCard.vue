@@ -28,14 +28,20 @@ const hasLikedQuote = computed(() =>
   props.quote.likes.some((like) => like.id === userStore.getUserData.id)
 )
 
-const likePost = async (quoteId) => {
+const likePost = (quoteId) => {
   const data = {
     quote_id: quoteId
   }
   if (!hasLikedQuote.value) {
-    authService.postLike(data)
+    authService
+      .postLike(data)
+      .then((response) => response.data.data.updatedQuote)
+      .then((updatedQuote) => quotesStore.updateQuote(updatedQuote))
   } else {
-    authService.removeLike(data)
+    authService
+      .removeLike(data)
+      .then((response) => response.data.data.updatedQuote)
+      .then((updatedQuote) => quotesStore.updateQuote(updatedQuote))
   }
 }
 </script>
