@@ -8,6 +8,7 @@ import { useInterfaceStore } from '@/stores/interface'
 import { computed, ref } from 'vue'
 import { useUserStore } from '../stores/user'
 import { useAuthService } from '@/services/useAuthService'
+import { useQuotesStore } from '@/stores/quotes'
 
 const props = defineProps({
   quote: {
@@ -21,12 +22,13 @@ const interfaceStore = useInterfaceStore()
 const backend_API_URL = import.meta.env.VITE_VUE_APP_API_URL
 const userStore = useUserStore()
 const authService = useAuthService()
+const quotesStore = useQuotesStore()
 
 const hasLikedQuote = computed(() =>
   props.quote.likes.some((like) => like.id === userStore.getUserData.id)
 )
 
-const likePost = (quoteId) => {
+const likePost = async (quoteId) => {
   const data = {
     quote_id: quoteId
   }
@@ -61,7 +63,11 @@ const likePost = (quoteId) => {
       <p class="flex gap-3">{{ quote.comments.length }} <IconComment /></p>
       <p class="flex gap-3">
         {{ quote.likes.length }}
-        <IconLike @click="likePost(quote.id)" :class="hasLikedQuote && 'text-red-700'" />
+        <IconLike
+          @click="likePost(quote.id)"
+          :class="hasLikedQuote && 'text-red-700 '"
+          class="transition-all transform cursor-pointer duration-400"
+        />
       </p>
     </div>
     <hr class="border-[#EFEFEF4D] mt-6" />

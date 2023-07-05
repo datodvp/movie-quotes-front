@@ -2,11 +2,14 @@
 import { onMounted, watch } from 'vue'
 import { RouterView, useRoute } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
+import instantiatePusher from '@/helpers/instantiatePusher'
 
 const authStore = useAuthStore()
 const route = useRoute()
 
 onMounted(async () => {
+  instantiatePusher()
+
   // checks if route query has google token and sets user on authenticated
   watch(route, (state) => {
     if (state.query.tokenGoogle) {

@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, ref } from 'vue'
+import { onMounted, onUnmounted, ref } from 'vue'
 import { useAuthService } from '@/services/useAuthService'
 import { useQuotesStore } from '@/stores/quotes'
 import QuoteCard from '@/components/QuoteCard.vue'
@@ -22,6 +22,17 @@ const openSearch = () => {
 onMounted(async () => {
   const response = await authService.getQuotes()
   quotesStore.setQuotes(response.data.data.quotes)
+})
+
+onMounted(() => {
+  window.Echo.channel('quote-like-action').listen('QuoteLikeAction', (data) => {
+    const { updatedQuote } = data
+    quotesStore.updateQuote(updatedQuote)
+  })
+})
+
+onUnmounted(() => {
+  window.Echo.channel('quote-like-action').stopListening('QuoteLikeAction')
 })
 </script>
 <template>
