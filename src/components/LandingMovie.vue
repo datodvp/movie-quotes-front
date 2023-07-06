@@ -17,17 +17,19 @@ defineProps({
 })
 </script>
 <template>
-  <div class="relative h-screen">
+  <div class="sticky top-0 h-screen">
     <img :src="image" alt="movie" class="object-cover w-screen h-screen" />
     <div class="absolute top-[40%] left-[15%] flex">
       <div
         class="relative"
         v-motion
         :initial="{
-          y: 50
+          x: 500,
+          opacity: 0
         }"
         :visible="{
-          y: 0,
+          x: 0,
+          opacity: 1,
           transition: {
             duration: 1500
           }
