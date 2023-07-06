@@ -218,7 +218,7 @@ const backend_API_URL = import.meta.env.VITE_VUE_APP_API_URL
         <div @click="closeAllInputs" class="flex items-center justify-center cursor-pointer mr-7">
           Cancel
         </div>
-        <PrimaryButton class="w-[7rem]"
+        <PrimaryButton class="w-32"
           ><button type="submit" form="password-form">Save changes</button></PrimaryButton
         >
       </div>
