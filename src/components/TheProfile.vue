@@ -104,16 +104,20 @@ const backend_API_URL = import.meta.env.VITE_VUE_APP_API_URL
       </label>
 
       <div class="flex flex-col gap-11 w-[80%] md:w-[53%]">
-        <div
-          class="relative flex justify-between pb-4 items-end gap-8 border-b-[#CED4DA80] border-b"
-        >
-          <div class="">
+        <div class="relative flex items-end justify-between gap-8">
+          <div class="w-full">
             <p class="pb-1">Username</p>
-            <p>{{ userStore.getUserData.username }}</p>
+            <div
+              class="flex p-2 border-[#CED4DA80] md:bg-white md:rounded-md justify-between md:border md: border-b w-full"
+            >
+              <p class="md:text-[#212529]">
+                {{ userStore.getUserData.username }}
+              </p>
+              <p @click="toggleChangingUsername" class="cursor-pointer md:absolute md:-right-16">
+                Edit
+              </p>
+            </div>
           </div>
-          <p @click="toggleChangingUsername" class="cursor-pointer md:absolute md:-right-16">
-            Edit
-          </p>
         </div>
 
         <div v-if="changingUsername" class="flex items-end gap-8">
@@ -126,20 +130,24 @@ const backend_API_URL = import.meta.env.VITE_VUE_APP_API_URL
           />
         </div>
 
-        <div
-          class="relative flex justify-between pb-4 items-end gap-8 border-b-[#CED4DA80] border-b"
-        >
-          <div>
+        <div class="relative flex items-end justify-between gap-8">
+          <div class="w-full">
             <p class="pb-1">Email</p>
-            <p>{{ userStore.getUserData.email }}</p>
+            <div
+              class="flex p-2 border-[#CED4DA80] md:bg-white md:rounded-md justify-between md:border md: border-b w-full"
+            >
+              <p class="md:text-[#212529]">
+                {{ userStore.getUserData.email }}
+              </p>
+              <p
+                v-if="!userStore.getUserData.googleId"
+                @click="toggleChangingEmail"
+                class="cursor-pointer md:absolute md:-right-16"
+              >
+                Edit
+              </p>
+            </div>
           </div>
-          <p
-            v-if="!userStore.getUserData.googleId"
-            @click="toggleChangingEmail"
-            class="cursor-pointer md:absolute md:-right-16"
-          >
-            Edit
-          </p>
         </div>
 
         <div v-if="changingEmail" class="flex items-end gap-8">
@@ -152,16 +160,18 @@ const backend_API_URL = import.meta.env.VITE_VUE_APP_API_URL
           />
         </div>
 
-        <div
-          class="relative flex justify-between pb-4 items-end gap-8 border-b-[#CED4DA80] border-b"
-        >
-          <div>
+        <div class="relative flex items-end justify-between gap-8">
+          <div class="w-full">
             <p class="pb-1">Password</p>
-            <p type="password">************</p>
+            <div
+              class="flex p-2 border-[#CED4DA80] md:bg-white md:rounded-md justify-between md:border md: border-b w-full"
+            >
+              <p type="password">************</p>
+              <p @click="toggleChangingPassword" class="cursor-pointer md:absolute md:-right-16">
+                Edit
+              </p>
+            </div>
           </div>
-          <p @click="toggleChangingPassword" class="cursor-pointer md:absolute md:-right-16">
-            Edit
-          </p>
         </div>
 
         <div v-if="changingPassword" class="flex flex-col gap-2">
@@ -208,7 +218,7 @@ const backend_API_URL = import.meta.env.VITE_VUE_APP_API_URL
         <div @click="closeAllInputs" class="flex items-center justify-center cursor-pointer mr-7">
           Cancel
         </div>
-        <PrimaryButton class="w-[8rem]"
+        <PrimaryButton class="w-[7rem]"
           ><button type="submit" form="password-form">Save changes</button></PrimaryButton
         >
       </div>
