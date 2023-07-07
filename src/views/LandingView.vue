@@ -11,9 +11,9 @@ import UnauthorizedLayout from '../layouts/UnauthorizedLayout.vue'
     <RouterView class="z-10" />
 
     <main
-      class="flex bg-gradient-to-b from-[#11101A] via-[#08080D] to-[#000000] items-center justify-center flex-grow min-h-[710px]"
+      class="flex bg-scroll bg-gradient-to-b from-[#11101A] via-[#08080D] to-[#000000] items-center justify-center flex-grow min-h-[710px]"
     >
-      <div class="text-2xl font-bold md:text-6xl w-72 md:w-[43rem] text-center">
+      <div class="text-2xl fixed font-bold md:text-6xl w-72 md:w-[43rem] text-center">
         {{ $t('texts.find_any_movies') }}
       </div>
     </main>
@@ -23,6 +23,7 @@ import UnauthorizedLayout from '../layouts/UnauthorizedLayout.vue'
       text="“You have to leave somethig 
             behind to go forward”"
       name="Interstellar, 2014"
+      class="bg-fixed"
     />
     <LandingMovie
       :image="ImageTenenbaums"
@@ -30,7 +31,13 @@ import UnauthorizedLayout from '../layouts/UnauthorizedLayout.vue'
             to be secretly in love with earch other
             and leave it that"
       name="The Royal Tenenbaums, 2001"
+      class="bg-fixed"
     />
-    <LandingMovie :image="ImageLotr" text="You shall not pass" name="The Lord of the rings, 2001" />
+    <LandingMovie
+      :image="ImageLotr"
+      text="You shall not pass"
+      name="The Lord of the rings, 2001"
+      class="bg-fixed"
+    />
   </UnauthorizedLayout>
 </template>
