@@ -9,7 +9,11 @@ import PrimaryButton from '@/components/Buttons/PrimaryButton.vue'
 
 <template>
   <UnauthorizedLayout class="relative flex flex-col h-full bg-gradient-to-b">
-    <RouterView class="z-10" />
+    <RouterView v-slot="{ Component }" class="z-10">
+      <Transition>
+        <Component :is="Component" />
+      </Transition>
+    </RouterView>
 
     <main
       class="flex bg-scroll bg-gradient-to-b from-[#11101A] via-[#08080D] to-[#000000] items-center justify-center flex-grow min-h-[710px]"
@@ -48,3 +52,16 @@ import PrimaryButton from '@/components/Buttons/PrimaryButton.vue'
     <footer class="py-[15px] pl-[4%] text-xs">© 2022 movie quotes. All rights reserved.</footer>
   </UnauthorizedLayout>
 </template>
+
+<style scoped>
+.v-enter-active,
+.v-leave-active {
+  transition: all 0.5s ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
+  transform: translateY(-100%);
+}
+</style>
