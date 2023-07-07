@@ -18,7 +18,7 @@ const interfaceStore = useInterfaceStore()
   <div
     class="absolute md:w-[51%] md:right-[64px] rounded-xl flex flex-col w-full py-6 bg-black h-fit top-full px-11"
   >
-    <IconPolygon class="absolute right-[30px] md:right-[240px] -top-4" />
+    <IconPolygon class="absolute right-[30px] md:right-[265px] -top-4" />
     <div class="flex items-center justify-between mb-6">
       <h2 class="text-xl font-medium">Notifications</h2>
       <p class="underline">Mark all as read</p>

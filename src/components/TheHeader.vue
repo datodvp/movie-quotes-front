@@ -70,7 +70,7 @@ const backend_API_URL = import.meta.env.VITE_VUE_APP_API_URL
           class="cursor-pointer md:hidden"
         />
         <h1 :class="authStore.getIsAuthenticated && 'hidden md:block'">MOVIE QUOTES</h1>
-        <div class="relative flex items-center gap-5">
+        <div class="relative flex items-center gap-8">
           <IconSearch v-if="authStore.getIsAuthenticated" class="cursor-pointer md:hidden" />
           <IconNotification
             @click="interfateStore.toggleShowNotifications"
