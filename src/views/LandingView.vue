@@ -10,7 +10,7 @@ import PrimaryButton from '@/components/Buttons/PrimaryButton.vue'
 <template>
   <UnauthorizedLayout class="relative flex flex-col h-full bg-gradient-to-b">
     <RouterView v-slot="{ Component }" class="z-10">
-      <Transition>
+      <Transition mode="out-in">
         <Component :is="Component" />
       </Transition>
     </RouterView>
@@ -56,12 +56,12 @@ import PrimaryButton from '@/components/Buttons/PrimaryButton.vue'
 <style scoped>
 .v-enter-active,
 .v-leave-active {
-  transition: all 0.5s ease;
+  transition: all 0.3s ease;
 }
 
 .v-enter-from,
 .v-leave-to {
   opacity: 0;
-  transform: translateY(-100%);
+  scale: 1.1;
 }
 </style>
