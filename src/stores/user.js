@@ -7,7 +7,8 @@ export const useUserStore = defineStore('user', () => {
     username: '',
     email: '',
     avatarUrl: '',
-    image: ''
+    image: '',
+    notifications: []
   })
 
   const getUserData = computed(() => userData)

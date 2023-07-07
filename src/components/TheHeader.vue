@@ -2,17 +2,22 @@
 import PrimaryButton from '@/components/Buttons/PrimaryButton.vue'
 import IconArrow from '@/components/icons/IconArrow.vue'
 import { useAuthStore } from '@/stores/auth'
+import { useUserStore } from '@/stores/user'
 import SecondaryButton from '@/components/Buttons/SecondaryButton.vue'
 import IconNotification from '@/components/icons/IconNotification.vue'
 import IconBurger from '@/components/icons/IconBurger.vue'
 import IconSearch from '@/components/icons/IconSearch.vue'
+
 import { useAuthService } from '@/services/useAuthService'
 import { useInterfaceStore } from '@/stores/interface'
+
 import { useRouter } from 'vue-router'
 import { computed, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
+import TheNotifications from '@/components/TheNotifications.vue'
 
 const authStore = useAuthStore()
+const userStore = useUserStore()
 const interfateStore = useInterfaceStore()
 const authService = useAuthService()
 const router = useRouter()
@@ -45,10 +50,15 @@ const setLocale = (locale) => {
 const toggleLanguage = () => {
   isLanguageOpen.value = !isLanguageOpen.value
 }
+
+const backend_API_URL = import.meta.env.VITE_VUE_APP_API_URL
 </script>
 
 <template>
-  <header class="sticky top-0 z-10">
+  <header class="sticky top-0 z-20">
+    <Transition>
+      <TheNotifications v-if="interfateStore.getShowNotifications" :userStore="userStore" />
+    </Transition>
     <div
       class="w-full max-w-[1920px] px-9 py-6 md:px-16"
       :class="authStore.getIsAuthenticated && 'bg-[#222030]'"
@@ -62,7 +72,11 @@ const toggleLanguage = () => {
         <h1 :class="authStore.getIsAuthenticated && 'hidden md:block'">MOVIE QUOTES</h1>
         <div class="relative flex items-center gap-5">
           <IconSearch v-if="authStore.getIsAuthenticated" class="cursor-pointer md:hidden" />
-          <IconNotification v-if="authStore.getIsAuthenticated" class="cursor-pointer" />
+          <IconNotification
+            @click="interfateStore.toggleShowNotifications"
+            v-if="authStore.getIsAuthenticated"
+            class="cursor-pointer"
+          />
           <div
             tabindex="0"
             @click="toggleLanguage"
@@ -97,7 +111,7 @@ const toggleLanguage = () => {
               </RouterLink>
             </SecondaryButton>
           </div>
-          <div v-else class="flex-row-reverse hidden gap-2 md:flex md:gap-4 md:flex-row">
+          <div v-else class="flex-row-reverse hidden w-[130px] gap-2 md:flex md:gap-4 md:flex-row">
             <SecondaryButton @click="logout">
               <a>{{ $t('header.log_out') }}</a>
             </SecondaryButton>
@@ -107,3 +121,15 @@ const toggleLanguage = () => {
     </div>
   </header>
 </template>
+
+<style scoped>
+.v-enter-active,
+.v-leave-active {
+  transition: all 0.3s ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
+}
+</style>

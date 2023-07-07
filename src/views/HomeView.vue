@@ -15,6 +15,7 @@ onMounted(async () => {
   userStore.setUserData('email', userData.email)
   userStore.setUserData('googleId', userData.google_id)
   userStore.setUserData('image', userData.image)
+  userStore.setUserData('notifications', userData.notifications)
 })
 </script>
 

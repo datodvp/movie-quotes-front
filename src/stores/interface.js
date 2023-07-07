@@ -10,6 +10,7 @@ export const useInterfaceStore = defineStore('interface', () => {
 
   const locale = ref(localeLocalStorage)
   const showNavigation = ref(false)
+  const showNotifications = ref(false)
 
   // Set the locale on component mount
   onMounted(() => {
@@ -29,10 +30,17 @@ export const useInterfaceStore = defineStore('interface', () => {
     showNavigation.value = !showNavigation.value
   }
 
+  const getShowNotifications = computed(() => showNotifications.value)
+  const toggleShowNotifications = () => {
+    showNotifications.value = !showNotifications.value
+  }
+
   return {
     getLocale,
     setLocale,
     getShowNavigation,
-    toggleShowNavigation
+    toggleShowNavigation,
+    getShowNotifications,
+    toggleShowNotifications
   }
 })
