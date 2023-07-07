@@ -20,20 +20,19 @@ console.log(props.image)
 <template>
   <div class="z-10 h-screen" :style="`background-image:url('${image}')`">
     <div class="relative">
-      <!-- <img :src="image" alt="movie" class="object-cover w-screen h-screen" /> -->
       <div class="absolute top-[400px] left-[15%] flex">
         <div
           class="relative"
           v-motion
           :initial="{
-            x: 500,
+            x: -500,
             opacity: 0
           }"
           :visible="{
             x: 0,
             opacity: 1,
             transition: {
-              duration: 1500
+              duration: 1000
             }
           }"
         >
