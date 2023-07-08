@@ -43,7 +43,6 @@ const chosenMovie = ref('')
 
 const setChosenMovie = (newMovie) => {
   chosenMovie.value = newMovie
-  console.log(newMovie)
 }
 
 onMounted(async () => {
