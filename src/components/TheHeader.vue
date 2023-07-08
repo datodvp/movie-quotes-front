@@ -12,7 +12,7 @@ import { useAuthService } from '@/services/useAuthService'
 import { useInterfaceStore } from '@/stores/interface'
 
 import { useRouter } from 'vue-router'
-import { computed, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import TheNotifications from '@/components/TheNotifications.vue'
 import { useNotificationsStore } from '../stores/notifications'
@@ -33,6 +33,12 @@ const currentLanguageLabel = computed(() => {
   } else {
     return t('header.geo')
   }
+})
+
+onMounted(() => {
+  window.Echo.private('notifications.1').listen('NotificationAdded', (data) => {
+    console.log(data)
+  })
 })
 
 const logout = async () => {

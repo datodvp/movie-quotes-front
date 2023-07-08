@@ -3,6 +3,8 @@ import { useAuthStore } from '@/stores/auth'
 import { useInterfaceStore } from '@/stores/interface'
 
 export const useAuthService = () => {
+  axios.defaults.withCredentials = true
+
   const interfaceStore = useInterfaceStore()
 
   const authClient = axios.create({
