@@ -96,7 +96,7 @@ const backend_API_URL = import.meta.env.VITE_VUE_APP_API_URL
             : DefaultAvatar
         "
         alt="image"
-        class="w-[11.5rem] h-[11.5rem] rounded-full md:-mt-20 mt-6"
+        class="w-[11.5rem] h-[11.5rem] object-cover rounded-full md:-mt-20 mt-6"
       />
       <label class="cursor-pointer">
         <Field type="file" name="image" @change="openChangingImage" class="hidden" />

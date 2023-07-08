@@ -45,7 +45,7 @@ const backend_API_URL = import.meta.env.VITE_VUE_APP_API_URL
             : DefaultAvatar
         "
         alt="avatar"
-        class="w-[52px] h-[52px] rounded-full"
+        class="w-[52px] h-[52px] rounded-full object-cover"
       />
       <Form @submit="onSubmit" class="flex w-full">
         <Field

@@ -52,7 +52,7 @@ const likePost = (quoteId) => {
       <img
         :src="quote.user.image ? `${backend_API_URL}/${quote.user.image}` : DefaultAvatar"
         alt="avatar"
-        class="w-[52px] h-[52px] rounded-full"
+        class="w-[52px] h-[52px] object-cover rounded-full"
       />
       <p class="text-xl">{{ quote.user.username }}</p>
     </div>

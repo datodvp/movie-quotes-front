@@ -51,20 +51,15 @@ onUnmounted(() => {
         >
           <IconWriteQuote /> Write new quote
         </button>
-        <div
-          @focusin="openSearch"
-          tabindex="0"
-          :class="showSearch ? 'w-[70%]' : 'w-32'"
-          class="flex items-center gap-4 overflow-hidden transition-all duration-500 ease-in-out cursor-pointer whitespace-nowrap"
-        >
-          <IconSearch class="w-[20px] h-[20px]" />
-          <p v-if="!showSearch">Search by</p>
-          <input
-            v-if="showSearch"
-            placeholder="Enter @ to search movies, Enter # to search quotes"
-            class="w-full bg-transparent outline-none"
-          />
-        </div>
+
+        <IconSearch class="w-[20px] h-[20px]" />
+        <input
+          @click="openSearch"
+          :placeholder="
+            showSearch ? 'Enter @ to search movies, Enter # to search quotes' : 'Search by'
+          "
+          class="bg-transparent outline-none transition-all w-[15%] focus:w-[55%] transform duration-500"
+        />
       </div>
       <div v-for="quote in quotesStore.getQuotes" :key="quote.id">
         <QuoteCard :quote="quote" />

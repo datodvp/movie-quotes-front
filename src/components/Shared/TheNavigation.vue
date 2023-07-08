@@ -27,7 +27,7 @@ const backend_API_URL = import.meta.env.VITE_VUE_APP_API_URL
           :src="userData.image ? `${backend_API_URL}/${userData.image}` : DefaultAvatar"
           alt="avatar"
           :class="route.name === 'profile' && 'border-red-700 border-2'"
-          class="w-[60px] h-[60px] rounded-full"
+          class="w-[60px] h-[60px] object-cover rounded-full"
         />
         <div>
           <p class="text-xl md:text-2xl">{{ userData.username }}</p>

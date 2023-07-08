@@ -55,7 +55,7 @@ const avatarLink = (notification) => {
               <img
                 :src="avatarLink(notification)"
                 alt="avatar"
-                class="w-[60px] h-[60px] rounded-full"
+                class="w-[60px] h-[60px] rounded-full object-cover"
                 :class="notification.is_active && 'border-[#198754] border-[3px] rounded-full'"
               />
             </div>

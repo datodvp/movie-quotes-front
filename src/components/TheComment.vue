@@ -17,7 +17,7 @@ const backend_API_URL = import.meta.env.VITE_VUE_APP_API_URL
       <img
         :src="comment.user.image ? `${backend_API_URL}/${comment.user.image}` : DefaultAvatar"
         alt="avatar"
-        class="w-[52px] h-[52px] rounded-full"
+        class="w-[52px] h-[52px] object-cover rounded-full"
       />
       <p class="text-xl font-medium">{{ comment.user.username }}</p>
     </div>
