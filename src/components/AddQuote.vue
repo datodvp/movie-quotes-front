@@ -11,6 +11,7 @@ import PrimaryButton from './Buttons/PrimaryButton.vue'
 import { useInterfaceStore } from '@/stores/interface'
 import { useQuotesStore } from '@/stores/quotes'
 import IconPhoto from '@/components/icons/IconPhoto.vue'
+import CustomDropdown from '@/components/Form/CustomDropdown.vue'
 
 defineProps({
   showModal: {
@@ -25,7 +26,6 @@ defineProps({
 
 const userStore = useUserStore().getUserData
 const authService = useAuthService()
-const interfaceStore = useInterfaceStore()
 const quotesStore = useQuotesStore()
 
 const form = ref(null)
@@ -40,6 +40,11 @@ const errorMessage = ref('')
 
 const moviesList = ref([])
 const chosenMovie = ref('')
+
+const setChosenMovie = (newMovie) => {
+  chosenMovie.value = newMovie
+  console.log(newMovie)
+}
 
 onMounted(async () => {
   const response = await authService.getAllMovies()
@@ -58,7 +63,7 @@ const addQuote = async () => {
   const formElement = document.querySelector('#add-quote-form')
 
   const formData = new FormData(formElement)
-  formData.append('movie_id', chosenMovie.value)
+  formData.append('movie_id', chosenMovie.value.id)
 
   try {
     const response = await authService.postQuote(formData)
@@ -134,14 +139,12 @@ const backend_API_URL = import.meta.env.VITE_VUE_APP_API_URL
             />
           </div>
         </label>
-        <select v-model="chosenMovie" class="h-[86px] px-6 bg-black outline-none">
-          <option value="" disabled>Choose a movie</option>
-          <template v-for="movie in moviesList" :key="movie.id">
-            <option :value="movie.id">
-              {{ movie.name[interfaceStore.getLocale] }}
-            </option>
-          </template>
-        </select>
+        <CustomDropdown
+          :items="moviesList"
+          :chosenItem="chosenMovie"
+          :setChosenItem="setChosenMovie"
+        />
+
         <div class="flex justify-center">
           <ServerErrorMessage :errorMessage="errorMessage" />
           <p class="text-green-700 text-center max-w-[384px]">{{ successMessage }}</p>
