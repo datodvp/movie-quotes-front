@@ -15,12 +15,14 @@ import { useRouter } from 'vue-router'
 import { computed, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import TheNotifications from '@/components/TheNotifications.vue'
+import { useNotificationsStore } from '../stores/notifications'
 
 const authStore = useAuthStore()
 const userStore = useUserStore()
 const interfateStore = useInterfaceStore()
 const authService = useAuthService()
 const router = useRouter()
+const notificationsStore = useNotificationsStore()
 
 const { t } = useI18n()
 
@@ -51,13 +53,18 @@ const toggleLanguage = () => {
   isLanguageOpen.value = !isLanguageOpen.value
 }
 
-const backend_API_URL = import.meta.env.VITE_VUE_APP_API_URL
+const activeNotificationsNumber = computed(() => {
+  return notificationsStore.getNotifications.filter((notification) => notification.is_active).length
+})
 </script>
 
 <template>
   <header class="sticky top-0 z-20">
     <Transition>
-      <TheNotifications v-if="interfateStore.getShowNotifications" :userStore="userStore" />
+      <TheNotifications
+        v-if="interfateStore.getShowNotifications && authStore.getIsAuthenticated"
+        :userStore="userStore"
+      />
     </Transition>
     <div
       class="w-full max-w-[1920px] px-9 py-6 md:px-16"
@@ -72,11 +79,19 @@ const backend_API_URL = import.meta.env.VITE_VUE_APP_API_URL
         <h1 :class="authStore.getIsAuthenticated && 'hidden md:block'">MOVIE QUOTES</h1>
         <div class="relative flex items-center gap-8">
           <IconSearch v-if="authStore.getIsAuthenticated" class="cursor-pointer md:hidden" />
-          <IconNotification
+          <div
             @click="interfateStore.toggleShowNotifications"
             v-if="authStore.getIsAuthenticated"
-            class="cursor-pointer"
-          />
+            class="relative"
+          >
+            <span
+              class="absolute cursor-pointer left-[14px] top-[-6px] bg-[#E33812] w-[25px] h-[25px] text-center rounded-full"
+            >
+              {{ activeNotificationsNumber }}
+            </span>
+            <IconNotification class="cursor-pointer" />
+          </div>
+
           <div
             tabindex="0"
             @click="toggleLanguage"

@@ -75,6 +75,7 @@ const clearInputs = () => {
   quoteEn.value = ''
   quoteKa.value = ''
   imageInputElement.value.value = null
+  imagePreview.value = null
 }
 
 const backend_API_URL = import.meta.env.VITE_VUE_APP_API_URL

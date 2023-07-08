@@ -15,6 +15,5 @@ export default function instantiatePusher() {
     //   }
     // }
   })
-  console.log('Pusher installed')
   return true
 }

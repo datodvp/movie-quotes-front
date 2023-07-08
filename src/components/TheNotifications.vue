@@ -1,8 +1,10 @@
 <script setup>
 import IconQuote from '@/components/icons/IconQuote.vue'
+import IconHeart from '@/components/icons/IconHeart.vue'
 import DefaultAvatar from '@/assets/images/defaultAvatar.png'
 import IconPolygon from '@/components/icons/IconPolygon.vue'
-import { useInterfaceStore } from '@/stores/interface'
+import { useNotificationsStore } from '@/stores/notifications'
+import { useAuthService } from '@/services/useAuthService'
 
 defineProps({
   userStore: {
@@ -11,7 +13,27 @@ defineProps({
   }
 })
 
-const interfaceStore = useInterfaceStore()
+const notificationsStore = useNotificationsStore()
+
+const authService = useAuthService()
+
+const markAllNotificationsRead = () => {
+  authService.markAllNotificationsRead().then((response) => {
+    const notifications = response.data.data.notifications
+    notificationsStore.setNotifications(notifications.reverse())
+  })
+}
+
+const backend_API_URL = import.meta.env.VITE_VUE_APP_API_URL
+
+const avatarLink = (notification) => {
+  if (notification.notifiable.user && notification.notifiable.user.image) {
+    return `${backend_API_URL}/${notification.notifiable.user.image}`
+  } else if (notification.notifiable.image) {
+    return `${backend_API_URL}/${notification.notifiable.image}`
+  }
+  return DefaultAvatar
+}
 </script>
 
 <template>
@@ -21,27 +43,40 @@ const interfaceStore = useInterfaceStore()
     <IconPolygon class="absolute right-[30px] md:right-[265px] -top-4" />
     <div class="flex items-center justify-between mb-6">
       <h2 class="text-xl font-medium">Notifications</h2>
-      <p class="underline">Mark all as read</p>
+      <p @click="markAllNotificationsRead" class="underline cursor-pointer">Mark all as read</p>
     </div>
-    <div class="flex flex-col w-full h-fit gap-y-2">
-      <div
-        v-for="notification in userStore.getUserData.notifications"
-        :key="notification.id"
-        @click="interfaceStore.toggleShowNotifications"
-        class="p-4 border cursor-pointer border-[#6C757D80] gap-x-3 flex rounded-[4px]"
-      >
-        <div class="flex flex-col items-center gap-y-[5px]">
-          <img :src="DefaultAvatar" alt="avatar" class="w-[60px] h-[60px]" />
-          <p class="text-[#198754]">New</p>
+    <div class="flex flex-col gap-4 md:h-[500px] h-[700px] overflow-y-auto pr-3">
+      <template v-for="notification in notificationsStore.getNotifications" :key="notification.id">
+        <div
+          class="flex md:flex-row md:justify-between cursor-pointer flex-col py-[18px] px-[25px] border-[#6C757D80] border rounded-[4px]"
+        >
+          <div class="flex">
+            <div class="min-w-[60px] mix-h-[60px] mr-4">
+              <img
+                :src="avatarLink(notification)"
+                alt="avatar"
+                class="w-[60px] h-[60px] rounded-full"
+                :class="notification.is_active && 'border-[#198754] border-[3px] rounded-full'"
+              />
+            </div>
+            <div class="flex flex-col gap-1 justify-center">
+              <p>{{ notification.username }}</p>
+              <p class="flex gap-3">
+                <IconQuote
+                  v-if="notification.text === 'Commented to your movie quote'"
+                  class="h-6 w-6"
+                />
+                <IconHeart v-else class="h-6 w-6" />{{ notification.text }}
+              </p>
+            </div>
+          </div>
+
+          <div class="flex md:flex-col-reverse md:justify-end whitespace-nowrap">
+            <p v-show="notification.is_active" class="md:ml-0 ml-3 mr-7 text-[#198754]">New</p>
+            <p :class="!notification.is_active && 'ml-[4.7rem]'">{{ notification.created_ago }}</p>
+          </div>
         </div>
-        <div>
-          <p class="text-xl">
-            {{ notification.username }}
-          </p>
-          <p class="text-[#CED4DA]">{{ notification.text }}</p>
-          <p class="flex gap-3 mt-2"><IconQuote class="w-6 h-6" />{{ notification.created_ago }}</p>
-        </div>
-      </div>
+      </template>
     </div>
   </div>
 </template>

@@ -166,7 +166,7 @@ const backend_API_URL = import.meta.env.VITE_VUE_APP_API_URL
             <div
               class="flex p-2 border-[#CED4DA80] md:bg-white md:rounded-md justify-between md:border md: border-b w-full"
             >
-              <p type="password">************</p>
+              <p type="password" class="text-[#212529]">************</p>
               <p @click="toggleChangingPassword" class="cursor-pointer md:absolute md:-right-16">
                 Edit
               </p>

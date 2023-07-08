@@ -80,6 +80,12 @@ export const useAuthService = () => {
     },
     async removeLike(payload) {
       return authClient.post('/api/quote-destroy-like', payload)
+    },
+    async getNotifications() {
+      return authClient.get('/api/notifications')
+    },
+    async markAllNotificationsRead() {
+      return authClient.get('/api/notifications/mark-all-read')
     }
   }
 }

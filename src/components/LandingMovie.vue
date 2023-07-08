@@ -15,7 +15,6 @@ const props = defineProps({
     required: true
   }
 })
-console.log(props.image)
 </script>
 <template>
   <div class="z-10 h-screen" :style="`background-image:url('${image}')`">

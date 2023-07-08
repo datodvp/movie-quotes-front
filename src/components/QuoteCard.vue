@@ -54,10 +54,10 @@ const likePost = (quoteId) => {
         alt="avatar"
         class="w-[52px] h-[52px] rounded-full"
       />
-      <p>{{ quote.user.username }}</p>
+      <p class="text-xl">{{ quote.user.username }}</p>
     </div>
     <p class="mb-7">
-      {{ quote.text[interfaceStore.getLocale] }} -
+      "{{ quote.text[interfaceStore.getLocale] }}" -
       {{ quote.movie.name[interfaceStore.getLocale] }} ({{ quote.movie.year }})
     </p>
     <img

@@ -107,6 +107,7 @@ const clearInputs = () => {
   descriptionEn.value = ''
   descriptionKa.value = ''
   imageInputElement.value.value = null
+  imagePreview.value = null
 }
 
 const backend_API_URL = import.meta.env.VITE_VUE_APP_API_URL
@@ -159,7 +160,7 @@ const backend_API_URL = import.meta.env.VITE_VUE_APP_API_URL
             @click="removeChosenGenre(genre.id)"
             class="text-sm bg-[#6C757D] mr-1 py-[5px] px-[6px]"
           >
-            {{ genre.name }} x
+            {{ genre.name[interfaceStore.getLocale] }} x
           </p>
         </div>
         <CustomInput
