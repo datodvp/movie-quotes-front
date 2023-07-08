@@ -33,7 +33,11 @@ defineProps({
 
       <IconArrow />
     </div>
-    <div v-show="show" @click="show = !show" class="absolute w-[90%] border">
+    <div
+      v-show="show"
+      @click="show = !show"
+      class="absolute w-[90%] max-h-[150px] overflow-y-auto border"
+    >
       <div v-for="item in items" :key="item.id">
         <div @click="setChosenItem(item)" class="bg-black w-full px-5 py-2 hover:bg-gray-600">
           {{ item.name[interfaceStore.getLocale] }}
