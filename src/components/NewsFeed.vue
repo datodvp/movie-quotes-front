@@ -28,8 +28,12 @@ onMounted(async () => {
 
 onMounted(() => {
   window.Echo.channel('quote-like-action').listen('QuoteLikeAction', (data) => {
-    const { updatedQuote } = data
-    quotesStore.updateQuote(updatedQuote)
+    const { like } = data
+    if (userStore.getUserData.id !== like[0].pivot.user_id) quotesStore.addLike(like[0])
+  })
+  window.Echo.channel('quote-unlike-action').listen('QuoteUnlikeAction', (data) => {
+    const { like } = data
+    if (userStore.getUserData.id !== like[0].pivot.user_id) quotesStore.removeLike(like[0])
   })
   window.Echo.channel('comment-quote').listen('QuoteCommented', (data) => {
     const { comment } = data

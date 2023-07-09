@@ -32,11 +32,36 @@ export const useQuotesStore = defineStore('quotes', () => {
     })
   }
 
+  const addLike = (like) => {
+    quotes.value.map((quote) => {
+      if (like.pivot.quote_id === quote.id) {
+        return quote.likes.push(like)
+      }
+      return quote
+    })
+  }
+
+  const removeLike = (removedlike) => {
+    quotes.value.map((quote) => {
+      if (removedlike.pivot.quote_id === quote.id) {
+        quote.likes = quote.likes.filter((like) => {
+          if (like.pivot.user_id === removedlike.pivot.user_id) {
+            return false
+          }
+          return true
+        })
+      }
+      return quote
+    })
+  }
+
   return {
     getQuotes,
     addQuote,
     setQuotes,
     updateQuote,
-    addComment
+    addComment,
+    addLike,
+    removeLike
   }
 })

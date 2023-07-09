@@ -25,7 +25,7 @@ const authService = useAuthService()
 const quotesStore = useQuotesStore()
 
 const hasLikedQuote = computed(() =>
-  props.quote.likes.some((like) => like.id === userStore.getUserData.id)
+  props.quote.likes.some((like) => like.pivot.user_id === userStore.getUserData.id)
 )
 
 const likePost = (quoteId) => {
@@ -35,13 +35,13 @@ const likePost = (quoteId) => {
   if (!hasLikedQuote.value) {
     authService
       .postLike(data)
-      .then((response) => response.data.data.updatedQuote)
-      .then((updatedQuote) => quotesStore.updateQuote(updatedQuote))
+      .then((response) => response.data.data.like)
+      .then((like) => quotesStore.addLike(like))
   } else {
     authService
       .removeLike(data)
-      .then((response) => response.data.data.updatedQuote)
-      .then((updatedQuote) => quotesStore.updateQuote(updatedQuote))
+      .then((response) => response.data.data.like)
+      .then((like) => quotesStore.removeLike(like))
   }
 }
 </script>
