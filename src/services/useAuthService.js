@@ -90,7 +90,10 @@ export const useAuthService = () => {
       return authClient.get('/api/notifications/mark-all-read')
     },
     async searchQuotes(payload) {
-      return authClient.post('/api/quotes/search', payload)
+      return authClient.post('/api/quotes-search', payload)
+    },
+    async searchMovies(payload) {
+      return authClient.post('/api/movies-search', payload)
     }
   }
 }

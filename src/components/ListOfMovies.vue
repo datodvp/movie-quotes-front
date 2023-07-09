@@ -5,7 +5,9 @@ import { useMoviesStore } from '@/stores/movies'
 import PrimaryButton from '@/components/Buttons/PrimaryButton.vue'
 import MovieCard from './MovieCard.vue'
 import IconSearch from '@/components/icons/IconSearch.vue'
+import IconPlus from '@/components/icons/IconPlus.vue'
 import AddMovie from './AddMovie.vue'
+import { Field, Form } from 'vee-validate'
 
 const authService = useAuthService()
 const moviesStore = useMoviesStore()
@@ -13,6 +15,21 @@ const moviesStore = useMoviesStore()
 const showModal = ref(false)
 const closeModal = () => (showModal.value = false)
 const openModal = () => (showModal.value = true)
+const showSearch = ref(false)
+
+const openSearch = () => {
+  showSearch.value = true
+}
+
+const closeSearch = () => {
+  showSearch.value = false
+}
+
+const search = (values) => {
+  authService.searchMovies(values).then((response) => {
+    moviesStore.setMovies(response.data.data.movies)
+  })
+}
 
 onMounted(async () => {
   const response = await authService.getMovies()
@@ -25,17 +42,29 @@ onMounted(async () => {
   <AddMovie :showModal="showModal" :closeModal="closeModal" />
 
   <div class="w-[102%] pr-16">
-    <div class="flex items-center justify-between">
-      <h2 class="mt-8 text-2xl font-medium">
+    <div class="flex items-center justify-between mt-8">
+      <h2 class="text-2xl font-medium">
         My list of movies (Total {{ moviesStore.getMovies.length }})
       </h2>
-      <div class="flex items-center gap-8 text-xl">
-        <div class="flex items-center gap-4">
+      <div class="flex items-center justify-end gap-4 text-xl">
+        <Form
+          :onSubmit="search"
+          class="flex gap-4 p-3 duration-500 ease-out rounded-md"
+          :class="showSearch ? 'w-[100%] border border-[#6C757D]' : 'w-[30%]'"
+        >
           <IconSearch />
-          <p>Search</p>
-        </div>
+          <Field
+            @focusin="openSearch"
+            @focusout="closeSearch"
+            name="search"
+            placeholder="Search"
+            class="w-full transition-all duration-500 transform bg-transparent outline-none"
+          />
+        </Form>
 
-        <PrimaryButton class="px-4" @click="openModal"><button>Add movie</button></PrimaryButton>
+        <PrimaryButton class="px-4 py-6" @click="openModal"
+          ><button class="flex gap-2"><IconPlus /> Add movie</button></PrimaryButton
+        >
       </div>
     </div>
 

@@ -27,7 +27,6 @@ const closeSearch = () => {
 }
 
 const search = (values) => {
-  console.log(values)
   authService.searchQuotes(values).then((response) => {
     quotesStore.setQuotes(response.data.data.quotes)
   })

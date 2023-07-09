@@ -50,7 +50,6 @@ onMounted(async () => {
   window.Echo.private(`notifications.${userStore.getUserData.id}`).listen(
     'NotificationAdded',
     (data) => {
-      console.log(data)
       const { notification } = data
       notificationsStore.addNotification(notification)
     }
