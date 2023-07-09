@@ -91,7 +91,7 @@ onUnmounted(() => {
         <QuoteCard :quote="quote" />
       </div>
       <div v-if="!quotesStore.getQuotes.length" class="mt-24 text-3xl text-center text-red-500">
-        We could not find any movies!
+        We could not find any quotes!
         <p>^^ :P</p>
       </div>
     </div>
