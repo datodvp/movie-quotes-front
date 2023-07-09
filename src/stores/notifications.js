@@ -6,8 +6,8 @@ export const useNotificationsStore = defineStore('notifications', () => {
 
   const getNotifications = computed(() => notifications.value)
 
-  const addNotification = (notification) => {
-    notifications.value.unshift(notification)
+  const addNotification = (newNotification) => {
+    notifications.value.unshift(newNotification[0])
   }
 
   const setNotifications = (notificationsList) => {

@@ -46,11 +46,13 @@ onMounted(async () => {
 
   const notificationsResponse = await authService.getNotifications()
   notificationsStore.setNotifications(notificationsResponse.data.data.notifications.reverse())
-  console.log(userStore.getUserData.id)
+
   window.Echo.private(`notifications.${userStore.getUserData.id}`).listen(
     'NotificationAdded',
     (data) => {
       console.log(data)
+      const { notification } = data
+      notificationsStore.addNotification(notification)
     }
   )
 })
