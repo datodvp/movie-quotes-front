@@ -26,8 +26,8 @@ const onSubmit = () => {
 
   authService
     .postComment(data)
-    .then((response) => response.data.data.updatedQuote)
-    .then((updatedQuote) => quotesStore.updateQuote(updatedQuote))
+    .then((response) => response.data.data.comment)
+    .then((comment) => quotesStore.addComment(comment))
 
   newComment.value = ''
 }

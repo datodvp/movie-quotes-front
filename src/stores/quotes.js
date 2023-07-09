@@ -23,10 +23,20 @@ export const useQuotesStore = defineStore('quotes', () => {
     })
   }
 
+  const addComment = (comment) => {
+    quotes.value.map((quote) => {
+      if (comment.quote_id === quote.id) {
+        return quote.comments.push(comment)
+      }
+      return quote
+    })
+  }
+
   return {
     getQuotes,
     addQuote,
     setQuotes,
-    updateQuote
+    updateQuote,
+    addComment
   }
 })

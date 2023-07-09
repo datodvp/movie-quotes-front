@@ -6,9 +6,11 @@ import QuoteCard from '@/components/QuoteCard.vue'
 import IconSearch from '@/components/icons/IconSearch.vue'
 import IconWriteQuote from '@/components/icons/IconWriteQuote.vue'
 import AddQuote from '@/components/AddQuote.vue'
+import { useUserStore } from '../stores/user'
 
 const authService = useAuthService()
 const quotesStore = useQuotesStore()
+const userStore = useUserStore()
 const showSearch = ref(false)
 
 const showModal = ref(false)
@@ -30,8 +32,8 @@ onMounted(() => {
     quotesStore.updateQuote(updatedQuote)
   })
   window.Echo.channel('comment-quote').listen('QuoteCommented', (data) => {
-    const { updatedQuote } = data
-    quotesStore.updateQuote(updatedQuote)
+    const { comment } = data
+    if (userStore.getUserData.id !== comment.user_id) quotesStore.addComment(comment)
   })
 })
 
