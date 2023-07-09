@@ -43,6 +43,7 @@ onMounted(() => {
 
 onUnmounted(() => {
   window.Echo.channel('quote-like-action').stopListening('QuoteLikeAction')
+  window.Echo.channel('quote-unlike-action').stopListening('QuoteUnlikeAction')
   window.Echo.channel('comment-quote').stopListening('QuoteCommented')
 })
 </script>

@@ -35,11 +35,27 @@ const currentLanguageLabel = computed(() => {
   }
 })
 
-onMounted(() => {
-  window.Echo.private('notifications.1').listen('NotificationAdded', (data) => {
-    console.log(data)
-  })
+onMounted(async () => {
+  const response = await authService.getUserData()
+  const userData = response.data.data.user
+  userStore.setUserData('id', userData.id)
+  userStore.setUserData('username', userData.username)
+  userStore.setUserData('email', userData.email)
+  userStore.setUserData('googleId', userData.google_id)
+  userStore.setUserData('image', userData.image)
+
+  const notificationsResponse = await authService.getNotifications()
+  notificationsStore.setNotifications(notificationsResponse.data.data.notifications.reverse())
+  console.log(userStore.getUserData.id)
+  window.Echo.private(`notifications.${userStore.getUserData.id}`).listen(
+    'NotificationAdded',
+    (data) => {
+      console.log(data)
+    }
+  )
 })
+
+onMounted(async () => {})
 
 const logout = async () => {
   try {
