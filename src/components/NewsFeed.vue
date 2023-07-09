@@ -7,6 +7,7 @@ import IconSearch from '@/components/icons/IconSearch.vue'
 import IconWriteQuote from '@/components/icons/IconWriteQuote.vue'
 import AddQuote from '@/components/AddQuote.vue'
 import { useUserStore } from '../stores/user'
+import { Field, Form } from 'vee-validate'
 
 const authService = useAuthService()
 const quotesStore = useQuotesStore()
@@ -19,6 +20,17 @@ const openModal = () => (showModal.value = true)
 
 const openSearch = () => {
   showSearch.value = true
+}
+
+const closeSearch = () => {
+  showSearch.value = false
+}
+
+const search = (values) => {
+  console.log(values)
+  authService.searchQuotes(values).then((response) => {
+    quotesStore.setQuotes(response.data.data.quotes)
+  })
 }
 
 onMounted(async () => {
@@ -58,18 +70,29 @@ onUnmounted(() => {
         >
           <IconWriteQuote /> Write new quote
         </button>
-
-        <IconSearch class="w-[20px] h-[20px]" />
-        <input
-          @click="openSearch"
-          :placeholder="
-            showSearch ? 'Enter @ to search movies, Enter # to search quotes' : 'Search by'
-          "
-          class="bg-transparent outline-none transition-all w-[15%] focus:w-[55%] transform duration-500"
-        />
+        <Form
+          :onSubmit="search"
+          class="flex gap-4 duration-500 ease-out"
+          :class="showSearch ? 'w-[100%]' : 'w-[20%]'"
+        >
+          <IconSearch />
+          <Field
+            @focusin="openSearch"
+            @focusout="closeSearch"
+            name="search"
+            :placeholder="
+              showSearch ? 'Enter @ to search movies, Enter # to search quotes' : 'Search by'
+            "
+            class="w-full transition-all duration-500 transform bg-transparent outline-none"
+          />
+        </Form>
       </div>
       <div v-for="quote in quotesStore.getQuotes" :key="quote.id">
         <QuoteCard :quote="quote" />
+      </div>
+      <div v-if="!quotesStore.getQuotes.length" class="mt-24 text-3xl text-center text-red-500">
+        We could not find any movies!
+        <p>^^ :P</p>
       </div>
     </div>
   </div>

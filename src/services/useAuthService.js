@@ -88,6 +88,9 @@ export const useAuthService = () => {
     },
     async markAllNotificationsRead() {
       return authClient.get('/api/notifications/mark-all-read')
+    },
+    async searchQuotes(payload) {
+      return authClient.post('/api/quotes/search', payload)
     }
   }
 }
