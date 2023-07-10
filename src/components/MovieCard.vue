@@ -2,6 +2,7 @@
 import DefaultAvatar from '@/assets/images/defaultAvatar.png'
 import IconQuote from '@/components/icons/IconQuote.vue'
 import { useInterfaceStore } from '@/stores/interface'
+import { RouterLink } from 'vue-router'
 
 defineProps({
   movie: {
@@ -14,7 +15,10 @@ const backend_API_URL = import.meta.env.VITE_VUE_APP_API_URL
 </script>
 
 <template>
-  <div class="w-[26.5rem] min-h-[28.5rem]">
+  <RouterLink
+    :to="{ name: 'moviePage', params: { id: movie.id } }"
+    class="w-[26.5rem] block min-h-[28.5rem] border-transparent border rounded-md p-4 hover:border-gray-500 hover:cursor-pointer hover:text-gray-500"
+  >
     <img
       :src="movie.image ? `${backend_API_URL}/${movie.image}` : DefaultAvatar"
       alt="image"
@@ -25,5 +29,5 @@ const backend_API_URL = import.meta.env.VITE_VUE_APP_API_URL
     </div>
 
     <div class="flex items-center gap-3"><span>10</span> <IconQuote /></div>
-  </div>
+  </RouterLink>
 </template>
