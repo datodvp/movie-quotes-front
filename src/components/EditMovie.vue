@@ -8,11 +8,18 @@ import { useAuthService } from '@/services/useAuthService'
 import { useUserStore } from '@/stores/user.js'
 import { onMounted, ref } from 'vue'
 import PrimaryButton from './Buttons/PrimaryButton.vue'
-import { useMoviesStore } from '../stores/movies'
 import { useInterfaceStore } from '@/stores/interface'
 import IconPhoto from '@/components/icons/IconPhoto.vue'
 
-defineProps({
+const props = defineProps({
+  movie: {
+    type: Object,
+    required: true
+  },
+  changeMovie: {
+    type: Function,
+    requinred: true
+  },
   showModal: {
     type: Boolean,
     required: true
@@ -23,25 +30,25 @@ defineProps({
   }
 })
 
-const moviesStore = useMoviesStore()
+const backend_API_URL = import.meta.env.VITE_VUE_APP_API_URL
 const userStore = useUserStore().getUserData
 const authService = useAuthService()
 const interfaceStore = useInterfaceStore()
 
 const form = ref(null)
 const imageInputElement = ref(null)
-const imagePreview = ref(null)
+const imagePreview = ref(`${backend_API_URL}/${props.movie.image}`)
 
 const showDropdown = ref(false)
 
-const genres = ref([])
-const nameEn = ref('')
-const nameKa = ref('')
-const year = ref('')
-const directorEn = ref('')
-const directorKa = ref('')
-const descriptionEn = ref('')
-const descriptionKa = ref('')
+const nameEn = ref(props.movie.name.en)
+const nameKa = ref(props.movie.name.ka)
+const genres = ref(props.movie.genres)
+const year = ref(props.movie.year.toString())
+const directorEn = ref(props.movie.director.en)
+const directorKa = ref(props.movie.director.ka)
+const descriptionEn = ref(props.movie.description.en)
+const descriptionKa = ref(props.movie.description.ka)
 
 const successMessage = ref('')
 const errorMessage = ref('')
@@ -76,52 +83,36 @@ const removeChosenGenre = (id) => {
   genres.value = genres.value.filter((genre) => genre.id !== id)
 }
 
-const addMovie = async () => {
+const EditMovie = async () => {
   errorMessage.value = ''
   successMessage.value = ''
 
-  const formElement = document.querySelector('#add-movie-form')
+  const formElement = document.querySelector('#edit-movie-form')
 
   const formData = new FormData(formElement)
   // genre is an array and needs to be stringified for formData
   if (genres.value.length) {
     formData.set('genres', JSON.stringify(genres.value))
   }
+
   try {
-    const response = await authService.postMovie(formData)
-    moviesStore.addMovie(response.data.movie)
+    const response = await authService.editMovie(props.movie.id, formData)
+    props.changeMovie(response.data.data.movie)
     successMessage.value = 'Movie added succesfully!'
-    clearInputs()
   } catch (error) {
     errorMessage.value = error.response.data.message
   }
 }
-
-const clearInputs = () => {
-  form.value.resetForm()
-  genres.value = []
-  nameEn.value = ''
-  nameKa.value = ''
-  year.value = ''
-  directorEn.value = ''
-  directorKa.value = ''
-  descriptionEn.value = ''
-  descriptionKa.value = ''
-  imageInputElement.value.value = null
-  imagePreview.value = null
-}
-
-const backend_API_URL = import.meta.env.VITE_VUE_APP_API_URL
 </script>
 
 <template>
   <ModalCard :show="showModal" @close="closeModal">
-    <template #header><h2>Add Movie</h2></template>
+    <template #header><h2>Edit Movie</h2></template>
     <template #body>
       <Form
-        @submit="addMovie"
+        @submit="EditMovie"
         enctype="multipart/form-data"
-        id="add-movie-form"
+        id="edit-movie-form"
         ref="form"
         class="flex flex-col overflow-x-hidden overflow-y-auto gap-7"
       >
@@ -231,7 +222,7 @@ const backend_API_URL = import.meta.env.VITE_VUE_APP_API_URL
           <ServerErrorMessage :errorMessage="errorMessage" />
           <p class="text-green-700 text-center max-w-[384px]">{{ successMessage }}</p>
         </div>
-        <PrimaryButton><button class="p-2">Add movie</button></PrimaryButton>
+        <PrimaryButton><button class="p-2">Edit movie</button></PrimaryButton>
       </Form>
     </template>
   </ModalCard>

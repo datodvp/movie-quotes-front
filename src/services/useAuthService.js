@@ -102,6 +102,9 @@ export const useAuthService = () => {
     },
     async getMovie(movieId) {
       return authClient.get(`/api/movies/${movieId}`)
+    },
+    async editMovie(movieId, payload) {
+      return authClient.post(`/api/movies/${movieId}`, payload)
     }
   }
 }

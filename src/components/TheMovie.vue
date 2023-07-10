@@ -11,6 +11,7 @@ import AddQuoteToMovie from '@/components/AddQuoteToMovie.vue'
 import IconThreeDots from '@/components/icons/IconThreeDots.vue'
 import IconComment from '@/components/icons/IconComment.vue'
 import IconLike from '@/components/icons/IconLike.vue'
+import EditMovie from '@/components/EditMovie.vue'
 
 const route = useRoute()
 const authService = useAuthService()
@@ -20,7 +21,15 @@ const showAddQuoteToMovie = ref(false)
 const openAddQuoteToMovie = () => (showAddQuoteToMovie.value = true)
 const closeAddQuoteToMovie = () => (showAddQuoteToMovie.value = false)
 
+const showEditMovie = ref(false)
+const openEditMovie = () => (showEditMovie.value = true)
+const closeEditMovie = () => (showEditMovie.value = false)
+
 const movie = ref(null)
+
+const changeMovie = (updatedMovie) => {
+  movie.value = updatedMovie
+}
 
 onMounted(() => {
   authService.getMovie(route.params.id).then((response) => (movie.value = response.data.data.movie))
@@ -36,6 +45,12 @@ const backend_API_URL = import.meta.env.VITE_VUE_APP_API_URL
       :showModal="showAddQuoteToMovie"
       :closeModal="closeAddQuoteToMovie"
     />
+    <EditMovie
+      :movie="movie"
+      :changeMovie="changeMovie"
+      :showModal="showEditMovie"
+      :closeModal="closeEditMovie"
+    />
     <h1 class="text-2xl">Movie description</h1>
     <div class="flex flex-col gap-5 mt-8 md:flex-row">
       <div class="min-w-[60%] h-[441px]">
@@ -48,10 +63,10 @@ const backend_API_URL = import.meta.env.VITE_VUE_APP_API_URL
       <div class="w-full">
         <div class="flex justify-between">
           <h2 class="text-2xl whitespace-nowrap text-[#DDCCAA]">
-            {{ movie.name[interfaceStore.getLocale] }}
+            {{ movie.name[interfaceStore.getLocale] }} ({{ movie.year }})
           </h2>
           <div class="flex items-center gap-6 px-5 py-2 bg-[#24222F] rounded-[10px]">
-            <p class="cursor-pointer"><IconPencil /></p>
+            <p @click="openEditMovie" class="cursor-pointer"><IconPencil /></p>
             <p class="text-[#6C757D]">|</p>
             <p class="cursor-pointer"><IconTrash /></p>
           </div>
@@ -91,7 +106,7 @@ const backend_API_URL = import.meta.env.VITE_VUE_APP_API_URL
           <div class="flex items-center gap-[34px] relative">
             <div class="w-[226px] h-[140px]">
               <img
-                :src="`${backend_API_URL}/${movie.image}`"
+                :src="`${backend_API_URL}/${quote.image}`"
                 alt="quote image"
                 class="object-cover w-full h-full rounded-sm"
               />
