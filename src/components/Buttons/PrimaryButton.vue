@@ -1,5 +1,7 @@
 <template>
-  <div class="bg-[#E31221] h-9 rounded hover:bg-[#CC0E10] focus:bg-[#B80D0F] disabled:bg-[#EC4C57]">
+  <div
+    class="bg-[#E31221] duration-100 h-9 rounded hover:bg-[#CC0E10] focus:bg-[#B80D0F] disabled:bg-[#EC4C57]"
+  >
     <slot></slot>
   </div>
 </template>
