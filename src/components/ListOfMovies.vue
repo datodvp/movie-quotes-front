@@ -49,8 +49,8 @@ onMounted(async () => {
       <div class="flex items-center justify-end gap-4 text-xl">
         <Form
           :onSubmit="search"
-          class="flex gap-4 p-3 duration-500 ease-out rounded-md"
-          :class="showSearch ? 'w-[100%] border border-[#6C757D]' : 'w-[30%]'"
+          class="flex gap-4 p-3 duration-500 ease-out border rounded-md"
+          :class="showSearch ? 'w-[100%]  border-[#6C757D]' : 'w-[30%] border-transparent'"
         >
           <IconSearch />
           <Field

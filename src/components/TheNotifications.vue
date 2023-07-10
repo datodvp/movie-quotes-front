@@ -43,12 +43,16 @@ const avatarLink = (notification) => {
     <IconPolygon class="absolute right-[30px] md:right-[265px] -top-4" />
     <div class="flex items-center justify-between mb-6">
       <h2 class="text-xl font-medium">Notifications</h2>
-      <p @click="markAllNotificationsRead" class="underline cursor-pointer">Mark all as read</p>
+      <p @click="markAllNotificationsRead" class="underline cursor-pointer hover:text-[#6C757D]">
+        Mark all as read
+      </p>
     </div>
-    <div class="flex flex-col gap-4 md:h-[500px] h-[700px] overflow-y-auto pr-3">
+    <div
+      class="flex flex-col gap-4 md:h-fit md:max-h-[500px] h-fit max-h-[700px] overflow-y-auto pr-3"
+    >
       <template v-for="notification in notificationsStore.getNotifications" :key="notification.id">
         <div
-          class="flex md:flex-row md:justify-between cursor-pointer flex-col py-[18px] px-[25px] border-[#6C757D80] border rounded-[4px]"
+          class="flex hover:text-[#6C757D] duration-100 md:flex-row md:justify-between cursor-pointer flex-col py-[18px] px-[25px] border-[#6C757D80] border rounded-[4px]"
         >
           <div class="flex">
             <div class="min-w-[60px] mix-h-[60px] mr-4">
@@ -59,14 +63,14 @@ const avatarLink = (notification) => {
                 :class="notification.is_active && 'border-[#198754] border-[3px] rounded-full'"
               />
             </div>
-            <div class="flex flex-col gap-1 justify-center">
+            <div class="flex flex-col justify-center gap-1">
               <p>{{ notification.username }}</p>
               <p class="flex gap-3">
                 <IconQuote
                   v-if="notification.text === 'Commented to your movie quote'"
-                  class="h-6 w-6"
+                  class="w-6 h-6"
                 />
-                <IconHeart v-else class="h-6 w-6" />{{ notification.text }}
+                <IconHeart v-else class="w-6 h-6" />{{ notification.text }}
               </p>
             </div>
           </div>

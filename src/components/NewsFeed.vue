@@ -65,14 +65,14 @@ onUnmounted(() => {
       <div class="flex justify-between gap-6 h-[3.25rem] mb-6 items-center">
         <button
           @click="openModal"
-          class="bg-[#24222F] p-[11px] whitespace-nowrap flex-1 rounded-[10px] flex text-xl gap-4"
+          class="bg-[#24222F] p-[11px] whitespace-nowrap hover:text-[#6C757D] duration-100 flex-1 rounded-[10px] flex text-xl gap-4"
         >
           <IconWriteQuote /> Write new quote
         </button>
         <Form
           :onSubmit="search"
-          class="flex gap-4 duration-500 ease-out"
-          :class="showSearch ? 'w-[100%]' : 'w-[20%]'"
+          class="flex gap-4 duration-500 border-[#EFEFEF4D] ease-out"
+          :class="showSearch ? 'w-[100%] border-b  pb-3 ' : 'w-[20%]'"
         >
           <IconSearch />
           <Field

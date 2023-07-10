@@ -105,14 +105,14 @@ const activeNotificationsNumber = computed(() => {
           <div
             @click="interfateStore.toggleShowNotifications"
             v-if="authStore.getIsAuthenticated"
-            class="relative"
+            class="relative group"
           >
             <span
               class="absolute cursor-pointer left-[14px] top-[-6px] bg-[#E33812] w-[25px] h-[25px] text-center rounded-full"
             >
               {{ activeNotificationsNumber }}
             </span>
-            <IconNotification class="cursor-pointer" />
+            <IconNotification class="cursor-pointer group-hover:text-[#6C757D] duration-100" />
           </div>
 
           <div

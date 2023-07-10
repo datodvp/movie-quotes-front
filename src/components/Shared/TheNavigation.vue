@@ -16,12 +16,12 @@ const backend_API_URL = import.meta.env.VITE_VUE_APP_API_URL
 <template>
   <div
     :class="!interfaceStore.getShowNavigation && 'hidden md:block'"
-    class="bg-[#11101A] fixed md:static md:block pb-11 min-w-[400px] pr-8 md:bg-transparent w-[90%] md:w-[28%]"
+    class="bg-[#11101A] fixed md:static md:block pb-11 min-w-[400px] z-10 pr-8 md:bg-transparent w-[90%] md:w-[28%]"
   >
     <div class="flex flex-col sticky top-[84px] pt-10 md:pl-[4.5rem] md:pt-8 pl-11 gap-11">
       <RouterLink
         :to="{ name: 'profile' }"
-        class="flex items-center hover:text-[#6C757D] gap-6 cursor-pointer"
+        class="flex items-center hover:text-[#6C757D] duration-300 gap-6 cursor-pointer"
       >
         <img
           :src="userData.image ? `${backend_API_URL}/${userData.image}` : DefaultAvatar"
@@ -37,11 +37,11 @@ const backend_API_URL = import.meta.env.VITE_VUE_APP_API_URL
 
       <RouterLink
         :to="{ name: 'newsFeed' }"
-        class="flex items-center gap-[43px] ml-[10px] cursor-pointer hover:text-[#6C757D]"
+        class="flex items-center gap-[43px] ml-[10px] cursor-pointer duration-300 hover:text-[#6C757D]"
       >
         <div class="flex items-center justify-center">
           <IconNewsFeed
-            :class="route.name === 'newsFeed' && 'text-red-700'"
+            :class="route.name === 'newsFeed' && 'text-red-700 duration-300'"
             class="w-6 h-6 md:h-8 md:w-8"
           />
         </div>
@@ -51,11 +51,11 @@ const backend_API_URL = import.meta.env.VITE_VUE_APP_API_URL
 
       <RouterLink
         :to="{ name: 'moviesList' }"
-        class="flex items-center gap-[43px] ml-[10px] cursor-pointer hover:text-[#6C757D]"
+        class="flex items-center gap-[43px] ml-[10px] cursor-pointer duration-300 hover:text-[#6C757D]"
       >
         <div class="flex items-center justify-center">
           <IconMoviesList
-            :class="route.name === 'moviesList' && 'text-red-700'"
+            :class="route.name === 'moviesList' && 'text-red-700 duration-300'"
             class="w-6 h-6 md:h-8 md:w-8"
           />
         </div>

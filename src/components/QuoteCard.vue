@@ -71,8 +71,8 @@ const likePost = (quoteId) => {
         {{ quote.likes.length }}
         <IconLike
           @click="likePost(quote.id)"
-          :class="hasLikedQuote && 'text-red-700 '"
-          class="transition-all transform cursor-pointer duration-400"
+          :class="hasLikedQuote && 'text-red-700'"
+          class="transition-all transform cursor-pointer hover:text-[#6C757D] duration-300"
         />
       </p>
     </div>
