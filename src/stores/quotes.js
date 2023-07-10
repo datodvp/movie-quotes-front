@@ -10,6 +10,10 @@ export const useQuotesStore = defineStore('quotes', () => {
     quotes.value.unshift(quote)
   }
 
+  const loadQuote = (quote) => {
+    quotes.value.push(quote)
+  }
+
   const setQuotes = (quotesList) => {
     quotes.value = quotesList
   }
@@ -58,6 +62,7 @@ export const useQuotesStore = defineStore('quotes', () => {
   return {
     getQuotes,
     addQuote,
+    loadQuote,
     setQuotes,
     updateQuote,
     addComment,

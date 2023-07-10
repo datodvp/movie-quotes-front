@@ -8,11 +8,15 @@ import IconWriteQuote from '@/components/icons/IconWriteQuote.vue'
 import AddQuote from '@/components/AddQuote.vue'
 import { useUserStore } from '../stores/user'
 import { Field, Form } from 'vee-validate'
+import _ from 'lodash'
 
 const authService = useAuthService()
 const quotesStore = useQuotesStore()
 const userStore = useUserStore()
 const showSearch = ref(false)
+
+const currentPage = ref(0)
+const scrollElement = ref(null)
 
 const showModal = ref(false)
 const closeModal = () => (showModal.value = false)
@@ -32,9 +36,35 @@ const search = (values) => {
   })
 }
 
+const handleScroll = () => {
+  let element = scrollElement.value
+  if (element.getBoundingClientRect().bottom < window.innerHeight) {
+    LoadMoreQuotes()
+  }
+}
+
+const LoadMoreQuotes = _.debounce(() => {
+  currentPage.value = currentPage.value + 1
+  authService.getQuotes(currentPage.value).then((response) => {
+    const quotes = response.data.data.quotes.data
+    console.log(quotes)
+    quotes.forEach((quote) => {
+      quotesStore.loadQuote(quote)
+    })
+  })
+
+  // if (quote) quotesStore.addQuote(quote)
+}, 500)
+
+onMounted(() => {
+  window.addEventListener('scroll', handleScroll)
+})
+
+// onUnmounted(( ))
+
 onMounted(async () => {
-  const response = await authService.getQuotes()
-  quotesStore.setQuotes(response.data.data.quotes)
+  const response = await authService.getQuotes(currentPage.value)
+  quotesStore.setQuotes(response.data.data.quotes.data)
 })
 
 onMounted(() => {
@@ -61,7 +91,7 @@ onUnmounted(() => {
 <template>
   <div class="w-full pt-8">
     <AddQuote :showModal="showModal" :closeModal="closeModal" />
-    <div class="w-[67%]">
+    <div class="w-[67%]" ref="scrollElement">
       <div class="flex justify-between gap-6 h-[3.25rem] mb-6 items-center">
         <button
           @click="openModal"

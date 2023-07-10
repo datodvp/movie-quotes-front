@@ -70,8 +70,8 @@ export const useAuthService = () => {
     async getGenres() {
       return authClient.get('/api/movie-genres')
     },
-    async getQuotes() {
-      return authClient.get('/api/quotes')
+    async getQuotes(pageNumber) {
+      return authClient.get(`/api/quotes?page=${pageNumber}`)
     },
     async postQuote(payload) {
       return authClient.post('/api/quotes', payload)
