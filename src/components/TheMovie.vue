@@ -17,8 +17,8 @@ const authService = useAuthService()
 const interfaceStore = useInterfaceStore()
 
 const showAddQuoteToMovie = ref(false)
-const closeModal = () => (showAddQuoteToMovie.value = false)
-const openModal = () => (showAddQuoteToMovie.value = true)
+const openAddQuoteToMovie = () => (showAddQuoteToMovie.value = true)
+const closeAddQuoteToMovie = () => (showAddQuoteToMovie.value = false)
 
 const movie = ref(null)
 
@@ -31,7 +31,11 @@ const backend_API_URL = import.meta.env.VITE_VUE_APP_API_URL
 
 <template>
   <div v-if="movie" class="pt-8 h-fit w-full p-[35px] md:pr-[72px]">
-    <AddQuoteToMovie :movie="movie" :showModal="showAddQuoteToMovie" :closeModal="closeModal" />
+    <AddQuoteToMovie
+      :movie="movie"
+      :showModal="showAddQuoteToMovie"
+      :closeModal="closeAddQuoteToMovie"
+    />
     <h1 class="text-2xl">Movie description</h1>
     <div class="flex flex-col gap-5 mt-8 md:flex-row">
       <div class="min-w-[60%] h-[441px]">
@@ -75,7 +79,7 @@ const backend_API_URL = import.meta.env.VITE_VUE_APP_API_URL
       <span class="text-[#6C757D] text-2xl"> | </span>
       <div>
         <PrimaryButton class="px-5"
-          ><button @click="openModal" class="flex gap-2">
+          ><button @click="openAddQuoteToMovie" class="flex gap-2">
             <IconPlus />Add quote
           </button></PrimaryButton
         >
