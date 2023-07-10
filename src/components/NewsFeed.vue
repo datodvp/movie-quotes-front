@@ -15,7 +15,7 @@ const quotesStore = useQuotesStore()
 const userStore = useUserStore()
 const showSearch = ref(false)
 
-const currentPage = ref(0)
+const currentPage = ref(1)
 const scrollElement = ref(null)
 
 const showModal = ref(false)
@@ -50,7 +50,6 @@ const LoadMoreQuotes = _.debounce(() => {
   currentPage.value = currentPage.value + 1
   authService.getQuotes(currentPage.value).then((response) => {
     const quotes = response.data.data.quotes.data
-    console.log(quotes)
     quotes.forEach((quote) => {
       quotesStore.loadQuote(quote)
     })

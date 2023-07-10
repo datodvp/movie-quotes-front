@@ -74,5 +74,6 @@ onMounted(async () => {
         <MovieCard :movie="movie" />
       </div>
     </section>
+    <RouterView></RouterView>
   </div>
 </template>
