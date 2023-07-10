@@ -31,6 +31,9 @@ const closeSearch = () => {
 }
 
 const search = (values) => {
+  // if user searches anything infinite scroll functionality will stop
+  window.removeEventListener('scroll', handleScroll)
+
   authService.searchQuotes(values).then((response) => {
     quotesStore.setQuotes(response.data.data.quotes)
   })
@@ -60,6 +63,9 @@ onMounted(() => {
   window.addEventListener('scroll', handleScroll)
 })
 
+onUnmounted(() => {
+  window.removeEventListener('scroll', handleScroll)
+})
 // onUnmounted(( ))
 
 onMounted(async () => {
