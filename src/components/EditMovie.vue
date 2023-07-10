@@ -98,7 +98,7 @@ const EditMovie = async () => {
   try {
     const response = await authService.editMovie(props.movie.id, formData)
     props.changeMovie(response.data.data.movie)
-    successMessage.value = 'Movie added succesfully!'
+    successMessage.value = 'Movie edited succesfully!'
   } catch (error) {
     errorMessage.value = error.response.data.message
   }
