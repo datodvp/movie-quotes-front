@@ -1,11 +1,13 @@
 import axios from 'axios'
 import { useAuthStore } from '@/stores/auth'
 import { useInterfaceStore } from '@/stores/interface'
+import { useRouter } from 'vue-router'
 
 export const useAuthService = () => {
   axios.defaults.withCredentials = true
 
   const interfaceStore = useInterfaceStore()
+  const router = useRouter()
 
   const authClient = axios.create({
     baseURL: import.meta.env.VITE_VUE_APP_API_URL,
@@ -25,6 +27,9 @@ export const useAuthService = () => {
       const authStore = useAuthStore()
       if (error.response && [401, 419].includes(error.response.status)) {
         authStore.setIsAuthenticated(false)
+      }
+      if (error.response && [403].includes(error.response.status)) {
+        router.push('/forbidden')
       }
       return Promise.reject(error)
     }
@@ -94,6 +99,9 @@ export const useAuthService = () => {
     },
     async searchMovies(payload) {
       return authClient.post('/api/movies-search', payload)
+    },
+    async getMovie(movieId) {
+      return authClient.get(`/api/movies/${movieId}`)
     }
   }
 }

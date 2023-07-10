@@ -13,6 +13,8 @@ import { useAuthStore } from '@/stores/auth'
 import NewsFeed from '@/components/NewsFeed.vue'
 import ListOfMovies from '@/components/ListOfMovies.vue'
 import TheProfile from '@/components/TheProfile.vue'
+import TheMovie from '@/components/TheMovie.vue'
+import ForbiddenView from '@/views/ForbiddenView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -95,8 +97,18 @@ const router = createRouter({
           path: 'movies-list',
           name: 'moviesList',
           component: ListOfMovies
+        },
+        {
+          path: 'movie/:id',
+          name: 'moviePage',
+          component: TheMovie
         }
       ]
+    },
+    {
+      path: '/forbidden',
+      name: 'forbidden',
+      component: ForbiddenView
     }
   ]
 })
