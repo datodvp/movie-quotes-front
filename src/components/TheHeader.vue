@@ -121,8 +121,11 @@ const activeNotificationsNumber = computed(() => {
             @focusout="!isLanguageOpen && toggleLanguage"
             class="items-center justify-center hidden gap-2 cursor-pointer md:flex mr-7"
           >
-            {{ currentLanguageLabel }}
-            <IconArrow />
+            <div class="flex items-center gap-2 group">
+              <p class="group-hover:text-[#6C757D]">{{ currentLanguageLabel }}</p>
+              <IconArrow class="group-hover:text-[#6C757D]" />
+            </div>
+
             <div
               v-if="isLanguageOpen"
               class="absolute top-[100%] border w-fit bg-slate-800 flex flex-col"
