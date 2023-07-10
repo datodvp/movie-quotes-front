@@ -12,8 +12,10 @@ import IconThreeDots from '@/components/icons/IconThreeDots.vue'
 import IconComment from '@/components/icons/IconComment.vue'
 import IconLike from '@/components/icons/IconLike.vue'
 import EditMovie from '@/components/EditMovie.vue'
+import { useRouter } from 'vue-router'
 
 const route = useRoute()
+const router = useRouter()
 const authService = useAuthService()
 const interfaceStore = useInterfaceStore()
 
@@ -34,6 +36,12 @@ const changeMovie = (updatedMovie) => {
 onMounted(() => {
   authService.getMovie(route.params.id).then((response) => (movie.value = response.data.data.movie))
 })
+
+const deleteMovie = (movieId) => {
+  authService.deleteMovie(movieId).then((response) => {
+    router.push({ name: 'moviesList' })
+  })
+}
 
 const backend_API_URL = import.meta.env.VITE_VUE_APP_API_URL
 </script>
@@ -68,7 +76,7 @@ const backend_API_URL = import.meta.env.VITE_VUE_APP_API_URL
           <div class="flex items-center gap-6 px-5 py-2 bg-[#24222F] rounded-[10px]">
             <p @click="openEditMovie" class="cursor-pointer"><IconPencil /></p>
             <p class="text-[#6C757D]">|</p>
-            <p class="cursor-pointer"><IconTrash /></p>
+            <p @click="deleteMovie(movie.id)" class="cursor-pointer"><IconTrash /></p>
           </div>
         </div>
         <div class="flex flex-wrap gap-2 mt-6">

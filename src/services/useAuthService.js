@@ -105,6 +105,9 @@ export const useAuthService = () => {
     },
     async editMovie(movieId, payload) {
       return authClient.post(`/api/movies/${movieId}`, payload)
+    },
+    async deleteMovie(movieId) {
+      return authClient.delete(`/api/movies/${movieId}`)
     }
   }
 }
