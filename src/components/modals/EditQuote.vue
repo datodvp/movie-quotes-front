@@ -6,67 +6,72 @@ import ModalCard from '@/components/UI/ModalCard.vue'
 import DefaultAvatar from '@/assets/images/defaultAvatar.png'
 import { useAuthService } from '@/services/useAuthService'
 import { useUserStore } from '@/stores/user.js'
-import { ref } from 'vue'
+import { inject, onMounted, ref } from 'vue'
 import PrimaryButton from '@/components/Buttons/PrimaryButton.vue'
-import { useQuotesStore } from '@/stores/quotes'
 import IconPhoto from '@/components/icons/IconPhoto.vue'
 
-defineProps({
+const props = defineProps({
+  quoteId: {
+    type: Number,
+    required: true
+  },
   closeModal: {
     type: Function,
     required: false
   }
 })
 
+const updateQuote = inject('updateQuote')
+
+const quote = ref(null)
+
 const userStore = useUserStore().getUserData
 const authService = useAuthService()
-const quotesStore = useQuotesStore()
 
 const form = ref(null)
 const imageInputElement = ref(null)
 const imagePreview = ref(null)
 
-const quoteEn = ref('')
-const quoteKa = ref('')
+// these are filled to trigger validation true on first load
+const quoteEn = ref('filled')
+const quoteKa = ref('filled')
 
 const successMessage = ref('')
 const errorMessage = ref('')
+const backend_API_URL = import.meta.env.VITE_VUE_APP_API_URL
 
-const chosenMovie = ref('')
+onMounted(() => {
+  authService.getQuote(props.quoteId).then((response) => {
+    quote.value = response.data.data.quote
+    quoteEn.value = quote.value.text.en
+    quoteKa.value = quote.value.text.ka
+    imagePreview.value = `${backend_API_URL}/${quote.value.image}`
+  })
+})
 
 const handleImagePreview = (e) => {
   const image = e.target.files[0]
   imagePreview.value = URL.createObjectURL(image)
 }
 
-const addQuote = async () => {
+const editQuote = async (values) => {
   errorMessage.value = ''
   successMessage.value = ''
 
-  const formElement = document.querySelector('#add-quote-form')
+  const formElement = document.querySelector('#edit-quote-form')
 
   const formData = new FormData(formElement)
-  formData.append('movie_id', chosenMovie.value.id)
+
+  formData.append('_method', 'patch')
 
   try {
-    const response = await authService.postQuote(formData)
-    quotesStore.addQuote(response.data.data.quote)
-    successMessage.value = 'Quote added succesfully!'
-    clearInputs()
+    const response = await authService.editQuote(quote.value.id, formData)
+    updateQuote(response.data.data.movie)
+    successMessage.value = 'Quote edited succesfully!'
   } catch (error) {
     errorMessage.value = error.response.data.message
   }
 }
-
-const clearInputs = () => {
-  form.value.resetForm()
-  quoteEn.value = ''
-  quoteKa.value = ''
-  imageInputElement.value.value = null
-  imagePreview.value = null
-}
-
-const backend_API_URL = import.meta.env.VITE_VUE_APP_API_URL
 </script>
 
 <template>
@@ -74,9 +79,9 @@ const backend_API_URL = import.meta.env.VITE_VUE_APP_API_URL
     <template #header><h2>Edit Quote</h2></template>
     <template #body>
       <Form
-        @submit="addQuote"
+        @submit="editQuote"
         enctype="multipart/form-data"
-        id="add-quote-form"
+        id="edit-quote-form"
         ref="form"
         class="flex flex-col overflow-x-hidden overflow-y-auto gap-7"
       >
@@ -91,27 +96,23 @@ const backend_API_URL = import.meta.env.VITE_VUE_APP_API_URL
         <CustomInput name="text[en]" v-model="quoteEn" placeholder="Quote:" language="Eng" />
         <CustomInput name="text[ka]" v-model="quoteKa" placeholder="ციტატა:" language="ქარ" />
         <label
-          class="relative flex gap-4 border-[#6C757D] border rounded text-lg h-fit py-[21px] px-6"
+          class="relative flex border-[#6C757D] border rounded text-lg h-fit"
           for="image-input"
         >
+          <div class="absolute flex items-center justify-center w-full h-full">
+            <div
+              class="bg-black opacity-80 w-[135px] h-[85px] flex items-center justify-center flex-col rounded-[10px]"
+            >
+              <IconPhoto />
+              <p>Change Photo</p>
+            </div>
+          </div>
           <img
-            class="max-h-[180px] object-cover"
-            :class="imagePreview && 'w-[50%]'"
+            class="object-cover"
+            :class="imagePreview && 'w-full h-[300px] md:h-[500px]'"
             :src="imagePreview"
           />
-          <div class="flex items-center flex-1">
-            <div class="flex flex-col items-center w-full">
-              <p v-if="imagePreview" class="text-base">REPLACE PHOTO</p>
-              <div class="flex items-center gap-4" :class="imagePreview && 'flex-col'">
-                <div class="flex">
-                  <IconPhoto class="ml-4 mr-2" />
-                  <p class="text-xl">Drag & drop your image here or</p>
-                </div>
-
-                <p class="bg-[#9747FF] p-[10px] ml-4">Choose file</p>
-              </div>
-            </div>
-
+          <div class="flex items-center">
             <input
               type="file"
               name="image"
@@ -127,7 +128,7 @@ const backend_API_URL = import.meta.env.VITE_VUE_APP_API_URL
           <ServerErrorMessage :errorMessage="errorMessage" />
           <p class="text-green-700 text-center max-w-[384px]">{{ successMessage }}</p>
         </div>
-        <PrimaryButton><button class="p-2">Add movie</button></PrimaryButton>
+        <PrimaryButton><button class="p-2">Save changes</button></PrimaryButton>
       </Form>
     </template>
   </ModalCard>

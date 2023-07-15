@@ -34,7 +34,7 @@ const backend_API_URL = import.meta.env.VITE_VUE_APP_API_URL
 <template>
   <div class="px-8 py-6 bg-[#11101A] rounded-[14px]">
     <Transition name="modal">
-      <EditQuote v-if="showEditQuote" :closeModal="closeEditQuote" />
+      <EditQuote :quoteId="quote.id" v-if="showEditQuote" :closeModal="closeEditQuote" />
     </Transition>
     <Transition name="modal">
       <ViewQuote :quoteId="quote.id" v-if="showViewQuote" :closeModal="closeViewQuote" />
