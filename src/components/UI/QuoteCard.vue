@@ -102,6 +102,6 @@ const addComment = (comment) => {
     >
       See less
     </button>
-    <AddComment :quoteId="quote.id" @addComment="addComment" />
+    <AddComment :quoteId="quote.id" @addComment="addComment" class="mt-6" />
   </div>
 </template>

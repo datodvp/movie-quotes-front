@@ -36,7 +36,7 @@ const backend_API_URL = import.meta.env.VITE_VUE_APP_API_URL
 </script>
 
 <template>
-  <div class="mt-6">
+  <div class="">
     <div class="flex items-center gap-6">
       <img
         :src="

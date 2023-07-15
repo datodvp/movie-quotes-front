@@ -9,7 +9,6 @@ import { useUserStore } from '@/stores/user.js'
 import { onMounted, ref } from 'vue'
 import PrimaryButton from '@/components/Buttons/PrimaryButton.vue'
 import { useInterfaceStore } from '@/stores/interface'
-import { useQuotesStore } from '@/stores/quotes'
 import IconPhoto from '@/components/icons/IconPhoto.vue'
 
 const props = defineProps({
@@ -23,9 +22,10 @@ const props = defineProps({
   }
 })
 
+const emit = defineEmits(['addQuote'])
+
 const userStore = useUserStore().getUserData
 const authService = useAuthService()
-const quotesStore = useQuotesStore()
 const interfaceStore = useInterfaceStore()
 
 const form = ref(null)
@@ -62,7 +62,7 @@ const addQuote = async () => {
 
   try {
     const response = await authService.postQuote(formData)
-    quotesStore.addQuote(response.data.data.quote)
+    emit('addQuote', response.data.data.quote)
     successMessage.value = 'Quote added succesfully!'
     clearInputs()
   } catch (error) {

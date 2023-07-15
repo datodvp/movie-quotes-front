@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, ref } from 'vue'
+import { onMounted, provide, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import { useAuthService } from '@/services/useAuthService.js'
 import { useInterfaceStore } from '@/stores/interface.js'
@@ -9,7 +9,6 @@ import PrimaryButton from '@/components/Buttons/PrimaryButton.vue'
 import IconPlus from '@/components/icons/IconPlus.vue'
 import AddQuoteToMovie from '@/components/modals/AddQuoteToMovie.vue'
 import EditMovie from '@/components/modals/EditMovie.vue'
-
 import { useRouter } from 'vue-router'
 import SmallQuoteCard from '@/components/UI/SmallQuoteCard.vue'
 
@@ -27,13 +26,31 @@ const openEditMovie = () => (showEditMovie.value = true)
 const closeEditMovie = () => (showEditMovie.value = false)
 
 const movie = ref(null)
+const quotes = ref(null)
 
 const changeMovie = (updatedMovie) => {
   movie.value = updatedMovie
 }
 
+const addQuote = (newQuote) => {
+  quotes.value.push(newQuote)
+}
+
+const updateQuote = (updatedQuote) => {
+  quotes.value = quotes.value.map((quote) => (quote.id === updatedQuote.id ? updatedQuote : quote))
+}
+
+const removeQuote = (quoteId) => {
+  authService
+    .deleteQuote(quoteId)
+    .then(() => (quotes.value = quotes.value.filter((quote) => quote.id !== quoteId)))
+}
+
 onMounted(() => {
-  authService.getMovie(route.params.id).then((response) => (movie.value = response.data.data.movie))
+  authService.getMovie(route.params.id).then((response) => {
+    movie.value = response.data.data.movie
+    quotes.value = response.data.data.movie.quotes.reverse()
+  })
 })
 
 const deleteMovie = (movieId) => {
@@ -41,6 +58,8 @@ const deleteMovie = (movieId) => {
     router.push({ name: 'moviesList' })
   })
 }
+
+provide('updateQuote', updateQuote)
 
 const backend_API_URL = import.meta.env.VITE_VUE_APP_API_URL
 </script>
@@ -51,6 +70,7 @@ const backend_API_URL = import.meta.env.VITE_VUE_APP_API_URL
       <AddQuoteToMovie
         :movie="movie"
         v-if="showAddQuoteToMovie"
+        @addQuote="addQuote"
         :closeModal="closeAddQuoteToMovie"
       />
     </Transition>
@@ -103,7 +123,7 @@ const backend_API_URL = import.meta.env.VITE_VUE_APP_API_URL
       </div>
     </div>
     <div class="flex gap-4 mt-12">
-      <div class="text-2xl">Quotes (total {{ movie.quotes.length }})</div>
+      <div class="text-2xl">Quotes (total {{ quotes.length }})</div>
       <span class="text-[#6C757D] text-2xl"> | </span>
       <div>
         <PrimaryButton class="px-5"
@@ -114,7 +134,9 @@ const backend_API_URL = import.meta.env.VITE_VUE_APP_API_URL
       </div>
     </div>
     <div class="mt-[60px] flex flex-col gap-10 max-w-[808px]">
-      <div v-for="quote in movie.quotes" :key="quote.id"><SmallQuoteCard :quote="quote" /></div>
+      <div v-for="quote in quotes" :key="quote.id">
+        <SmallQuoteCard :quote="quote" @removeQuote="removeQuote" />
+      </div>
     </div>
   </div>
 </template>

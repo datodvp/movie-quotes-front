@@ -81,7 +81,7 @@ const search = (values) => {
   const encodedString = encodeURIComponent(values.search)
 
   authService.searchQuotes(encodedString).then((response) => {
-    if (encodedString.length) setQuotes(response.data.data.quotes)
+    if (encodedString.length) setQuotes(response.data.data.quotes.reverse())
   })
 }
 

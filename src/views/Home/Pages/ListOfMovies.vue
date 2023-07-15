@@ -1,7 +1,6 @@
 <script setup>
 import { onMounted, ref } from 'vue'
 import { useAuthService } from '@/services/useAuthService'
-import { useMoviesStore } from '@/stores/movies'
 import PrimaryButton from '@/components/Buttons/PrimaryButton.vue'
 import MovieCard from '@/components/UI/MovieCard.vue'
 import IconSearch from '@/components/icons/IconSearch.vue'
@@ -10,11 +9,21 @@ import AddMovie from '@/components/modals/AddMovie.vue'
 import { Field, Form } from 'vee-validate'
 
 const authService = useAuthService()
-const moviesStore = useMoviesStore()
 
-const showModal = ref(false)
-const closeModal = () => (showModal.value = false)
-const openModal = () => (showModal.value = true)
+const movies = ref([])
+
+const addMovie = (movie) => {
+  movies.value.push(movie)
+}
+
+const setMovies = (moviesList) => {
+  movies.value = moviesList
+  console.log(movies.value)
+}
+
+const showAddMovie = ref(false)
+const closeModal = () => (showAddMovie.value = false)
+const openModal = () => (showAddMovie.value = true)
 const showSearch = ref(false)
 
 const openSearch = () => {
@@ -27,27 +36,25 @@ const closeSearch = () => {
 
 const search = (values) => {
   authService.searchMovies(values.search).then((response) => {
-    moviesStore.setMovies(response.data.data.movies)
+    setMovies(response.data.data.movies)
   })
 }
 
 onMounted(async () => {
   const response = await authService.getMovies()
 
-  moviesStore.setMovies(response.data.data.movies)
+  setMovies(response.data.data.movies)
 })
 </script>
 
 <template>
   <Transition name="modal">
-    <AddMovie v-if="showModal" :closeModal="closeModal" />
+    <AddMovie v-if="showAddMovie" @addMovie="addMovie" :closeModal="closeModal" />
   </Transition>
 
   <div class="w-[102%] pr-16">
     <div class="flex items-center justify-between mt-8">
-      <h2 class="text-2xl font-medium">
-        My list of movies (Total {{ moviesStore.getMovies.length }})
-      </h2>
+      <h2 class="text-2xl font-medium">My list of movies (Total {{ movies.length }})</h2>
       <div class="flex items-center justify-end gap-4 text-xl">
         <Form
           :onSubmit="search"
@@ -72,7 +79,7 @@ onMounted(async () => {
 
     <!-- section for movies list -->
     <section class="flex flex-wrap gap-x-12 gap-y-14 mt-14">
-      <div v-for="movie in moviesStore.getMovies" :key="movie.id">
+      <div v-for="movie in movies" :key="movie.id">
         <MovieCard :movie="movie" />
       </div>
     </section>

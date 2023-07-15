@@ -2,14 +2,16 @@
 import ModalCard from '@/components/UI/ModalCard.vue'
 import DefaultAvatar from '@/assets/images/defaultAvatar.png'
 import { useUserStore } from '@/stores/user.js'
-import { computed, ref } from 'vue'
+import { computed, inject, onMounted, ref } from 'vue'
 import TheComment from '@/components/UI/TheComment.vue'
 import IconComment from '@/components/icons/IconComment.vue'
 import IconLike from '@/components/icons/IconLike.vue'
+import { useAuthService } from '@/services/useAuthService.js'
+import AddComment from '@/components/UI/AddComment.vue'
 
 const props = defineProps({
-  quote: {
-    type: Object,
+  quoteId: {
+    type: Number,
     required: true
   },
   closeModal: {
@@ -18,15 +20,55 @@ const props = defineProps({
   }
 })
 
+const updateQuote = inject('updateQuote')
+
+const authService = useAuthService()
+const quote = ref(null)
+
+onMounted(() => {
+  authService.getQuote(props.quoteId).then((response) => (quote.value = response.data.data.quote))
+})
+
 const backend_API_URL = import.meta.env.VITE_VUE_APP_API_URL
 const userStore = useUserStore().getUserData
 
-const reversedComments = computed(() => props.quote.comments.slice().reverse())
+const reversedComments = computed(() => quote.value.comments.slice().reverse())
 const seeMore = ref(false)
+
+const hasLikedQuote = computed(() =>
+  quote.value.likes.some((like) => like.pivot.user_id === userStore.id)
+)
+
+const addComment = (comment) => {
+  quote.value.comments.push(comment)
+  updateQuote(quote.value)
+}
+
+const likePost = () => {
+  const data = {
+    quote_id: quote.value.id
+  }
+  if (!hasLikedQuote.value) {
+    authService.postLike(data).then((response) => {
+      quote.value.likes.push(response.data.data.like)
+    })
+  } else {
+    authService.removeLike(data).then((response) => {
+      const removedlike = response.data.data.like
+      quote.value.likes = quote.value.likes.filter((like) => {
+        if (like.pivot.user_id === removedlike.pivot.user_id) {
+          return false
+        }
+        return true
+      })
+    })
+  }
+  updateQuote(quote.value)
+}
 </script>
 
 <template>
-  <ModalCard @close="closeModal">
+  <ModalCard v-if="quote" @close="closeModal">
     <template #header><h2>View Quote</h2></template>
     <template #body>
       <div class="flex flex-col overflow-x-hidden overflow-y-auto gap-7">
@@ -49,12 +91,22 @@ const seeMore = ref(false)
           </div>
         </div>
 
-        <div class="w-[900px] h-[500px]">
-          <img :src="`${backend_API_URL}/${quote.image}`" alt="quote" class="w-full h-full" />
+        <div class="w-full h-[300px] md:h-[500px]">
+          <img
+            :src="`${backend_API_URL}/${quote.image}`"
+            alt="quote"
+            class="object-cover w-full h-full rounded-[10px]"
+          />
         </div>
         <div class="flex gap-6 text-xl">
           <div class="flex gap-3">{{ quote.comments.length }}<IconComment /></div>
-          <div class="flex gap-3">{{ quote.likes.length }}<IconLike /></div>
+          <div
+            @click="likePost"
+            :class="hasLikedQuote && 'text-red-700'"
+            class="flex gap-3 cursor-pointer"
+          >
+            {{ quote.likes.length }}<IconLike />
+          </div>
         </div>
         <div class="">
           <template v-for="(comment, index) in reversedComments" :key="comment.id">
@@ -76,6 +128,7 @@ const seeMore = ref(false)
         >
           See less
         </button>
+        <AddComment :quoteId="quote.id" @addComment="addComment" />
       </div>
     </template>
   </ModalCard>

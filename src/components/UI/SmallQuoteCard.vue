@@ -9,7 +9,6 @@ import IconTrash from '@/components/icons/IconTrash.vue'
 import EditQuote from '@/components/modals/EditQuote.vue'
 import ViewQuote from '@/components/modals/ViewQuote.vue'
 import { ref } from 'vue'
-import { useAuthService } from '@/services/useAuthService'
 
 defineProps({
   quote: {
@@ -17,8 +16,6 @@ defineProps({
     required: true
   }
 })
-
-const authService = useAuthService()
 
 const showEditQuote = ref(false)
 const openEditQuote = () => (showEditQuote.value = true)
@@ -32,10 +29,6 @@ const showPopup = ref(false)
 
 const interfaceStore = useInterfaceStore()
 const backend_API_URL = import.meta.env.VITE_VUE_APP_API_URL
-
-const deleteQuote = (quoteId) => {
-  authService.deleteQuote(quoteId)
-}
 </script>
 
 <template>
@@ -44,7 +37,7 @@ const deleteQuote = (quoteId) => {
       <EditQuote v-if="showEditQuote" :closeModal="closeEditQuote" />
     </Transition>
     <Transition name="modal">
-      <ViewQuote :quote="quote" v-if="showViewQuote" :closeModal="closeViewQuote" />
+      <ViewQuote :quoteId="quote.id" v-if="showViewQuote" :closeModal="closeViewQuote" />
     </Transition>
 
     <div class="flex items-center gap-[34px] relative">
@@ -82,7 +75,7 @@ const deleteQuote = (quoteId) => {
             <IconPencil />Edit
           </div>
           <div
-            @click="deleteQuote(quote.id)"
+            @click="$emit('removeQuote', quote.id)"
             class="flex items-center gap-4 p-2 duration-300 cursor-pointer hover:bg-slate-700"
           >
             <IconTrash />Delete

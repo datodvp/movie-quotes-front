@@ -8,7 +8,6 @@ import { useAuthService } from '@/services/useAuthService'
 import { useUserStore } from '@/stores/user.js'
 import { onMounted, ref } from 'vue'
 import PrimaryButton from '@/components/Buttons/PrimaryButton.vue'
-import { useMoviesStore } from '@/stores/movies'
 import { useInterfaceStore } from '@/stores/interface'
 import IconPhoto from '@/components/icons/IconPhoto.vue'
 
@@ -19,7 +18,8 @@ defineProps({
   }
 })
 
-const moviesStore = useMoviesStore()
+const emit = defineEmits(['addMovie'])
+
 const userStore = useUserStore().getUserData
 const authService = useAuthService()
 const interfaceStore = useInterfaceStore()
@@ -86,7 +86,7 @@ const addMovie = async () => {
   }
   try {
     const response = await authService.postMovie(formData)
-    moviesStore.addMovie(response.data.movie)
+    emit('addMovie', response.data.movie)
     successMessage.value = 'Movie added succesfully!'
     clearInputs()
   } catch (error) {
