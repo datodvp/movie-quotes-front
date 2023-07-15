@@ -54,7 +54,7 @@ const handleImagePreview = (e) => {
   imagePreview.value = URL.createObjectURL(image)
 }
 
-const editQuote = async (values) => {
+const editQuote = async () => {
   errorMessage.value = ''
   successMessage.value = ''
 
