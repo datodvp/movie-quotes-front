@@ -8,7 +8,6 @@ import { useInterfaceStore } from '@/stores/interface'
 import { computed, ref } from 'vue'
 import { useUserStore } from '@/stores/user'
 import { useAuthService } from '@/services/useAuthService'
-import { useQuotesStore } from '@/stores/quotes'
 
 const props = defineProps({
   quote: {
@@ -16,13 +15,15 @@ const props = defineProps({
     required: true
   }
 })
+
+const emit = defineEmits(['addLike', 'removeLike', 'addComment'])
+
 const reversedComments = computed(() => props.quote.comments.slice().reverse())
 const seeMore = ref(false)
 const interfaceStore = useInterfaceStore()
 const backend_API_URL = import.meta.env.VITE_VUE_APP_API_URL
 const userStore = useUserStore()
 const authService = useAuthService()
-const quotesStore = useQuotesStore()
 
 const hasLikedQuote = computed(() =>
   props.quote.likes.some((like) => like.pivot.user_id === userStore.getUserData.id)
@@ -36,13 +37,17 @@ const likePost = (quoteId) => {
     authService
       .postLike(data)
       .then((response) => response.data.data.like)
-      .then((like) => quotesStore.addLike(like))
+      .then((like) => emit('addLike', like))
   } else {
     authService
       .removeLike(data)
       .then((response) => response.data.data.like)
-      .then((like) => quotesStore.removeLike(like))
+      .then((like) => emit('removeLike', like))
   }
+}
+
+const addComment = (comment) => {
+  emit('addComment', comment)
 }
 </script>
 
@@ -97,6 +102,6 @@ const likePost = (quoteId) => {
     >
       See less
     </button>
-    <AddComment :quoteId="quote.id" />
+    <AddComment :quoteId="quote.id" @addComment="addComment" />
   </div>
 </template>

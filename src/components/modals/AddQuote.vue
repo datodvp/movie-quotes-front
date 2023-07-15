@@ -8,7 +8,6 @@ import { useAuthService } from '@/services/useAuthService'
 import { useUserStore } from '@/stores/user.js'
 import { onMounted, ref } from 'vue'
 import PrimaryButton from '@/components/Buttons/PrimaryButton.vue'
-import { useQuotesStore } from '@/stores/quotes'
 import IconPhoto from '@/components/icons/IconPhoto.vue'
 import CustomDropdown from '@/components/Form/CustomDropdown.vue'
 
@@ -19,9 +18,10 @@ defineProps({
   }
 })
 
+const emit = defineEmits(['addQuote'])
+
 const userStore = useUserStore().getUserData
 const authService = useAuthService()
-const quotesStore = useQuotesStore()
 
 const form = ref(null)
 const imageInputElement = ref(null)
@@ -61,7 +61,7 @@ const addQuote = async () => {
 
   try {
     const response = await authService.postQuote(formData)
-    quotesStore.addQuote(response.data.data.quote)
+    emit('addQuote', response.data.data.quote)
     successMessage.value = 'Quote added succesfully!'
     clearInputs()
   } catch (error) {

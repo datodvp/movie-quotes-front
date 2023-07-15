@@ -3,7 +3,6 @@ import DefaultAvatar from '@/assets/images/defaultAvatar.png'
 import { Field, Form } from 'vee-validate'
 import { ref } from 'vue'
 import { useAuthService } from '@/services/useAuthService.js'
-import { useQuotesStore } from '@/stores/quotes'
 import { useUserStore } from '@/stores/user'
 
 const props = defineProps({
@@ -15,8 +14,9 @@ const props = defineProps({
 
 const newComment = ref('')
 const authService = useAuthService()
-const quotesStore = useQuotesStore()
 const userStore = useUserStore()
+
+const emit = defineEmits(['addComment'])
 
 const onSubmit = () => {
   const data = {
@@ -27,7 +27,7 @@ const onSubmit = () => {
   authService
     .postComment(data)
     .then((response) => response.data.data.comment)
-    .then((comment) => quotesStore.addComment(comment))
+    .then((comment) => emit('addComment', comment))
 
   newComment.value = ''
 }

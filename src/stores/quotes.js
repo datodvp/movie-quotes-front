@@ -59,14 +59,5 @@ export const useQuotesStore = defineStore('quotes', () => {
     })
   }
 
-  return {
-    getQuotes,
-    addQuote,
-    loadQuote,
-    setQuotes,
-    updateQuote,
-    addComment,
-    addLike,
-    removeLike
-  }
+  return {}
 })
