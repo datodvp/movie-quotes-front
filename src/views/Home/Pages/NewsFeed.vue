@@ -97,7 +97,10 @@ onUnmounted(() => {
 </script>
 <template>
   <div class="w-full pt-8">
-    <AddQuote :showModal="showModal" :closeModal="closeModal" />
+    <Transition name="modal">
+      <AddQuote v-if="showModal" :closeModal="closeModal" />
+    </Transition>
+
     <div class="md:w-[67%] md:px-3" ref="scrollElement">
       <div class="flex justify-between gap-6 h-[3.25rem] mb-6 items-center">
         <button

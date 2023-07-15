@@ -39,7 +39,9 @@ onMounted(async () => {
 </script>
 
 <template>
-  <AddMovie :showModal="showModal" :closeModal="closeModal" />
+  <Transition name="modal">
+    <AddMovie v-if="showModal" :closeModal="closeModal" />
+  </Transition>
 
   <div class="w-[102%] pr-16">
     <div class="flex items-center justify-between mt-8">

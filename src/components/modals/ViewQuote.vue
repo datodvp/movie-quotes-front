@@ -1,9 +1,8 @@
 <script setup>
 import ModalCard from '@/components/UI/ModalCard.vue'
 import DefaultAvatar from '@/assets/images/defaultAvatar.png'
-import { useAuthService } from '@/services/useAuthService'
 import { useUserStore } from '@/stores/user.js'
-import { computed, onMounted, ref } from 'vue'
+import { computed, ref } from 'vue'
 import TheComment from '@/components/UI/TheComment.vue'
 import IconComment from '@/components/icons/IconComment.vue'
 import IconLike from '@/components/icons/IconLike.vue'
@@ -11,10 +10,6 @@ import IconLike from '@/components/icons/IconLike.vue'
 const props = defineProps({
   quote: {
     type: Object,
-    required: true
-  },
-  showModal: {
-    type: Boolean,
     required: true
   },
   closeModal: {
@@ -25,14 +20,13 @@ const props = defineProps({
 
 const backend_API_URL = import.meta.env.VITE_VUE_APP_API_URL
 const userStore = useUserStore().getUserData
-const authService = useAuthService()
 
 const reversedComments = computed(() => props.quote.comments.slice().reverse())
 const seeMore = ref(false)
 </script>
 
 <template>
-  <ModalCard :show="showModal" @close="closeModal">
+  <ModalCard @close="closeModal">
     <template #header><h2>View Quote</h2></template>
     <template #body>
       <div class="flex flex-col overflow-x-hidden overflow-y-auto gap-7">

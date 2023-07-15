@@ -20,10 +20,6 @@ const props = defineProps({
     type: Function,
     requinred: true
   },
-  showModal: {
-    type: Boolean,
-    required: true
-  },
   closeModal: {
     type: Function,
     required: false
@@ -110,7 +106,7 @@ const EditMovie = async () => {
 </script>
 
 <template>
-  <ModalCard :show="showModal" @close="closeModal">
+  <ModalCard @close="closeModal">
     <template #header><h2>Edit Movie</h2></template>
     <template #body>
       <Form

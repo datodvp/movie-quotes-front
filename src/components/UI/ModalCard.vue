@@ -1,32 +1,23 @@
 <!-- This component is taken from Vue JS official website -->
 <script setup>
 import IconX from '@/components/icons/IconX.vue'
-
-defineProps({
-  show: {
-    type: Boolean,
-    required: true
-  }
-})
 </script>
 
 <template>
-  <Transition name="modal">
-    <div v-if="show" class="modal-mask backdrop-blur-[1px]">
-      <div
-        class="bg-[#11101A] md:w-[47%] min-h-[10%] modal-container flex flex-col relative h-fit max-h-[100%] md:max-h-[90%]"
-      >
-        <button class="absolute modal-default-button" @click="$emit('close')"><IconX /></button>
-        <div class="flex justify-center text-2xl font-medium">
-          <slot name="header"></slot>
-        </div>
-        <hr class="absolute left-0 w-full top-16 mb-8 border-[#EFEFEF33]" />
-        <div class="h-full pr-3 overflow-y-auto mt-14">
-          <slot name="body"></slot>
-        </div>
+  <div class="modal-mask backdrop-blur-[1px]">
+    <div
+      class="bg-[#11101A] md:w-[47%] min-h-[10%] modal-container flex flex-col relative h-fit max-h-[100%] md:max-h-[90%]"
+    >
+      <button class="absolute modal-default-button" @click="$emit('close')"><IconX /></button>
+      <div class="flex justify-center text-2xl font-medium">
+        <slot name="header"></slot>
+      </div>
+      <hr class="absolute left-0 w-full top-16 mb-8 border-[#EFEFEF33]" />
+      <div class="h-full pr-3 overflow-y-auto mt-14">
+        <slot name="body"></slot>
       </div>
     </div>
-  </Transition>
+  </div>
 </template>
 
 <style>
@@ -63,20 +54,6 @@ defineProps({
  * You can easily play with the modal transition by editing
  * these styles.
  */
-
-.modal-enter-from {
-  opacity: 0;
-}
-
-.modal-leave-to {
-  opacity: 0;
-}
-
-.modal-enter-from .modal-container,
-.modal-leave-to .modal-container {
-  -webkit-transform: scale(1.1);
-  transform: scale(1.1);
-}
 
 /* width */
 ::-webkit-scrollbar {

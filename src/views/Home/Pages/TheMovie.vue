@@ -47,17 +47,22 @@ const backend_API_URL = import.meta.env.VITE_VUE_APP_API_URL
 
 <template>
   <div v-if="movie" class="pt-8 h-fit w-full p-[35px] md:pr-[72px]">
-    <AddQuoteToMovie
-      :movie="movie"
-      :showModal="showAddQuoteToMovie"
-      :closeModal="closeAddQuoteToMovie"
-    />
-    <EditMovie
-      :movie="movie"
-      :changeMovie="changeMovie"
-      :showModal="showEditMovie"
-      :closeModal="closeEditMovie"
-    />
+    <Transition name="modal">
+      <AddQuoteToMovie
+        :movie="movie"
+        v-if="showAddQuoteToMovie"
+        :closeModal="closeAddQuoteToMovie"
+      />
+    </Transition>
+
+    <Transition name="modal">
+      <EditMovie
+        :movie="movie"
+        :changeMovie="changeMovie"
+        v-if="showEditMovie"
+        :closeModal="closeEditMovie"
+      />
+    </Transition>
 
     <h1 class="text-2xl">Movie description</h1>
     <div class="flex flex-col gap-5 mt-8 md:flex-row">

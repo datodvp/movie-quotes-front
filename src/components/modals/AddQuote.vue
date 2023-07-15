@@ -13,10 +13,6 @@ import IconPhoto from '@/components/icons/IconPhoto.vue'
 import CustomDropdown from '@/components/Form/CustomDropdown.vue'
 
 defineProps({
-  showModal: {
-    type: Boolean,
-    required: true
-  },
   closeModal: {
     type: Function,
     required: false
@@ -85,7 +81,7 @@ const backend_API_URL = import.meta.env.VITE_VUE_APP_API_URL
 </script>
 
 <template>
-  <ModalCard :show="showModal" @close="closeModal">
+  <ModalCard @close="closeModal">
     <template #header><h2>Write new quote</h2></template>
     <template #body>
       <Form

@@ -6,16 +6,12 @@ import ModalCard from '@/components/UI/ModalCard.vue'
 import DefaultAvatar from '@/assets/images/defaultAvatar.png'
 import { useAuthService } from '@/services/useAuthService'
 import { useUserStore } from '@/stores/user.js'
-import { onMounted, ref } from 'vue'
+import { ref } from 'vue'
 import PrimaryButton from '@/components/Buttons/PrimaryButton.vue'
 import { useQuotesStore } from '@/stores/quotes'
 import IconPhoto from '@/components/icons/IconPhoto.vue'
 
 defineProps({
-  showModal: {
-    type: Boolean,
-    required: true
-  },
   closeModal: {
     type: Function,
     required: false
@@ -74,7 +70,7 @@ const backend_API_URL = import.meta.env.VITE_VUE_APP_API_URL
 </script>
 
 <template>
-  <ModalCard :show="showModal" @close="closeModal">
+  <ModalCard @close="closeModal">
     <template #header><h2>Edit Quote</h2></template>
     <template #body>
       <Form

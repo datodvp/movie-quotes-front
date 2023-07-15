@@ -13,10 +13,6 @@ import { useQuotesStore } from '@/stores/quotes'
 import IconPhoto from '@/components/icons/IconPhoto.vue'
 
 const props = defineProps({
-  showModal: {
-    type: Boolean,
-    required: true
-  },
   closeModal: {
     type: Function,
     required: false
@@ -86,7 +82,7 @@ const backend_API_URL = import.meta.env.VITE_VUE_APP_API_URL
 </script>
 
 <template>
-  <ModalCard :show="showModal" @close="closeModal">
+  <ModalCard @close="closeModal">
     <template #header><h2>Add Quote</h2></template>
     <template #body>
       <Form

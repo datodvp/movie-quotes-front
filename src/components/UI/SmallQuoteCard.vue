@@ -40,8 +40,13 @@ const deleteQuote = (quoteId) => {
 
 <template>
   <div class="px-8 py-6 bg-[#11101A] rounded-[14px]">
-    <EditQuote :showModal="showEditQuote" :closeModal="closeEditQuote" />
-    <ViewQuote :quote="quote" :showModal="showViewQuote" :closeModal="closeViewQuote" />
+    <Transition name="modal">
+      <EditQuote v-if="showEditQuote" :closeModal="closeEditQuote" />
+    </Transition>
+    <Transition name="modal">
+      <ViewQuote :quote="quote" v-if="showViewQuote" :closeModal="closeViewQuote" />
+    </Transition>
+
     <div class="flex items-center gap-[34px] relative">
       <div class="w-[226px] h-[140px]">
         <img
