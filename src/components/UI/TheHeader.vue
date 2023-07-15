@@ -7,15 +7,15 @@ import SecondaryButton from '@/components/Buttons/SecondaryButton.vue'
 import IconNotification from '@/components/icons/IconNotification.vue'
 import IconBurger from '@/components/icons/IconBurger.vue'
 import IconSearch from '@/components/icons/IconSearch.vue'
-
+import { setLocale as setLocaleValidation } from '@vee-validate/i18n'
 import { useAuthService } from '@/services/useAuthService'
 import { useInterfaceStore } from '@/stores/interface'
 
 import { useRouter } from 'vue-router'
 import { computed, onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
-import TheNotifications from '@/components/TheNotifications.vue'
-import { useNotificationsStore } from '../stores/notifications'
+import TheNotifications from '@/components/UI/TheNotifications.vue'
+import { useNotificationsStore } from '@/stores/notifications'
 
 const authStore = useAuthStore()
 const userStore = useUserStore()
@@ -25,6 +25,7 @@ const router = useRouter()
 const notificationsStore = useNotificationsStore()
 
 const { t } = useI18n()
+const i18n = useI18n()
 
 const isLanguageOpen = ref(false)
 const currentLanguageLabel = computed(() => {
@@ -70,6 +71,8 @@ const logout = async () => {
 
 const setLocale = (locale) => {
   interfateStore.setLocale(locale)
+  i18n.locale.value = locale
+  setLocaleValidation(locale)
 }
 
 const toggleLanguage = () => {

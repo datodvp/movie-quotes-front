@@ -1,14 +1,14 @@
 <script setup>
 import CustomInput from '@/components/Form/CustomInput.vue'
 import { Form } from 'vee-validate'
-import ServerErrorMessage from '@/components/ServerErrorMessage.vue'
-import ModalCard from '@/components/Shared/ModalCard.vue'
+import ServerErrorMessage from '@/components/UI/ServerErrorMessage.vue'
+import ModalCard from '@/components/UI/ModalCard.vue'
 import DefaultAvatar from '@/assets/images/defaultAvatar.png'
 import { useAuthService } from '@/services/useAuthService'
 import { useUserStore } from '@/stores/user.js'
 import { onMounted, ref } from 'vue'
-import PrimaryButton from './Buttons/PrimaryButton.vue'
-import { useMoviesStore } from '../stores/movies'
+import PrimaryButton from '@/components/Buttons/PrimaryButton.vue'
+import { useMoviesStore } from '@/stores/movies'
 import { useInterfaceStore } from '@/stores/interface'
 import IconPhoto from '@/components/icons/IconPhoto.vue'
 
@@ -85,7 +85,8 @@ const addMovie = async () => {
   const formData = new FormData(formElement)
   // genre is an array and needs to be stringified for formData
   if (genres.value.length) {
-    formData.set('genres', JSON.stringify(genres.value))
+    const genresArray = genres.value.map((genre) => genre.id)
+    formData.set('genres', JSON.stringify(genresArray))
   }
   try {
     const response = await authService.postMovie(formData)
@@ -137,7 +138,7 @@ const backend_API_URL = import.meta.env.VITE_VUE_APP_API_URL
         <CustomInput name="name[ka]" v-model="nameKa" placeholder="ფილმის სახელი:" language="ქარ" />
         <div
           @click="toggleDropdown"
-          class="bg-transparent relative h-11 py-[11px] w-full border border-[#6C757D] flex items-center rounded-[4.8px] text-xl pl-4 pr-12"
+          class="bg-transparent relative py-[11px] w-full border border-[#6C757D] flex flex-wrap h-fit items-center rounded-[4.8px] text-xl pl-4 pr-12"
         >
           <div class="absolute left-0 z-10 w-full top-full bg-slate-600">
             <div v-if="showDropdown">
@@ -155,14 +156,14 @@ const backend_API_URL = import.meta.env.VITE_VUE_APP_API_URL
             </div>
           </div>
           <span class="text-[#6C757D] whitespace-nowrap text-base pr-2">ჟანრი/Genres:</span>
-          <p
+          <div
             v-for="genre in genres"
             :key="genre.id"
             @click="removeChosenGenre(genre.id)"
             class="text-sm bg-[#6C757D] mr-1 py-[5px] px-[6px]"
           >
-            {{ genre.name[interfaceStore.getLocale] }} x
-          </p>
+            <p class="whitespace-nowrap">{{ genre.name[interfaceStore.getLocale] }} x</p>
+          </div>
         </div>
         <CustomInput
           name="year"

@@ -28,6 +28,8 @@ const backend_API_URL = import.meta.env.VITE_VUE_APP_API_URL
       {{ movie.name[interfaceStore.getLocale] }} {{ `(${movie.year})` }}
     </div>
 
-    <div class="flex items-center gap-3"><span>10</span> <IconQuote /></div>
+    <div class="flex items-center gap-3">
+      <span>{{ movie.quotes.length }}</span> <IconQuote />
+    </div>
   </RouterLink>
 </template>

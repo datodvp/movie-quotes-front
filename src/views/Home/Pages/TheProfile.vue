@@ -3,7 +3,7 @@ import DefaultAvatar from '@/assets/images/defaultAvatar.png'
 import TextInput from '@/components/Form/TextInput.vue'
 import PrimaryButton from '@/components/Buttons/PrimaryButton.vue'
 import IconBackArrow from '@/components/icons/IconBackArrow.vue'
-import ServerErrorMessage from '@/components/ServerErrorMessage.vue'
+import ServerErrorMessage from '@/components/UI/ServerErrorMessage.vue'
 import { useUserStore } from '@/stores/user'
 import { useAuthService } from '@/services/useAuthService'
 import { ref } from 'vue'
@@ -56,6 +56,7 @@ const changePassword = async () => {
   errorMessage.value = ''
   const form = document.getElementById('password-form')
   const formData = new FormData(form)
+  formData.append('_method', 'patch')
 
   try {
     const response = await authService.changePassword(formData)

@@ -1,6 +1,6 @@
 <script setup>
-import TheHeader from '@/components/TheHeader.vue'
-import TheNavigation from '@/components/Shared/TheNavigation.vue'
+import TheHeader from '@/components/UI/TheHeader.vue'
+import TheNavigation from '@/components/UI/TheNavigation.vue'
 </script>
 
 <template>

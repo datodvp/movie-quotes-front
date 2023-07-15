@@ -1,5 +1,5 @@
 <script setup>
-import PopUpCard from '@/components/PopUpCard.vue'
+import PopUpCard from '@/components/UI/PopUpCard.vue'
 import IconMailSent from '@/components/icons/IconMailSent.vue'
 import PrimaryButton from '@/components/Buttons/PrimaryButton.vue'
 </script>

@@ -1,9 +1,9 @@
 <script setup>
-import LandingMovie from '@/components/LandingMovie.vue'
+import LandingMovie from '@/components/Landing/LandingMovie.vue'
 import ImageInterstellar from '@/assets/images/interstellar.png'
 import ImageTenenbaums from '@/assets/images/tenenbaums.png'
 import ImageLotr from '@/assets/images/lotr.png'
-import UnauthorizedLayout from '../layouts/UnauthorizedLayout.vue'
+import UnauthorizedLayout from '@/layouts/UnauthorizedLayout.vue'
 import PrimaryButton from '@/components/Buttons/PrimaryButton.vue'
 </script>
 

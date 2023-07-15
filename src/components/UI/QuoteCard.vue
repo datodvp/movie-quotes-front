@@ -2,11 +2,11 @@
 import DefaultAvatar from '@/assets/images/defaultAvatar.png'
 import IconComment from '@/components/icons/IconComment.vue'
 import IconLike from '@/components/icons/IconLike.vue'
-import TheComment from '@/components/TheComment.vue'
-import AddComment from '@/components/AddComment.vue'
+import TheComment from '@/components/UI/TheComment.vue'
+import AddComment from '@/components/UI/AddComment.vue'
 import { useInterfaceStore } from '@/stores/interface'
 import { computed, ref } from 'vue'
-import { useUserStore } from '../stores/user'
+import { useUserStore } from '@/stores/user'
 import { useAuthService } from '@/services/useAuthService'
 import { useQuotesStore } from '@/stores/quotes'
 
@@ -56,16 +56,16 @@ const likePost = (quoteId) => {
       />
       <p class="text-xl">{{ quote.user.username }}</p>
     </div>
-    <p class="mb-7">
+    <p class="text-xl mb-7">
       "{{ quote.text[interfaceStore.getLocale] }}" -
       {{ quote.movie.name[interfaceStore.getLocale] }} ({{ quote.movie.year }})
     </p>
     <img
       :src="`${backend_API_URL}/${quote.image}`"
       alt="avatar"
-      class="w-full object-cover h-[31.3rem] rounded-[10px] mb-6"
+      class="w-full object-cover h-[250px] md:h-[500px] rounded-[10px] mb-6"
     />
-    <div class="flex gap-6">
+    <div class="flex gap-6 text-xl">
       <p class="flex gap-3">{{ quote.comments.length }} <IconComment /></p>
       <p class="flex gap-3">
         {{ quote.likes.length }}

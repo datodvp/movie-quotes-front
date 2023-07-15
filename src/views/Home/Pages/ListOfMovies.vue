@@ -3,10 +3,10 @@ import { onMounted, ref } from 'vue'
 import { useAuthService } from '@/services/useAuthService'
 import { useMoviesStore } from '@/stores/movies'
 import PrimaryButton from '@/components/Buttons/PrimaryButton.vue'
-import MovieCard from './MovieCard.vue'
+import MovieCard from '@/components/UI/MovieCard.vue'
 import IconSearch from '@/components/icons/IconSearch.vue'
 import IconPlus from '@/components/icons/IconPlus.vue'
-import AddMovie from './AddMovie.vue'
+import AddMovie from '@/components/modals/AddMovie.vue'
 import { Field, Form } from 'vee-validate'
 
 const authService = useAuthService()
@@ -26,7 +26,7 @@ const closeSearch = () => {
 }
 
 const search = (values) => {
-  authService.searchMovies(values).then((response) => {
+  authService.searchMovies(values.search).then((response) => {
     moviesStore.setMovies(response.data.data.movies)
   })
 }
@@ -49,7 +49,7 @@ onMounted(async () => {
       <div class="flex items-center justify-end gap-4 text-xl">
         <Form
           :onSubmit="search"
-          class="flex gap-4 p-3 duration-500 ease-out border rounded-md"
+          class="hidden gap-4 p-3 duration-500 ease-out border rounded-md md:flex"
           :class="showSearch ? 'w-[100%]  border-[#6C757D]' : 'w-[30%] border-transparent'"
         >
           <IconSearch />

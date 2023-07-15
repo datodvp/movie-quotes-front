@@ -2,11 +2,11 @@
 import { onMounted, onUnmounted, ref } from 'vue'
 import { useAuthService } from '@/services/useAuthService'
 import { useQuotesStore } from '@/stores/quotes'
-import QuoteCard from '@/components/QuoteCard.vue'
+import QuoteCard from '@/components/UI/QuoteCard.vue'
 import IconSearch from '@/components/icons/IconSearch.vue'
 import IconWriteQuote from '@/components/icons/IconWriteQuote.vue'
-import AddQuote from '@/components/AddQuote.vue'
-import { useUserStore } from '../stores/user'
+import AddQuote from '@/components/modals/AddQuote.vue'
+import { useUserStore } from '@/stores/user'
 import { Field, Form } from 'vee-validate'
 import _ from 'lodash'
 
@@ -34,14 +34,16 @@ const search = (values) => {
   // if user searches anything infinite scroll functionality will stop
   window.removeEventListener('scroll', handleScroll)
 
-  authService.searchQuotes(values).then((response) => {
-    quotesStore.setQuotes(response.data.data.quotes)
+  const encodedString = encodeURIComponent(values.search)
+
+  authService.searchQuotes(encodedString).then((response) => {
+    if (encodedString.length) quotesStore.setQuotes(response.data.data.quotes)
   })
 }
 
 const handleScroll = () => {
   let element = scrollElement.value
-  if (element.getBoundingClientRect().bottom < window.innerHeight) {
+  if (element.getBoundingClientRect().bottom - 1000 < window.innerHeight) {
     LoadMoreQuotes()
   }
 }
@@ -49,7 +51,7 @@ const handleScroll = () => {
 const LoadMoreQuotes = _.debounce(() => {
   currentPage.value = currentPage.value + 1
   authService.getQuotes(currentPage.value).then((response) => {
-    const quotes = response.data.data.quotes.data
+    const quotes = response.data.data.quotes
     quotes.forEach((quote) => {
       quotesStore.loadQuote(quote)
     })
@@ -69,7 +71,7 @@ onUnmounted(() => {
 
 onMounted(async () => {
   const response = await authService.getQuotes(currentPage.value)
-  quotesStore.setQuotes(response.data.data.quotes.data)
+  quotesStore.setQuotes(response.data.data.quotes)
 })
 
 onMounted(() => {
@@ -96,7 +98,7 @@ onUnmounted(() => {
 <template>
   <div class="w-full pt-8">
     <AddQuote :showModal="showModal" :closeModal="closeModal" />
-    <div class="w-[67%]" ref="scrollElement">
+    <div class="md:w-[67%] md:px-3" ref="scrollElement">
       <div class="flex justify-between gap-6 h-[3.25rem] mb-6 items-center">
         <button
           @click="openModal"
@@ -106,7 +108,7 @@ onUnmounted(() => {
         </button>
         <Form
           :onSubmit="search"
-          class="flex gap-4 duration-500 border-[#EFEFEF4D] ease-out"
+          class="hidden gap-4 md:flex duration-500 border-[#EFEFEF4D] ease-out"
           :class="showSearch ? 'w-[100%] border-b  pb-3 ' : 'w-[20%]'"
         >
           <IconSearch />
@@ -121,10 +123,10 @@ onUnmounted(() => {
           />
         </Form>
       </div>
-      <div v-for="quote in quotesStore.getQuotes" :key="quote.id">
+      <div v-for="quote in quotesStore.getQuotes" :key="quote.id" class="h-[fit]">
         <QuoteCard :quote="quote" />
       </div>
-      <div v-if="!quotesStore.getQuotes.length" class="mt-24 text-3xl text-center text-red-500">
+      <div v-if="!quotesStore.getQuotes.length" class="mt-24 text-3xl text-center">
         We could not find any quotes!
         <p>^^ :P</p>
       </div>

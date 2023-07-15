@@ -14,7 +14,7 @@ defineProps({
   <Transition name="modal">
     <div v-if="show" class="modal-mask backdrop-blur-[1px]">
       <div
-        class="bg-[#11101A] w-[47%] min-h-[10%] modal-container flex flex-col relative h-fit max-h-[90%]"
+        class="bg-[#11101A] md:w-[47%] min-h-[10%] modal-container flex flex-col relative h-fit max-h-[100%] md:max-h-[90%]"
       >
         <button class="absolute modal-default-button" @click="$emit('close')"><IconX /></button>
         <div class="flex justify-center text-2xl font-medium">

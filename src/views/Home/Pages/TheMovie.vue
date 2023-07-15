@@ -7,12 +7,11 @@ import IconPencil from '@/components/icons/IconPencil.vue'
 import IconTrash from '@/components/icons/IconTrash.vue'
 import PrimaryButton from '@/components/Buttons/PrimaryButton.vue'
 import IconPlus from '@/components/icons/IconPlus.vue'
-import AddQuoteToMovie from '@/components/AddQuoteToMovie.vue'
-import IconThreeDots from '@/components/icons/IconThreeDots.vue'
-import IconComment from '@/components/icons/IconComment.vue'
-import IconLike from '@/components/icons/IconLike.vue'
-import EditMovie from '@/components/EditMovie.vue'
+import AddQuoteToMovie from '@/components/modals/AddQuoteToMovie.vue'
+import EditMovie from '@/components/modals/EditMovie.vue'
+
 import { useRouter } from 'vue-router'
+import SmallQuoteCard from '@/components/UI/SmallQuoteCard.vue'
 
 const route = useRoute()
 const router = useRouter()
@@ -38,7 +37,7 @@ onMounted(() => {
 })
 
 const deleteMovie = (movieId) => {
-  authService.deleteMovie(movieId).then((response) => {
+  authService.deleteMovie(movieId).then(() => {
     router.push({ name: 'moviesList' })
   })
 }
@@ -59,6 +58,7 @@ const backend_API_URL = import.meta.env.VITE_VUE_APP_API_URL
       :showModal="showEditMovie"
       :closeModal="closeEditMovie"
     />
+
     <h1 class="text-2xl">Movie description</h1>
     <div class="flex flex-col gap-5 mt-8 md:flex-row">
       <div class="min-w-[60%] h-[441px]">
@@ -109,40 +109,7 @@ const backend_API_URL = import.meta.env.VITE_VUE_APP_API_URL
       </div>
     </div>
     <div class="mt-[60px] flex flex-col gap-10 max-w-[808px]">
-      <div v-for="quote in movie.quotes" :key="quote.id">
-        <div class="px-8 py-6 bg-[#11101A] rounded-[14px]">
-          <div class="flex items-center gap-[34px] relative">
-            <div class="w-[226px] h-[140px]">
-              <img
-                :src="`${backend_API_URL}/${quote.image}`"
-                alt="quote image"
-                class="object-cover w-full h-full rounded-sm"
-              />
-            </div>
-            <div>
-              <p class="text-2xl text-[#CED4DA]">"{{ quote.text[interfaceStore.getLocale] }}"</p>
-            </div>
-            <div class="absolute top-0 right-0 hover:text-[#EFEFEF33] cursor-pointer duration-100">
-              <IconThreeDots />
-            </div>
-          </div>
-          <hr class="my-6 border-[#EFEFEF33]" />
-          <div class="flex gap-8">
-            <div>
-              <div class="flex items-center gap-4">
-                {{ quote.comments.length }}
-                <IconComment />
-              </div>
-            </div>
-            <div>
-              <div class="flex items-center gap-4">
-                {{ quote.likes.length }}
-                <IconLike />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <div v-for="quote in movie.quotes" :key="quote.id"><SmallQuoteCard :quote="quote" /></div>
     </div>
   </div>
 </template>

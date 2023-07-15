@@ -1,0 +1,104 @@
+<script setup>
+import { useInterfaceStore } from '@/stores/interface.js'
+import IconThreeDots from '@/components/icons/IconThreeDots.vue'
+import IconComment from '@/components/icons/IconComment.vue'
+import IconLike from '@/components/icons/IconLike.vue'
+import IconEye from '@/components/icons/IconEye.vue'
+import IconPencil from '@/components/icons/IconPencil.vue'
+import IconTrash from '@/components/icons/IconTrash.vue'
+import EditQuote from '@/components/modals/EditQuote.vue'
+import ViewQuote from '@/components/modals/ViewQuote.vue'
+import { ref } from 'vue'
+import { useAuthService } from '@/services/useAuthService'
+
+defineProps({
+  quote: {
+    type: Object,
+    required: true
+  }
+})
+
+const authService = useAuthService()
+
+const showEditQuote = ref(false)
+const openEditQuote = () => (showEditQuote.value = true)
+const closeEditQuote = () => (showEditQuote.value = false)
+
+const showViewQuote = ref(false)
+const openViewQuote = () => (showViewQuote.value = true)
+const closeViewQuote = () => (showViewQuote.value = false)
+
+const showPopup = ref(false)
+
+const interfaceStore = useInterfaceStore()
+const backend_API_URL = import.meta.env.VITE_VUE_APP_API_URL
+
+const deleteQuote = (quoteId) => {
+  authService.deleteQuote(quoteId)
+}
+</script>
+
+<template>
+  <div class="px-8 py-6 bg-[#11101A] rounded-[14px]">
+    <EditQuote :showModal="showEditQuote" :closeModal="closeEditQuote" />
+    <ViewQuote :quote="quote" :showModal="showViewQuote" :closeModal="closeViewQuote" />
+    <div class="flex items-center gap-[34px] relative">
+      <div class="w-[226px] h-[140px]">
+        <img
+          :src="`${backend_API_URL}/${quote.image}`"
+          alt="quote image"
+          class="object-cover w-full h-full rounded-sm"
+        />
+      </div>
+      <div>
+        <p class="text-2xl text-[#CED4DA]">"{{ quote.text[interfaceStore.getLocale] }}"</p>
+      </div>
+      <div
+        @click="showPopup = !showPopup"
+        class="absolute top-0 right-0 hover:text-[#EFEFEF33] cursor-pointer duration-100"
+      >
+        <IconThreeDots />
+      </div>
+      <div
+        v-if="showPopup"
+        class="absolute rounded-[10px] p-7 -right-[30%] top-8 w-[250px] h-[200px] bg-[#24222F]"
+      >
+        <div class="flex flex-col justify-around h-full">
+          <div
+            @click="openViewQuote"
+            class="flex items-center gap-4 p-2 duration-300 cursor-pointer hover:bg-slate-700"
+          >
+            <IconEye />View quote
+          </div>
+          <div
+            @click="openEditQuote"
+            class="flex items-center gap-4 p-2 duration-300 cursor-pointer hover:bg-slate-700"
+          >
+            <IconPencil />Edit
+          </div>
+          <div
+            @click="deleteQuote(quote.id)"
+            class="flex items-center gap-4 p-2 duration-300 cursor-pointer hover:bg-slate-700"
+          >
+            <IconTrash />Delete
+          </div>
+        </div>
+      </div>
+    </div>
+    <hr class="my-6 border-[#EFEFEF33]" />
+    <div class="flex gap-8">
+      <div>
+        <div class="flex items-center gap-4">
+          {{ quote.comments.length }}
+          <IconComment />
+        </div>
+      </div>
+      <div>
+        <div class="flex items-center gap-4">
+          {{ quote.likes.length }}
+          <IconLike />
+        </div>
+      </div>
+    </div>
+  </div>
+</template>

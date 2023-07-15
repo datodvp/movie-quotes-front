@@ -1,18 +1,17 @@
 <script setup>
 import CustomInput from '@/components/Form/CustomInput.vue'
 import { Form } from 'vee-validate'
-import ServerErrorMessage from '@/components/ServerErrorMessage.vue'
-import ModalCard from '@/components/Shared/ModalCard.vue'
+import ServerErrorMessage from '@/components/UI/ServerErrorMessage.vue'
+import ModalCard from '@/components/UI/ModalCard.vue'
 import DefaultAvatar from '@/assets/images/defaultAvatar.png'
 import { useAuthService } from '@/services/useAuthService'
 import { useUserStore } from '@/stores/user.js'
 import { onMounted, ref } from 'vue'
-import PrimaryButton from './Buttons/PrimaryButton.vue'
-import { useInterfaceStore } from '@/stores/interface'
+import PrimaryButton from '@/components/Buttons/PrimaryButton.vue'
 import { useQuotesStore } from '@/stores/quotes'
 import IconPhoto from '@/components/icons/IconPhoto.vue'
 
-const props = defineProps({
+defineProps({
   showModal: {
     type: Boolean,
     required: true
@@ -20,17 +19,12 @@ const props = defineProps({
   closeModal: {
     type: Function,
     required: false
-  },
-  movie: {
-    type: Object,
-    required: true
   }
 })
 
 const userStore = useUserStore().getUserData
 const authService = useAuthService()
 const quotesStore = useQuotesStore()
-const interfaceStore = useInterfaceStore()
 
 const form = ref(null)
 const imageInputElement = ref(null)
@@ -42,13 +36,7 @@ const quoteKa = ref('')
 const successMessage = ref('')
 const errorMessage = ref('')
 
-const moviesList = ref([])
-const chosenMovie = ref(props.movie)
-
-onMounted(async () => {
-  const response = await authService.getAllMovies()
-  moviesList.value = response.data.data.movies
-})
+const chosenMovie = ref('')
 
 const handleImagePreview = (e) => {
   const image = e.target.files[0]
@@ -87,7 +75,7 @@ const backend_API_URL = import.meta.env.VITE_VUE_APP_API_URL
 
 <template>
   <ModalCard :show="showModal" @close="closeModal">
-    <template #header><h2>Add Quote</h2></template>
+    <template #header><h2>Edit Quote</h2></template>
     <template #body>
       <Form
         @submit="addQuote"
@@ -103,31 +91,6 @@ const backend_API_URL = import.meta.env.VITE_VUE_APP_API_URL
             class="w-[60px] h-[60px] object-cover rounded-full"
           />
           {{ userStore.username }}
-        </div>
-        <div class="flex gap-[27px]">
-          <div class="min-w-[35%] h-[158px]">
-            <img
-              :src="`${backend_API_URL}/${movie.image}`"
-              alt="image"
-              class="object-cover w-full h-full rounded-[12px]"
-            />
-          </div>
-          <div>
-            <p class="mb-6 text-2xl font-medium text-[#DDCCAA]">
-              {{ movie.name[interfaceStore.getLocale] }}
-            </p>
-            <div class="flex flex-wrap gap-2">
-              <div v-for="genre in movie.genres" :key="genre.id">
-                <span class="px-3 py-1 text-lg font-bold bg-gray-600 rounded-md">{{
-                  genre.name[interfaceStore.getLocale]
-                }}</span>
-              </div>
-            </div>
-            <div class="mt-5 text-lg flex gap-[10px]">
-              <span class="font-bold text-[#CED4DA]">Director:</span>
-              <span class="font-medium">{{ movie.director[interfaceStore.getLocale] }}</span>
-            </div>
-          </div>
         </div>
         <CustomInput name="text[en]" v-model="quoteEn" placeholder="Quote:" language="Eng" />
         <CustomInput name="text[ka]" v-model="quoteKa" placeholder="ციტატა:" language="ქარ" />

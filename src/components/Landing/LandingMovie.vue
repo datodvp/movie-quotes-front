@@ -1,7 +1,7 @@
 <script setup>
 import IconLine from '@/components/icons/IconLine.vue'
 
-const props = defineProps({
+defineProps({
   image: {
     type: String,
     required: true

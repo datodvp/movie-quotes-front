@@ -2,6 +2,7 @@
 import { onMounted, watch } from 'vue'
 import { RouterView, useRoute } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
+import { setLocale } from '@vee-validate/i18n'
 import instantiatePusher from '@/helpers/instantiatePusher'
 
 const authStore = useAuthStore()
@@ -9,6 +10,7 @@ const route = useRoute()
 
 onMounted(async () => {
   instantiatePusher()
+  setLocale(localStorage.getItem('locale') || 'en')
 
   // checks if route query has google token and sets user on authenticated
   watch(route, (state) => {
@@ -24,15 +26,3 @@ onMounted(async () => {
     <RouterView />
   </div>
 </template>
-
-<style>
-html {
-  scroll-behavior: smooth;
-}
-body {
-  color: white;
-  background: linear-gradient(187.16deg, #181623 0.07%, #191725 51.65%, #0d0b14 98.75%);
-  min-height: 100vh;
-  height: 100%;
-}
-</style>

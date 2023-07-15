@@ -1,13 +1,13 @@
 <script setup>
 import CustomInput from '@/components/Form/CustomInput.vue'
 import { Form } from 'vee-validate'
-import ServerErrorMessage from '@/components/ServerErrorMessage.vue'
-import ModalCard from '@/components/Shared/ModalCard.vue'
+import ServerErrorMessage from '@/components/UI/ServerErrorMessage.vue'
+import ModalCard from '@/components/UI/ModalCard.vue'
 import DefaultAvatar from '@/assets/images/defaultAvatar.png'
 import { useAuthService } from '@/services/useAuthService'
 import { useUserStore } from '@/stores/user.js'
 import { onMounted, ref } from 'vue'
-import PrimaryButton from './Buttons/PrimaryButton.vue'
+import PrimaryButton from '@/components/Buttons/PrimaryButton.vue'
 import { useInterfaceStore } from '@/stores/interface'
 import IconPhoto from '@/components/icons/IconPhoto.vue'
 
@@ -90,9 +90,13 @@ const EditMovie = async () => {
   const formElement = document.querySelector('#edit-movie-form')
 
   const formData = new FormData(formElement)
+
+  formData.append('_method', 'patch')
+
   // genre is an array and needs to be stringified for formData
   if (genres.value.length) {
-    formData.set('genres', JSON.stringify(genres.value))
+    const genresArray = genres.value.map((genre) => genre.id)
+    formData.set('genres', JSON.stringify(genresArray))
   }
 
   try {

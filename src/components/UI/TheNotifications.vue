@@ -5,6 +5,7 @@ import DefaultAvatar from '@/assets/images/defaultAvatar.png'
 import IconPolygon from '@/components/icons/IconPolygon.vue'
 import { useNotificationsStore } from '@/stores/notifications'
 import { useAuthService } from '@/services/useAuthService'
+import timeDiff from 'time-diff-for-humans'
 
 defineProps({
   userStore: {
@@ -77,7 +78,9 @@ const avatarLink = (notification) => {
 
           <div class="flex md:flex-col-reverse md:justify-end whitespace-nowrap">
             <p v-show="notification.is_active" class="md:ml-0 ml-3 mr-7 text-[#198754]">New</p>
-            <p :class="!notification.is_active && 'ml-[4.7rem]'">{{ notification.created_ago }}</p>
+            <p :class="!notification.is_active && 'ml-[4.7rem]'">
+              {{ timeDiff(notification.created_at) }}
+            </p>
           </div>
         </div>
       </template>

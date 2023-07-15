@@ -29,7 +29,10 @@ export const useAuthService = () => {
         authStore.setIsAuthenticated(false)
       }
       if (error.response && [403].includes(error.response.status)) {
-        router.push('/forbidden')
+        router.push({ name: 'forbidden' })
+      }
+      if (error.response && [404].includes(error.response.status)) {
+        router.push({ name: 'notFound' })
       }
       return Promise.reject(error)
     }
@@ -56,10 +59,10 @@ export const useAuthService = () => {
       return authClient.post('/api/reset-password', payload)
     },
     async getUserData() {
-      return authClient.get('/api/user-data')
+      return authClient.get('/api/user')
     },
     async changePassword(payload) {
-      return authClient.post('/api/change-user-credentials', payload)
+      return authClient.post('/api/user', payload)
     },
     async getMovies() {
       return authClient.get('/api/movies')
@@ -76,9 +79,6 @@ export const useAuthService = () => {
     async postQuote(payload) {
       return authClient.post('/api/quotes', payload)
     },
-    async getAllMovies() {
-      return authClient.get('/api/movies-list')
-    },
     async postComment(payload) {
       return authClient.post('/api/comment', payload)
     },
@@ -94,11 +94,11 @@ export const useAuthService = () => {
     async markAllNotificationsRead() {
       return authClient.get('/api/notifications/mark-all-read')
     },
-    async searchQuotes(payload) {
-      return authClient.post('/api/quotes-search', payload)
+    async searchQuotes(searchQuery) {
+      return authClient.get(`/api/quotes?search=${searchQuery}`)
     },
-    async searchMovies(payload) {
-      return authClient.post('/api/movies-search', payload)
+    async searchMovies(searchQuery) {
+      return authClient.get(`/api/movies?search=${searchQuery}`)
     },
     async getMovie(movieId) {
       return authClient.get(`/api/movies/${movieId}`)
@@ -108,6 +108,9 @@ export const useAuthService = () => {
     },
     async deleteMovie(movieId) {
       return authClient.delete(`/api/movies/${movieId}`)
+    },
+    async deleteQuote(quoteId) {
+      return authClient.delete(`/api/quotes/${quoteId}`)
     }
   }
 }

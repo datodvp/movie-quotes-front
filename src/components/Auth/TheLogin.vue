@@ -1,5 +1,5 @@
 <script setup>
-import PopUpCard from '@/components/PopUpCard.vue'
+import PopUpCard from '@/components/UI/PopUpCard.vue'
 import TextInput from '@/components/Form/TextInput.vue'
 import { Field, Form } from 'vee-validate'
 import { ref } from 'vue'
@@ -7,7 +7,7 @@ import { RouterLink } from 'vue-router'
 import IconGoogle from '@/components/icons/IconGoogle.vue'
 import PrimaryButton from '@/components/Buttons/PrimaryButton.vue'
 import SecondaryButton from '@/components/Buttons/SecondaryButton.vue'
-import ServerErrorMessage from '@/components/ServerErrorMessage.vue'
+import ServerErrorMessage from '@/components/UI/ServerErrorMessage.vue'
 import { useAuthService } from '@/services/useAuthService'
 import { useAuthStore } from '@/stores/auth'
 
