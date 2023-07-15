@@ -18,7 +18,6 @@ const addMovie = (movie) => {
 
 const setMovies = (moviesList) => {
   movies.value = moviesList
-  console.log(movies.value)
 }
 
 const showAddMovie = ref(false)
