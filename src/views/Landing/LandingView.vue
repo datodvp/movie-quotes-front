@@ -20,7 +20,7 @@ import TheHeader from '@/components/UI/TheHeader.vue'
       class="flex bg-scroll bg-gradient-to-b from-[#11101A] via-[#08080D] to-[#000000] items-center justify-center flex-grow min-h-[710px]"
     >
       <div
-        class="text-2xl fixed flex flex-col items-center gap-y-6 font-bold md:text-6xl w-72 md:w-[43rem] text-center"
+        class="text-2xl fixed text-[#DDCCAA] flex flex-col items-center gap-y-6 font-bold md:text-6xl w-72 md:w-[43rem] text-center"
       >
         {{ $t('texts.find_any_movies') }}
         <PrimaryButton class="w-32">
