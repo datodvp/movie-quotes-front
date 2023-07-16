@@ -1,9 +1,10 @@
 <script setup>
-import AuthorizedLayout from '@/layouts/AuthorizedLayout.vue'
+import TheHeader from '@/components/UI/TheHeader.vue'
 </script>
 
 <template>
-  <AuthorizedLayout>
+  <TheHeader />
+  <div class="flex">
     <RouterView></RouterView>
-  </AuthorizedLayout>
+  </div>
 </template>

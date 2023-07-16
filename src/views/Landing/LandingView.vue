@@ -1,14 +1,15 @@
 <script setup>
-import LandingMovie from '@/components/Landing/LandingMovie.vue'
+import LandingMovie from '@/components/UI/LandingMovie.vue'
 import ImageInterstellar from '@/assets/images/interstellar.png'
 import ImageTenenbaums from '@/assets/images/tenenbaums.png'
 import ImageLotr from '@/assets/images/lotr.png'
-import UnauthorizedLayout from '@/layouts/UnauthorizedLayout.vue'
 import PrimaryButton from '@/components/Buttons/PrimaryButton.vue'
+import TheHeader from '@/components/UI/TheHeader.vue'
 </script>
 
 <template>
-  <UnauthorizedLayout class="relative flex flex-col h-full bg-gradient-to-b">
+  <TheHeader />
+  <div class="relative flex flex-col h-full bg-gradient-to-b">
     <RouterView v-slot="{ Component }" class="z-10">
       <Transition mode="out-in">
         <Component :is="Component" />
@@ -50,7 +51,7 @@ import PrimaryButton from '@/components/Buttons/PrimaryButton.vue'
       class="bg-fixed"
     />
     <footer class="py-[15px] pl-[4%] text-xs">© 2022 movie quotes. All rights reserved.</footer>
-  </UnauthorizedLayout>
+  </div>
 </template>
 
 <style scoped>
