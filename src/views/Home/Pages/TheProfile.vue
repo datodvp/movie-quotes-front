@@ -7,7 +7,7 @@ import ServerErrorMessage from '@/components/UI/ServerErrorMessage.vue'
 import TheNavigation from '@/components/UI/TheNavigation.vue'
 import { useUserStore } from '@/stores/user'
 import { useAuthService } from '@/services/useAuthService'
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import { Form, Field } from 'vee-validate'
 import { useI18n } from 'vue-i18n'
 
@@ -29,6 +29,11 @@ const changingImage = ref(false)
 
 const errorMessage = ref('')
 const successMessage = ref('')
+
+const changingUser = computed(
+  () =>
+    changingPassword.value || changingUsername.value || changingEmail.value || changingImage.value
+)
 
 const openChangingImage = (e) => {
   changingImage.value = true
@@ -74,6 +79,11 @@ const changePassword = async () => {
     errorMessage.value = error.response.data.message
   }
 }
+
+const usernameRules = { required: true, min: 3, max: 15, latin: true }
+const emailRules = { required: true, email: true }
+const passwordRules = { required: true, latin: true, min: 8, max: 15 }
+const passwordConfirmationRules = { required: true, confirmed: newPassword }
 
 const backend_API_URL = import.meta.env.VITE_VUE_APP_API_URL
 </script>
@@ -131,7 +141,7 @@ const backend_API_URL = import.meta.env.VITE_VUE_APP_API_URL
             name="username"
             placeholder="New username"
             v-model="newUsername"
-            :rules="{ required: true, min: 3, max: 15, latin: true }"
+            :rules="usernameRules"
           />
         </div>
 
@@ -161,7 +171,7 @@ const backend_API_URL = import.meta.env.VITE_VUE_APP_API_URL
             name="email"
             placeholder="New email"
             v-model="newEmail"
-            :rules="{ required: true, email: true }"
+            :rules="emailRules"
           />
         </div>
 
@@ -195,7 +205,7 @@ const backend_API_URL = import.meta.env.VITE_VUE_APP_API_URL
               name="password"
               placeholder="New password"
               v-model="newPassword"
-              :rules="{ required: true, latin: true, min: 8, max: 15 }"
+              :rules="passwordRules"
             />
           </div>
 
@@ -206,7 +216,7 @@ const backend_API_URL = import.meta.env.VITE_VUE_APP_API_URL
               name="password_confirmation"
               placeholder="Confirm new password"
               v-model="newPasswordConfirmation"
-              :rules="{ required: true, confirmed: newPassword }"
+              :rules="passwordConfirmationRules"
             />
           </div>
         </div>
@@ -216,10 +226,7 @@ const backend_API_URL = import.meta.env.VITE_VUE_APP_API_URL
     </Form>
 
     <div class="w-[70%]">
-      <div
-        v-if="changingPassword || changingUsername || changingEmail || changingImage"
-        class="flex self-end justify-end my-5 md:my-16 justify-self-end"
-      >
+      <div v-if="changingUser" class="flex self-end justify-end my-5 md:my-16 justify-self-end">
         <div @click="closeAllInputs" class="flex items-center justify-center cursor-pointer mr-7">
           Cancel
         </div>

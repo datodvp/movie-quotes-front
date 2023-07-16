@@ -57,6 +57,8 @@ const likePost = (quoteId) => {
 const addComment = (comment) => {
   quote.value.comments.push(comment)
 }
+
+const isMoreThanTwoComments = !seeMore.value && quote.value.comments.length > 2
 </script>
 
 <template>
@@ -99,7 +101,7 @@ const addComment = (comment) => {
     </div>
     <button
       @click="seeMore = true"
-      v-if="!seeMore && quote.comments.length > 2"
+      v-if="isMoreThanTwoComments"
       class="mt-1 ml-20 text-blue-600 hover:underline"
     >
       See more...

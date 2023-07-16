@@ -109,6 +109,8 @@ const clearInputs = () => {
 }
 
 const backend_API_URL = import.meta.env.VITE_VUE_APP_API_URL
+
+const yearRule = { required: true, digits: 4 }
 </script>
 
 <template>
@@ -161,12 +163,7 @@ const backend_API_URL = import.meta.env.VITE_VUE_APP_API_URL
             <p class="whitespace-nowrap">{{ genre.name[interfaceStore.getLocale] }} x</p>
           </div>
         </div>
-        <CustomInput
-          name="year"
-          v-model="year"
-          placeholder="წელი/Year:"
-          :rules="{ required: true, digits: 4 }"
-        />
+        <CustomInput name="year" v-model="year" placeholder="წელი/Year:" :rules="yearRule" />
         <CustomInput
           name="director[en]"
           v-model="directorEn"

@@ -33,6 +33,8 @@ const authorize = async (values) => {
 const loginGoogle = async () => {
   authService.authGoogle()
 }
+const loginRule = { required: true }
+const passwordRule = { required: true, latin: true, min: 8, max: 15 }
 </script>
 
 <template>
@@ -46,7 +48,7 @@ const loginGoogle = async () => {
           name="login"
           :placeholder="$t('auth.email_or_username_placeholder')"
           v-model="login"
-          :rules="{ required: true }"
+          :rules="loginRule"
         />
         <TextInput
           type="password"
@@ -54,7 +56,7 @@ const loginGoogle = async () => {
           name="password"
           :placeholder="$t('auth.password_placeholder')"
           v-model="password"
-          :rules="{ required: true, latin: true, min: 8, max: 15 }"
+          :rules="passwordRule"
         />
         <div class="flex justify-between mt-4">
           <label class="flex items-center gap-2 cursor-pointer w-fit">

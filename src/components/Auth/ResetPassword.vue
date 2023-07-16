@@ -31,6 +31,9 @@ const onSubmit = async (values) => {
     errorMessage.value = error.response.data.errors.message
   }
 }
+
+const passwordRules = { required: true, min: 8, max: 15, latin: true }
+const passwordConfirmationRules = { required: true, confirmed: password }
 </script>
 
 <template>
@@ -47,7 +50,7 @@ const onSubmit = async (values) => {
           name="password"
           :placeholder="$t('auth.password_placeholder')"
           v-model="password"
-          :rules="{ required: true, min: 8, max: 15, latin: true }"
+          :rules="passwordRules"
         />
 
         <TextInput
@@ -56,7 +59,7 @@ const onSubmit = async (values) => {
           name="password_confirmation"
           :placeholder="$t('auth.confirm_password_placeholder')"
           v-model="passwordConfirmation"
-          :rules="{ required: true, confirmed: password }"
+          :rules="passwordConfirmationRules"
         />
 
         <ServerErrorMessage :errorMessage="errorMessage" />

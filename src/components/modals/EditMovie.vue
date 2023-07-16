@@ -103,6 +103,8 @@ const EditMovie = async () => {
     errorMessage.value = error.response.data.message
   }
 }
+
+const yearRule = { required: true, digits: 4 }
 </script>
 
 <template>
@@ -155,12 +157,7 @@ const EditMovie = async () => {
             {{ genre.name[interfaceStore.getLocale] }} x
           </p>
         </div>
-        <CustomInput
-          name="year"
-          v-model="year"
-          placeholder="წელი/Year:"
-          :rules="{ required: true, digits: 4 }"
-        />
+        <CustomInput name="year" v-model="year" placeholder="წელი/Year:" :rules="yearRule" />
         <CustomInput
           name="director[en]"
           v-model="directorEn"

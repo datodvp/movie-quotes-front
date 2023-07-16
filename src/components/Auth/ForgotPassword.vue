@@ -24,6 +24,8 @@ const onSubmit = async (values) => {
     errorMessage.value = error.response.data.errors.message
   }
 }
+
+const emailRules = { required: true, email: true }
 </script>
 
 <template>
@@ -37,7 +39,7 @@ const onSubmit = async (values) => {
           name="email"
           :placeholder="$t('auth.email_placeholder')"
           v-model="email"
-          :rules="{ required: true, email: true }"
+          :rules="emailRules"
         />
 
         <ServerErrorMessage :errorMessage="errorMessage" />

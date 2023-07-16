@@ -25,7 +25,7 @@ defineProps({
 
 <template>
   <div class="">
-    <div @click="show = !show" class="bg-black p-5 flex items-center justify-between gap-3">
+    <div @click="show = !show" class="flex items-center justify-between gap-3 p-5 bg-black">
       <IconCamera class="absolute" />
       <p class="pl-[40px]">
         {{ (chosenItem.name && chosenItem.name[interfaceStore.getLocale]) || 'Choose a movie' }}
@@ -39,7 +39,7 @@ defineProps({
       class="absolute w-[90%] max-h-[150px] overflow-y-auto border"
     >
       <div v-for="item in items" :key="item.id">
-        <div @click="setChosenItem(item)" class="bg-black w-full px-5 py-2 hover:bg-gray-600">
+        <div @click="setChosenItem(item)" class="w-full px-5 py-2 bg-black hover:bg-gray-600">
           {{ item.name[interfaceStore.getLocale] }}
         </div>
       </div>
