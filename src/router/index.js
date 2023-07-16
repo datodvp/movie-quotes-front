@@ -14,6 +14,7 @@ import NewsFeed from '@/views/Home/Pages/NewsFeed.vue'
 import ListOfMovies from '@/views/Home/Pages/ListOfMovies.vue'
 import TheProfile from '@/views/Home/Pages/TheProfile.vue'
 import TheMovie from '@/views/Home/Pages/TheMovie.vue'
+import TheQuote from '@/views/Home/Pages/TheQuote.vue'
 import ForbiddenView from '@/views/Forbidden/ForbiddenView.vue'
 import NotFound from '@/views/NotFound/NotFoundView.vue'
 
@@ -103,6 +104,11 @@ const router = createRouter({
           path: 'movie/:id',
           name: 'moviePage',
           component: TheMovie
+        },
+        {
+          path: 'quote/:id',
+          name: 'quotePage',
+          component: TheQuote
         }
       ]
     },

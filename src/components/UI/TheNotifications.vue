@@ -6,6 +6,7 @@ import IconPolygon from '@/components/icons/IconPolygon.vue'
 import { useNotificationsStore } from '@/stores/notifications'
 import { useAuthService } from '@/services/useAuthService'
 import timeDiff from 'time-diff-for-humans'
+import { useRouter } from 'vue-router'
 
 defineProps({
   userStore: {
@@ -16,6 +17,8 @@ defineProps({
 
 const notificationsStore = useNotificationsStore()
 
+const router = useRouter()
+
 const authService = useAuthService()
 
 const markAllNotificationsRead = () => {
@@ -23,6 +26,14 @@ const markAllNotificationsRead = () => {
     const notifications = response.data.data.notifications
     notificationsStore.setNotifications(notifications.reverse())
   })
+}
+
+const handleClick = async (notification) => {
+  // mark as notified
+  const response = await authService.markAsRead(notification.id)
+  const notifications = response.data.data.notifications
+  notificationsStore.setNotifications(notifications.reverse())
+  router.push({ name: 'quotePage', params: { id: notification.quote.id } })
 }
 
 const backend_API_URL = import.meta.env.VITE_VUE_APP_API_URL
@@ -53,6 +64,7 @@ const avatarLink = (notification) => {
     >
       <template v-for="notification in notificationsStore.getNotifications" :key="notification.id">
         <div
+          @click="handleClick(notification)"
           class="flex hover:text-[#6C757D] duration-100 md:flex-row md:justify-between cursor-pointer flex-col py-[18px] px-[25px] border-[#6C757D80] border rounded-[4px]"
         >
           <div class="flex">

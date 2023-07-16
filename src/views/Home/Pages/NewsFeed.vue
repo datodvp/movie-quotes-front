@@ -5,6 +5,7 @@ import QuoteCard from '@/components/UI/QuoteCard.vue'
 import IconSearch from '@/components/icons/IconSearch.vue'
 import IconWriteQuote from '@/components/icons/IconWriteQuote.vue'
 import AddQuote from '@/components/modals/AddQuote.vue'
+import IconBackArrow from '@/components/icons/IconBackArrow.vue'
 import { useUserStore } from '@/stores/user'
 import { Field, Form } from 'vee-validate'
 import _ from 'lodash'
@@ -75,6 +76,7 @@ const closeSearch = () => {
 }
 
 const search = (values) => {
+  closeSearch()
   // if user searches anything infinite scroll functionality will stop
   window.removeEventListener('scroll', handleScroll)
 
@@ -109,7 +111,6 @@ onMounted(() => {
 onUnmounted(() => {
   window.removeEventListener('scroll', handleScroll)
 })
-// onUnmounted(( ))
 
 onMounted(async () => {
   const response = await authService.getQuotes(currentPage.value)
@@ -153,18 +154,32 @@ onUnmounted(() => {
         </button>
         <Form
           :onSubmit="search"
-          class="hidden gap-4 md:flex duration-500 border-[#EFEFEF4D] ease-out"
-          :class="showSearch ? 'w-[100%] border-b  pb-3 ' : 'w-[20%]'"
+          class="fixed right-0 z-20 duration-500 ease-out rounded-md md:z-10 md:border-b md:pb-3 md:p-3 md:gap-4 md:static md:flex"
+          :class="
+            showSearch
+              ? 'w-[100%]  flex items-start border-[#6C757D] bg-[#12101A] h-[90%] -right-0 top-0 md:bg-transparent'
+              : 'w-[30%] border-transparent top-7 '
+          "
         >
-          <IconSearch />
+          <IconBackArrow
+            @click="closeSearch"
+            class="md:hidden w-[32px] h-[32px] mt-3 ml-6 mr-3"
+            :class="showSearch ? '' : 'hidden md:block'"
+          />
+          <IconSearch :class="showSearch ? 'hidden md:block' : 'fixed md:static'" />
           <Field
-            @focusin="openSearch"
+            @click="openSearch"
             @focusout="closeSearch"
             name="search"
             :placeholder="
               showSearch ? 'Enter @ to search movies, Enter # to search quotes' : 'Search by'
             "
-            class="w-full transition-all duration-500 transform bg-transparent outline-none"
+            :class="
+              showSearch
+                ? ' border-b p-3 pl-2 md:p-0 md:border-none w-full'
+                : 'opacity-0 fixed md:static w-[30px] md:w-full md:opacity-100'
+            "
+            class="transition-all border-[#646363] duration-500 transform bg-transparent outline-none md:placeholder-current"
           />
         </Form>
       </div>

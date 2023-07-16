@@ -104,7 +104,7 @@ const activeNotificationsNumber = computed(() => {
         />
         <h1 :class="authStore.getIsAuthenticated && 'hidden md:block'">MOVIE QUOTES</h1>
         <div class="relative flex items-center gap-8">
-          <IconSearch v-if="authStore.getIsAuthenticated" class="cursor-pointer md:hidden" />
+          <!-- <IconSearch v-if="authStore.getIsAuthenticated" class="cursor-pointer md:hidden" /> -->
           <div
             @click="interfateStore.toggleShowNotifications"
             v-if="authStore.getIsAuthenticated"

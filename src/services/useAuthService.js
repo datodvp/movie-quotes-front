@@ -92,7 +92,10 @@ export const useAuthService = () => {
       return authClient.get('/api/notifications')
     },
     async markAllNotificationsRead() {
-      return authClient.get('/api/notifications/mark-all-read')
+      return authClient.post('/api/notifications/mark-all-read')
+    },
+    async markAsRead(notificationId) {
+      return authClient.get(`/api/notifications/${notificationId}`)
     },
     async searchQuotes(searchQuery) {
       return authClient.get(`/api/quotes?search=${searchQuery}`)
