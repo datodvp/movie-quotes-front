@@ -15,6 +15,8 @@ defineProps({
   }
 })
 
+const emit = defineEmits(['close'])
+
 const notificationsStore = useNotificationsStore()
 
 const router = useRouter()
@@ -33,6 +35,7 @@ const handleClick = async (notification) => {
   const response = await authService.markAsRead(notification.id)
   const notifications = response.data.data.notifications
   notificationsStore.setNotifications(notifications.reverse())
+  emit('close')
   router.push({ name: 'quotePage', params: { id: notification.quote.id } })
 }
 

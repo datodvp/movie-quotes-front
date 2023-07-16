@@ -7,6 +7,7 @@ import IconSearch from '@/components/icons/IconSearch.vue'
 import IconPlus from '@/components/icons/IconPlus.vue'
 import IconBackArrow from '@/components/icons/IconBackArrow.vue'
 import AddMovie from '@/components/modals/AddMovie.vue'
+import TheNavigation from '@/components/UI/TheNavigation.vue'
 import { Field, Form } from 'vee-validate'
 
 const authService = useAuthService()
@@ -49,6 +50,7 @@ onMounted(async () => {
 </script>
 
 <template>
+  <TheNavigation class="hidden md:block" />
   <Transition name="modal">
     <AddMovie v-if="showAddMovie" @addMovie="addMovie" :closeModal="closeModal" />
   </Transition>

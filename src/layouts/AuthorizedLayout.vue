@@ -6,7 +6,6 @@ import TheNavigation from '@/components/UI/TheNavigation.vue'
 <template>
   <TheHeader />
   <div class="flex">
-    <TheNavigation />
     <slot></slot>
   </div>
 </template>

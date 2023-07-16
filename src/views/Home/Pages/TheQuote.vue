@@ -9,6 +9,7 @@ import { computed, onMounted, ref } from 'vue'
 import { useUserStore } from '@/stores/user'
 import { useAuthService } from '@/services/useAuthService'
 import { useRoute } from 'vue-router'
+import TheNavigation from '@/components/UI/TheNavigation.vue'
 
 const quote = ref(null)
 
@@ -18,7 +19,7 @@ onMounted(() => {
   authService.getQuote(route.params.id).then((response) => (quote.value = response.data.data.quote))
 })
 
-const emit = defineEmits(['addLike', 'removeLike', 'addComment'])
+defineEmits(['addLike', 'removeLike', 'addComment'])
 
 const reversedComments = computed(() => quote.value.comments.slice().reverse())
 const seeMore = ref(false)
@@ -59,6 +60,7 @@ const addComment = (comment) => {
 </script>
 
 <template>
+  <TheNavigation class="hidden md:block" />
   <div v-if="quote" class="w-full bg-[#11101A] p-6 mt-16 max-w-[900px] rounded-xl mb-10">
     <div class="flex items-center gap-4 mb-4">
       <img

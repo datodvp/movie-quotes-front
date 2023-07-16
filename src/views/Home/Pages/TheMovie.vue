@@ -11,6 +11,7 @@ import AddQuoteToMovie from '@/components/modals/AddQuoteToMovie.vue'
 import EditMovie from '@/components/modals/EditMovie.vue'
 import { useRouter } from 'vue-router'
 import SmallQuoteCard from '@/components/UI/SmallQuoteCard.vue'
+import TheNavigation from '@/components/UI/TheNavigation.vue'
 
 const route = useRoute()
 const router = useRouter()
@@ -65,6 +66,7 @@ const backend_API_URL = import.meta.env.VITE_VUE_APP_API_URL
 </script>
 
 <template>
+  <TheNavigation class="hidden md:block" />
   <div v-if="movie" class="pt-8 h-fit w-full p-[35px] md:pr-[72px]">
     <Transition name="modal">
       <AddQuoteToMovie

@@ -6,6 +6,7 @@ import IconSearch from '@/components/icons/IconSearch.vue'
 import IconWriteQuote from '@/components/icons/IconWriteQuote.vue'
 import AddQuote from '@/components/modals/AddQuote.vue'
 import IconBackArrow from '@/components/icons/IconBackArrow.vue'
+import TheNavigation from '@/components/UI/TheNavigation.vue'
 import { useUserStore } from '@/stores/user'
 import { Field, Form } from 'vee-validate'
 import _ from 'lodash'
@@ -139,6 +140,7 @@ onUnmounted(() => {
 })
 </script>
 <template>
+  <TheNavigation class="hidden md:block" />
   <div class="w-full pt-8">
     <Transition name="modal">
       <AddQuote v-if="showCreateQuote" @addQuote="addQuote" :closeModal="closeModal" />

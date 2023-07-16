@@ -6,7 +6,6 @@ import { useUserStore } from '@/stores/user'
 import SecondaryButton from '@/components/Buttons/SecondaryButton.vue'
 import IconNotification from '@/components/icons/IconNotification.vue'
 import IconBurger from '@/components/icons/IconBurger.vue'
-import IconSearch from '@/components/icons/IconSearch.vue'
 import { setLocale as setLocaleValidation } from '@vee-validate/i18n'
 import { useAuthService } from '@/services/useAuthService'
 import { useInterfaceStore } from '@/stores/interface'
@@ -16,6 +15,7 @@ import { computed, onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import TheNotifications from '@/components/UI/TheNotifications.vue'
 import { useNotificationsStore } from '@/stores/notifications'
+import TheNavigation from '@/components/UI/TheNavigation.vue'
 
 const authStore = useAuthStore()
 const userStore = useUserStore()
@@ -82,13 +82,27 @@ const toggleLanguage = () => {
 const activeNotificationsNumber = computed(() => {
   return notificationsStore.getNotifications.filter((notification) => notification.is_active).length
 })
+
+const showNotifications = ref(false)
+const closeNotifications = () => {
+  showNotifications.value = false
+}
+
+const showNavbar = ref(false)
+const toggleNavbar = () => {
+  showNavbar.value = !showNavbar.value
+}
+const closeNavbar = () => {
+  showNavbar.value = false
+}
 </script>
 
 <template>
   <header class="sticky top-0 z-20">
     <Transition>
       <TheNotifications
-        v-if="interfateStore.getShowNotifications && authStore.getIsAuthenticated"
+        v-if="showNotifications && authStore.getIsAuthenticated"
+        @close="closeNotifications"
         :userStore="userStore"
       />
     </Transition>
@@ -98,7 +112,7 @@ const activeNotificationsNumber = computed(() => {
     >
       <nav class="flex items-center justify-between">
         <IconBurger
-          @click="interfateStore.toggleShowNavigation"
+          @click="toggleNavbar"
           v-if="authStore.getIsAuthenticated"
           class="cursor-pointer md:hidden"
         />
@@ -106,7 +120,7 @@ const activeNotificationsNumber = computed(() => {
         <div class="relative flex items-center gap-8">
           <!-- <IconSearch v-if="authStore.getIsAuthenticated" class="cursor-pointer md:hidden" /> -->
           <div
-            @click="interfateStore.toggleShowNotifications"
+            @click="showNotifications = !showNotifications"
             v-if="authStore.getIsAuthenticated"
             class="relative group"
           >
@@ -163,6 +177,11 @@ const activeNotificationsNumber = computed(() => {
         </div>
       </nav>
     </div>
+    <TheNavigation
+      @close="closeNavbar"
+      :class="showNavbar ? 'static' : 'hidden'"
+      class="md:hidden"
+    />
   </header>
 </template>
 

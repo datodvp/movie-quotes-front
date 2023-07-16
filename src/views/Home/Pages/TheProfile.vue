@@ -4,6 +4,7 @@ import TextInput from '@/components/Form/TextInput.vue'
 import PrimaryButton from '@/components/Buttons/PrimaryButton.vue'
 import IconBackArrow from '@/components/icons/IconBackArrow.vue'
 import ServerErrorMessage from '@/components/UI/ServerErrorMessage.vue'
+import TheNavigation from '@/components/UI/TheNavigation.vue'
 import { useUserStore } from '@/stores/user'
 import { useAuthService } from '@/services/useAuthService'
 import { ref } from 'vue'
@@ -75,6 +76,7 @@ const changePassword = async () => {
 const backend_API_URL = import.meta.env.VITE_VUE_APP_API_URL
 </script>
 <template>
+  <TheNavigation class="hidden md:block" />
   <div class="flex flex-col w-full">
     <div class="mt-4 mb-4 ml-8 text-2xl md:mt-8 md:mb-32">
       <h2 class="hidden md:block">{{ $t('texts.my_profile') }}</h2>
