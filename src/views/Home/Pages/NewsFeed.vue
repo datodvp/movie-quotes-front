@@ -152,11 +152,11 @@ onUnmounted(() => {
           @click="openModal"
           class="bg-[#24222F] p-[11px] whitespace-nowrap hover:text-[#6C757D] duration-100 flex-1 rounded-[10px] flex text-xl gap-4"
         >
-          <IconWriteQuote /> Write new quote
+          <IconWriteQuote /> {{ $t('texts.write_new_quote') }}
         </button>
         <Form
           :onSubmit="search"
-          class="fixed right-0 z-20 duration-500 ease-out rounded-md md:z-10 md:border-b md:pb-3 md:p-3 md:gap-4 md:static md:flex"
+          class="fixed right-0 z-20 duration-500 ease-out md:z-10 md:border-b md:pb-3 md:p-3 md:gap-4 md:static md:flex"
           :class="
             showSearch
               ? 'w-[100%]  flex items-start border-[#6C757D] bg-[#12101A] h-[90%] -right-0 top-0 md:bg-transparent'
@@ -173,9 +173,7 @@ onUnmounted(() => {
             @click="openSearch"
             @focusout="closeSearch"
             name="search"
-            :placeholder="
-              showSearch ? 'Enter @ to search movies, Enter # to search quotes' : 'Search by'
-            "
+            :placeholder="showSearch ? $t('texts.enter_quote') : $t('texts.search_by')"
             :class="
               showSearch
                 ? ' border-b p-3 pl-2 md:p-0 md:border-none w-full'

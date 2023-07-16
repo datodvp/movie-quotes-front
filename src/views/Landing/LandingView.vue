@@ -24,7 +24,9 @@ import TheHeader from '@/components/UI/TheHeader.vue'
       >
         {{ $t('texts.find_any_movies') }}
         <PrimaryButton class="w-32">
-          <RouterLink to="sign-up" class="text-xl font-normal">{{ $t('Get started') }}</RouterLink>
+          <RouterLink to="sign-up" class="text-xl font-normal">{{
+            $t('texts.get_started')
+          }}</RouterLink>
         </PrimaryButton>
       </div>
     </main>

@@ -86,7 +86,7 @@ const backend_API_URL = import.meta.env.VITE_VUE_APP_API_URL
       />
     </Transition>
 
-    <h1 class="text-2xl">Movie description</h1>
+    <h1 class="text-2xl">{{ $t('texts.movie_description') }}</h1>
     <div class="flex flex-col gap-5 mt-8 md:flex-row">
       <div class="min-w-[60%] h-[441px]">
         <img
@@ -114,7 +114,7 @@ const backend_API_URL = import.meta.env.VITE_VUE_APP_API_URL
           </div>
         </div>
         <div class="flex mt-5 text-lg gap-[10px]">
-          <span class="text-[#CED4DA] font-bold">Director:</span>
+          <span class="text-[#CED4DA] font-bold">{{ $t('texts.director') }}:</span>
           <span class="font-medium">{{ movie.director[interfaceStore.getLocale] }}</span>
         </div>
         <div class="mt-5">
@@ -125,12 +125,14 @@ const backend_API_URL = import.meta.env.VITE_VUE_APP_API_URL
       </div>
     </div>
     <div class="flex gap-4 mt-12">
-      <div class="text-2xl">Quotes (total {{ quotes.length }})</div>
+      <div class="text-2xl">
+        {{ $t('texts.quotes') }} ({{ $t('texts.total') }} {{ quotes.length }})
+      </div>
       <span class="text-[#6C757D] text-2xl"> | </span>
       <div>
         <PrimaryButton class="px-5"
           ><button @click="openAddQuoteToMovie" class="flex gap-2">
-            <IconPlus />Add quote
+            <IconPlus />{{ $t('texts.add_quote') }}
           </button></PrimaryButton
         >
       </div>

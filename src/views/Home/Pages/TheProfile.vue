@@ -9,7 +9,9 @@ import { useUserStore } from '@/stores/user'
 import { useAuthService } from '@/services/useAuthService'
 import { ref } from 'vue'
 import { Form, Field } from 'vee-validate'
+import { useI18n } from 'vue-i18n'
 
+const { t } = useI18n()
 const userStore = useUserStore()
 const authService = useAuthService()
 
@@ -103,13 +105,13 @@ const backend_API_URL = import.meta.env.VITE_VUE_APP_API_URL
       />
       <label class="cursor-pointer">
         <Field type="file" name="image" @change="openChangingImage" class="hidden" />
-        <p class="mt-2 text-xl mb-9 hover:text-[#CED4DA80]">Upload new photo</p>
+        <p class="mt-2 text-xl mb-9 hover:text-[#CED4DA80]">{{ $t('texts.upload_image') }}</p>
       </label>
 
       <div class="flex flex-col gap-11 w-[80%] md:w-[53%]">
         <div class="relative flex items-end justify-between gap-8">
           <div class="w-full">
-            <p class="pb-1">Username</p>
+            <p class="pb-1">{{ $t('texts.username') }}</p>
             <div
               class="flex p-2 border-[#CED4DA80] md:bg-white md:rounded-md justify-between md:border md: border-b w-full"
             >
@@ -125,7 +127,7 @@ const backend_API_URL = import.meta.env.VITE_VUE_APP_API_URL
 
         <div v-if="changingUsername" class="flex items-end gap-8">
           <TextInput
-            label="New username"
+            :label="t('texts.new_username')"
             name="username"
             placeholder="New username"
             v-model="newUsername"
@@ -135,7 +137,7 @@ const backend_API_URL = import.meta.env.VITE_VUE_APP_API_URL
 
         <div class="relative flex items-end justify-between gap-8">
           <div class="w-full">
-            <p class="pb-1">Email</p>
+            <p class="pb-1">{{ $t('texts.email') }}</p>
             <div
               class="flex p-2 border-[#CED4DA80] md:bg-white md:rounded-md justify-between md:border md: border-b w-full"
             >
@@ -155,7 +157,7 @@ const backend_API_URL = import.meta.env.VITE_VUE_APP_API_URL
 
         <div v-if="changingEmail" class="flex items-end gap-8">
           <TextInput
-            label="Email"
+            :label="t('texts.new_email')"
             name="email"
             placeholder="New email"
             v-model="newEmail"
@@ -165,7 +167,7 @@ const backend_API_URL = import.meta.env.VITE_VUE_APP_API_URL
 
         <div class="relative flex items-end justify-between gap-8">
           <div class="w-full">
-            <p class="pb-1">Password</p>
+            <p class="pb-1">{{ $t('texts.password') }}</p>
             <div
               class="flex p-2 border-[#CED4DA80] md:bg-white md:rounded-md justify-between md:border md: border-b w-full"
             >
@@ -179,17 +181,17 @@ const backend_API_URL = import.meta.env.VITE_VUE_APP_API_URL
 
         <div v-if="changingPassword" class="flex flex-col gap-2">
           <div class="h-fit p-6 border-[#CED4DA33] border rounded-[4px]">
-            <p class="mb-4">Passwords should contain:</p>
+            <p class="mb-4">{{ $t('texts.password_should_contain') }}</p>
             <ul class="ml-4 list-disc text-[#9C9A9A]">
-              <li>8 or more characters</li>
-              <li>15 lowercase character</li>
+              <li>{{ $t('texts.8_characters') }}</li>
+              <li>{{ $t('texts.15_characters') }}</li>
             </ul>
           </div>
 
           <div class="flex items-end gap-8">
             <TextInput
               type="password"
-              label="New password"
+              :label="t('texts.new_password')"
               name="password"
               placeholder="New password"
               v-model="newPassword"
@@ -200,7 +202,7 @@ const backend_API_URL = import.meta.env.VITE_VUE_APP_API_URL
           <div class="flex items-end gap-8">
             <TextInput
               type="password"
-              label="Confirm new password"
+              :label="t('texts.confirm_new_password')"
               name="password_confirmation"
               placeholder="Confirm new password"
               v-model="newPasswordConfirmation"

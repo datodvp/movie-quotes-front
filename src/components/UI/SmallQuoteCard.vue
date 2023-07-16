@@ -66,19 +66,19 @@ const backend_API_URL = import.meta.env.VITE_VUE_APP_API_URL
             @click="openViewQuote"
             class="flex items-center gap-4 p-2 duration-300 cursor-pointer hover:bg-slate-700"
           >
-            <IconEye />View quote
+            <IconEye />{{ $t('texts.view_quote') }}
           </div>
           <div
             @click="openEditQuote"
             class="flex items-center gap-4 p-2 duration-300 cursor-pointer hover:bg-slate-700"
           >
-            <IconPencil />Edit
+            <IconPencil />{{ $t('texts.edit') }}
           </div>
           <div
             @click="$emit('removeQuote', quote.id)"
             class="flex items-center gap-4 p-2 duration-300 cursor-pointer hover:bg-slate-700"
           >
-            <IconTrash />Delete
+            <IconTrash />{{ $t('texts.delete') }}
           </div>
         </div>
       </div>

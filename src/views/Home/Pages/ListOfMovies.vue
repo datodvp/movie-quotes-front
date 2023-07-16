@@ -57,7 +57,9 @@ onMounted(async () => {
 
   <div class="w-[100%] md:pr-16">
     <div class="flex items-center justify-between p-5 mt-8">
-      <h2 class="text-2xl font-medium">My list of movies (Total {{ movies.length }})</h2>
+      <h2 class="text-2xl font-medium">
+        {{ $t('texts.my_list_of_movies') }} ({{ $t('texts.total') }} {{ movies.length }})
+      </h2>
       <div class="flex items-center justify-end gap-4 text-xl">
         <Form
           :onSubmit="search"
@@ -78,7 +80,7 @@ onMounted(async () => {
             @click="openSearch"
             @focusout="closeSearch"
             name="search"
-            placeholder="Search"
+            :placeholder="$t('texts.search')"
             :class="
               showSearch
                 ? ' border-b p-3 pl-2 md:p-0 md:border-none w-full'
@@ -89,7 +91,9 @@ onMounted(async () => {
         </Form>
 
         <PrimaryButton class="px-4 py-6" @click="openModal"
-          ><button class="flex gap-2"><IconPlus /> Add movie</button></PrimaryButton
+          ><button class="flex gap-2">
+            <IconPlus /> {{ $t('texts.add_movie') }}
+          </button></PrimaryButton
         >
       </div>
     </div>
