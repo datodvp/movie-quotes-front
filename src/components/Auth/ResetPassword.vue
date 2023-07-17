@@ -5,7 +5,7 @@ import PrimaryButton from '@/components/Buttons/PrimaryButton.vue'
 import IconBackArrow from '@/components/icons/IconBackArrow.vue'
 import { useAuthService } from '@/services/useAuthService'
 import { Form } from 'vee-validate'
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import ServerErrorMessage from '@/components/UI/ServerErrorMessage.vue'
 
@@ -32,8 +32,8 @@ const onSubmit = async (values) => {
   }
 }
 
-const passwordRules = { required: true, min: 8, max: 15, latin: true }
-const passwordConfirmationRules = { required: true, confirmed: password }
+const passwordRules = computed(() => ({ required: true, min: 8, max: 15, latin: true }))
+const passwordConfirmationRules = computed(() => ({ required: true, confirmed: password.value }))
 </script>
 
 <template>

@@ -6,7 +6,7 @@ import ModalCard from '@/components/UI/ModalCard.vue'
 import DefaultAvatar from '@/assets/images/defaultAvatar.png'
 import { useAuthService } from '@/services/useAuthService'
 import { useUserStore } from '@/stores/user.js'
-import { onMounted, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import PrimaryButton from '@/components/Buttons/PrimaryButton.vue'
 import { useInterfaceStore } from '@/stores/interface'
 import IconPhoto from '@/components/icons/IconPhoto.vue'
@@ -110,7 +110,7 @@ const clearInputs = () => {
 
 const backend_API_URL = import.meta.env.VITE_VUE_APP_API_URL
 
-const yearRule = { required: true, digits: 4 }
+const yearRule = computed(() => ({ required: true, digits: 4 }))
 </script>
 
 <template>

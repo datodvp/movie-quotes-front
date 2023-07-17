@@ -5,7 +5,7 @@ import PrimaryButton from '@/components/Buttons/PrimaryButton.vue'
 import IconBackArrow from '@/components/icons/IconBackArrow.vue'
 import { useAuthService } from '@/services/useAuthService'
 import { Form } from 'vee-validate'
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import ServerErrorMessage from '@/components/UI/ServerErrorMessage.vue'
 
@@ -25,7 +25,7 @@ const onSubmit = async (values) => {
   }
 }
 
-const emailRules = { required: true, email: true }
+const emailRules = computed(() => ({ required: true, email: true }))
 </script>
 
 <template>

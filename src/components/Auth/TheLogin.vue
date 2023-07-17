@@ -2,7 +2,7 @@
 import PopUpCard from '@/components/UI/PopUpCard.vue'
 import TextInput from '@/components/Form/TextInput.vue'
 import { Field, Form } from 'vee-validate'
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import { RouterLink } from 'vue-router'
 import IconGoogle from '@/components/icons/IconGoogle.vue'
 import PrimaryButton from '@/components/Buttons/PrimaryButton.vue'
@@ -33,8 +33,8 @@ const authorize = async (values) => {
 const loginGoogle = async () => {
   authService.authGoogle()
 }
-const loginRule = { required: true }
-const passwordRule = { required: true, latin: true, min: 8, max: 15 }
+const loginRule = computed(() => ({ required: true }))
+const passwordRule = computed(() => ({ required: true, latin: true, min: 8, max: 15 }))
 </script>
 
 <template>
