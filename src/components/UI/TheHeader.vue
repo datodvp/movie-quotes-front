@@ -101,13 +101,16 @@ const closeNavbar = () => {
 
 const showOrHideNavbar = computed(() => (showNavbar.value ? 'static' : 'hidden'))
 const authenticatedBackground = computed(() => authStore.getIsAuthenticated && 'bg-[#222030]')
+const showNotificationsOnAuthenticated = computed(
+  () => showNotifications.value && authStore.getIsAuthenticated
+)
 </script>
 
 <template>
   <header class="sticky top-0 z-20">
     <Transition>
       <TheNotifications
-        v-if="showNotifications && authStore.getIsAuthenticated"
+        v-if="showNotificationsOnAuthenticated"
         @close="closeNotifications"
         :userStore="userStore"
       />

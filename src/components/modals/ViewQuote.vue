@@ -66,6 +66,13 @@ const likePost = () => {
 }
 
 const hasLikedStyling = computed(() => hasLikedQuote.value && 'text-red-700')
+const showMoreComments = () => {
+  seeMore.value = true
+}
+const showLessComments = () => {
+  seeMore.value = false
+}
+const moreThanTwoComments = computed(() => !seeMore.value && quote.value.comments.length > 2)
 </script>
 
 <template>
@@ -108,14 +115,14 @@ const hasLikedStyling = computed(() => hasLikedQuote.value && 'text-red-700')
           </template>
         </div>
         <button
-          @click="seeMore = true"
-          v-if="!seeMore && quote.comments.length > 2"
+          @click="showMoreComments"
+          v-if="moreThanTwoComments"
           class="ml-20 text-blue-600 hover:underline"
         >
           See more...
         </button>
         <button
-          @click="seeMore = false"
+          @click="showLessComments"
           v-if="seeMore"
           class="mt-1 ml-20 text-blue-600 hover:underline"
         >

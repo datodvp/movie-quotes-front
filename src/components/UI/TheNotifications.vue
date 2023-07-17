@@ -55,6 +55,8 @@ const activeNotificationImageBorder = (notification) => {
 const activeNotificationStyling = (notification) => {
   if (!notification.is_active) return 'ml-[4.7rem]'
 }
+
+const commentedYourMovie = (notification) => notification.text === 'Commented to your movie quote'
 </script>
 
 <template>
@@ -88,10 +90,7 @@ const activeNotificationStyling = (notification) => {
             <div class="flex flex-col justify-center gap-1">
               <p>{{ notification.username }}</p>
               <p class="flex gap-3">
-                <IconQuote
-                  v-if="notification.text === 'Commented to your movie quote'"
-                  class="w-6 h-6"
-                />
+                <IconQuote v-if="commentedYourMovie(notification)" class="w-6 h-6" />
                 <IconHeart v-else class="w-6 h-6" />{{ notification.text }}
               </p>
             </div>

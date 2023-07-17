@@ -50,6 +50,7 @@ const addComment = (comment) => {
 }
 
 const hasLikedStyling = computed(() => hasLikedQuote.value && 'text-red-700')
+const moreThanTwoComments = computed(() => !seeMore.value && props.quote.comments.length > 2)
 </script>
 
 <template>
@@ -91,7 +92,7 @@ const hasLikedStyling = computed(() => hasLikedQuote.value && 'text-red-700')
     </div>
     <button
       @click="seeMore = true"
-      v-if="!seeMore && quote.comments.length > 2"
+      v-if="moreThanTwoComments"
       class="mt-1 ml-20 text-blue-600 hover:underline"
     >
       See more...

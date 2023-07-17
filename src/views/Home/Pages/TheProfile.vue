@@ -84,8 +84,6 @@ const usernameRules = computed(() => ({ required: true, min: 3, max: 15, latin: 
 const emailRules = computed(() => ({ required: true, email: true }))
 const passwordRules = computed(() => ({ required: true, latin: true, min: 8, max: 15 }))
 const passwordConfirmationRules = computed(() => ({ required: true, confirmed: newPassword.value }))
-
-const backend_API_URL = import.meta.env.VITE_VUE_APP_API_URL
 </script>
 <template>
   <TheNavigation class="hidden md:block" />

@@ -3,6 +3,7 @@ import { Field, ErrorMessage } from 'vee-validate'
 import IconValidationWarning from '@/components/icons/IconValidationWarning.vue'
 import IconValidationSuccess from '@/components/icons/IconValidationSuccess.vue'
 import IconPasswordHide from '@/components/icons/IconPasswordHide.vue'
+import { computed } from 'vue'
 
 const props = defineProps({
   name: {
@@ -40,6 +41,8 @@ const props = defineProps({
 })
 
 defineEmits(['update:modelValue'])
+
+const typeIsPassword = computed(() => props.type === 'password')
 </script>
 
 <template>
@@ -80,7 +83,7 @@ defineEmits(['update:modelValue'])
           v-if="meta.valid && meta.validated && type !== 'password'"
           class="absolute right-3"
         />
-        <IconPasswordHide v-if="type === 'password'" class="absolute right-3" />
+        <IconPasswordHide v-if="typeIsPassword" class="absolute right-3" />
       </div>
     </Field>
 
