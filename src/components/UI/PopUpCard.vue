@@ -15,7 +15,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div v-if="show" class="fixed z-20 w-full h-full">
+  <div v-if="show" class="fixed top-0 z-20 w-full h-full">
     <div class="relative w-full h-full">
       <div class="w-full h-full bg-[#0000008A] relative" @click="closePopUp"></div>
       <div

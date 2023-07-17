@@ -87,6 +87,9 @@ const showNotifications = ref(false)
 const closeNotifications = () => {
   showNotifications.value = false
 }
+const toggleShowNotifications = () => {
+  showNotifications.value = !showNotifications.value
+}
 
 const showNavbar = ref(false)
 const toggleNavbar = () => {
@@ -95,6 +98,9 @@ const toggleNavbar = () => {
 const closeNavbar = () => {
   showNavbar.value = false
 }
+
+const showOrHideNavbar = computed(() => (showNavbar.value ? 'static' : 'hidden'))
+const authenticatedBackground = computed(() => authStore.getIsAuthenticated && 'bg-[#222030]')
 </script>
 
 <template>
@@ -106,20 +112,17 @@ const closeNavbar = () => {
         :userStore="userStore"
       />
     </Transition>
-    <div
-      class="w-full max-w-[1920px] px-9 py-6 md:px-16"
-      :class="authStore.getIsAuthenticated && 'bg-[#222030]'"
-    >
+    <div class="w-full max-w-[1920px] px-9 py-6 md:px-16" :class="authenticatedBackground">
       <nav class="flex items-center justify-between">
         <IconBurger
           @click="toggleNavbar"
           v-if="authStore.getIsAuthenticated"
           class="cursor-pointer md:hidden"
         />
-        <h1 :class="authStore.getIsAuthenticated && 'hidden md:block'">MOVIE QUOTES</h1>
+        <h1>MOVIE QUOTES</h1>
         <div class="relative flex items-center gap-8">
           <div
-            @click="showNotifications = !showNotifications"
+            @click="toggleShowNotifications"
             v-if="authStore.getIsAuthenticated"
             class="relative group"
           >
@@ -176,11 +179,7 @@ const closeNavbar = () => {
         </div>
       </nav>
     </div>
-    <TheNavigation
-      @close="closeNavbar"
-      :class="showNavbar ? 'static' : 'hidden'"
-      class="md:hidden"
-    />
+    <TheNavigation @close="closeNavbar" :class="showOrHideNavbar" class="md:hidden" />
   </header>
 </template>
 

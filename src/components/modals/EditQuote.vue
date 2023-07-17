@@ -71,6 +71,8 @@ const editQuote = async () => {
     errorMessage.value = error.response.data.message
   }
 }
+
+const previewImageStyling = imagePreview.value && 'w-full h-[300px] md:h-[500px]'
 </script>
 
 <template>
@@ -106,11 +108,7 @@ const editQuote = async () => {
               <p>Change Photo</p>
             </div>
           </div>
-          <img
-            class="object-cover"
-            :class="imagePreview && 'w-full h-[300px] md:h-[500px]'"
-            :src="imagePreview"
-          />
+          <img class="object-cover" :class="previewImageStyling" :src="imagePreview" />
           <div class="flex items-center">
             <input
               type="file"

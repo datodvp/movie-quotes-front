@@ -59,7 +59,7 @@ const handleImagePreview = (e) => {
 }
 
 const alreadyIsChosen = (id) => {
-  return genres.value.some((item) => item.id === id)
+  return genres.value.some((item) => item.id === id) && 'bg-slate-500 underline'
 }
 
 const addChosenGenre = (genre) => {
@@ -108,6 +108,8 @@ const clearInputs = () => {
   imagePreview.value = null
 }
 
+const previewImageWidth = computed(() => imagePreview.value && 'w-[50%]')
+const userImage = computed(() => (userStore.image ? userStore.image : DefaultAvatar))
 const yearRule = computed(() => ({ required: true, digits: 4 }))
 </script>
 
@@ -123,11 +125,7 @@ const yearRule = computed(() => ({ required: true, digits: 4 }))
         class="flex flex-col overflow-x-hidden overflow-y-auto gap-7"
       >
         <div class="flex items-center gap-4 text-xl">
-          <img
-            :src="userStore.image ? userStore.image : DefaultAvatar"
-            alt="avatar"
-            class="w-[60px] h-[60px] object-cover rounded-full"
-          />
+          <img :src="userImage" alt="avatar" class="w-[60px] h-[60px] object-cover rounded-full" />
           {{ userStore.username }}
         </div>
         <CustomInput name="name[en]" v-model="nameEn" placeholder="Movie name:" language="Eng" />
@@ -143,7 +141,7 @@ const yearRule = computed(() => ({ required: true, digits: 4 }))
                 :key="genre.id"
                 @click="addChosenGenre(genre)"
                 class="p-1 cursor-pointer hover:bg-slate-500"
-                :class="alreadyIsChosen(genre.id) && 'bg-slate-500 underline'"
+                :class="alreadyIsChosen(genre.id)"
               >
                 <p>
                   {{ genre.name[interfaceStore.getLocale] }}
@@ -190,11 +188,7 @@ const yearRule = computed(() => ({ required: true, digits: 4 }))
           class="relative flex gap-4 border-[#6C757D] border rounded text-lg h-fit py-[21px] px-6"
           for="image-input"
         >
-          <img
-            class="max-h-[180px] object-cover"
-            :class="imagePreview && 'w-[50%]'"
-            :src="imagePreview"
-          />
+          <img class="max-h-[180px] object-cover" :class="previewImageWidth" :src="imagePreview" />
           <div class="flex items-center flex-1">
             <div class="flex flex-col items-center w-full">
               <p v-if="imagePreview" class="text-base">REPLACE PHOTO</p>

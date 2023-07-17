@@ -3,12 +3,17 @@ import DefaultAvatar from '@/assets/images/defaultAvatar.png'
 import IconMoviesList from '@/components/icons/IconMoviesList.vue'
 import IconNewsFeed from '@/components/icons/IconNewsFeed.vue'
 import { useUserStore } from '@/stores/user'
+import { computed } from 'vue'
 import { RouterLink, useRoute } from 'vue-router'
 
 const route = useRoute()
 const userData = useUserStore().getUserData
 
 defineEmits(['close'])
+
+const routeIsProfile = computed(() => route.name === 'profile' && 'border-red-700 border-2')
+const routeIsNewsFeed = computed(() => route.name === 'newsFeed' && 'text-red-700 duration-300')
+const routeIsMoviesList = computed(() => route.name === 'moviesList' && 'text-red-700 duration-300')
 </script>
 
 <template>
@@ -24,7 +29,7 @@ defineEmits(['close'])
         <img
           :src="userData.image ? userData.image : DefaultAvatar"
           alt="avatar"
-          :class="route.name === 'profile' && 'border-red-700 border-2'"
+          :class="routeIsProfile"
           class="w-[60px] h-[60px] object-cover rounded-full"
         />
         <div>
@@ -39,10 +44,7 @@ defineEmits(['close'])
         class="flex items-center gap-[43px] ml-[10px] cursor-pointer duration-300 hover:text-[#6C757D]"
       >
         <div class="flex items-center justify-center">
-          <IconNewsFeed
-            :class="route.name === 'newsFeed' && 'text-red-700 duration-300'"
-            class="w-6 h-6 md:h-8 md:w-8"
-          />
+          <IconNewsFeed :class="routeIsNewsFeed" class="w-6 h-6 md:h-8 md:w-8" />
         </div>
 
         <p class="text-xl md:text-2xl">{{ $t('texts.news_feed') }}</p>
@@ -54,10 +56,7 @@ defineEmits(['close'])
         class="flex items-center gap-[43px] ml-[10px] cursor-pointer duration-300 hover:text-[#6C757D]"
       >
         <div class="flex items-center justify-center">
-          <IconMoviesList
-            :class="route.name === 'moviesList' && 'text-red-700 duration-300'"
-            class="w-6 h-6 md:h-8 md:w-8"
-          />
+          <IconMoviesList :class="routeIsMoviesList" class="w-6 h-6 md:h-8 md:w-8" />
         </div>
 
         <p class="text-xl md:text-2xl">{{ $t('texts.list_of_movies') }}</p>

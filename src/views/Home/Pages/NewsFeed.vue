@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, onUnmounted, ref } from 'vue'
+import { computed, onMounted, onUnmounted, ref } from 'vue'
 import { useAuthService } from '@/services/useAuthService'
 import QuoteCard from '@/components/UI/QuoteCard.vue'
 import IconSearch from '@/components/icons/IconSearch.vue'
@@ -138,6 +138,18 @@ onUnmounted(() => {
   window.Echo.channel('quote-unlike-action').stopListening('QuoteUnlikeAction')
   window.Echo.channel('comment-quote').stopListening('QuoteCommented')
 })
+
+const searchFormStyling = computed(() =>
+  showSearch.value
+    ? 'w-[100%]  flex items-start border-[#6C757D] bg-[#12101A] h-[90%] -right-0 top-0 md:bg-transparent'
+    : 'w-[30%] border-transparent top-7 '
+)
+const searchIconStyling = computed(() => (showSearch.value ? 'hidden md:block' : 'fixed md:static'))
+const searchInputStyling = computed(() =>
+  showSearch.value
+    ? ' border-b p-3 pl-2 md:p-0 md:border-none w-full'
+    : 'opacity-0 fixed md:static w-[30px] md:w-full md:opacity-100'
+)
 </script>
 <template>
   <TheNavigation class="hidden md:block" />
@@ -157,28 +169,20 @@ onUnmounted(() => {
         <Form
           :onSubmit="search"
           class="fixed right-0 z-20 duration-500 ease-out md:z-10 md:border-b md:pb-3 md:p-3 md:gap-4 md:static md:flex"
-          :class="
-            showSearch
-              ? 'w-[100%]  flex items-start border-[#6C757D] bg-[#12101A] h-[90%] -right-0 top-0 md:bg-transparent'
-              : 'w-[30%] border-transparent top-7 '
-          "
+          :class="searchFormStyling"
         >
           <IconBackArrow
             @click="closeSearch"
             class="md:hidden w-[32px] h-[32px] mt-3 ml-6 mr-3"
             :class="showSearch ? '' : 'hidden md:block'"
           />
-          <IconSearch :class="showSearch ? 'hidden md:block' : 'fixed md:static'" />
+          <IconSearch :class="searchIconStyling" />
           <Field
             @click="openSearch"
             @focusout="closeSearch"
             name="search"
             :placeholder="showSearch ? $t('texts.enter_quote') : $t('texts.search_by')"
-            :class="
-              showSearch
-                ? ' border-b p-3 pl-2 md:p-0 md:border-none w-full'
-                : 'opacity-0 fixed md:static w-[30px] md:w-full md:opacity-100'
-            "
+            :class="searchInputStyling"
             class="transition-all border-[#646363] duration-500 transform bg-transparent outline-none md:placeholder-current"
           />
         </Form>

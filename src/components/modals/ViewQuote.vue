@@ -64,6 +64,8 @@ const likePost = () => {
   }
   updateQuote(quote.value)
 }
+
+const hasLikedStyling = computed(() => hasLikedQuote.value && 'text-red-700')
 </script>
 
 <template>
@@ -95,11 +97,7 @@ const likePost = () => {
         </div>
         <div class="flex gap-6 text-xl">
           <div class="flex gap-3">{{ quote.comments.length }}<IconComment /></div>
-          <div
-            @click="likePost"
-            :class="hasLikedQuote && 'text-red-700'"
-            class="flex gap-3 cursor-pointer"
-          >
+          <div @click="likePost" :class="hasLikedStyling" class="flex gap-3 cursor-pointer">
             {{ quote.likes.length }}<IconLike />
           </div>
         </div>

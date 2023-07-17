@@ -56,6 +56,8 @@ const likePost = (quoteId) => {
 const addComment = (comment) => {
   quote.value.comments.push(comment)
 }
+
+const hasLikedStyling = computed(() => hasLikedQuote.value && 'text-red-700')
 </script>
 
 <template>
@@ -84,7 +86,7 @@ const addComment = (comment) => {
         {{ quote.likes.length }}
         <IconLike
           @click="likePost(quote.id)"
-          :class="hasLikedQuote && 'text-red-700'"
+          :class="hasLikedStyling"
           class="transition-all transform cursor-pointer hover:text-[#6C757D] duration-300"
         />
       </p>

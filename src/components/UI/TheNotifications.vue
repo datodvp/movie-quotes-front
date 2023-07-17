@@ -47,6 +47,14 @@ const avatarLink = (notification) => {
   }
   return DefaultAvatar
 }
+
+const activeNotificationImageBorder = (notification) => {
+  if (notification.is_active) return 'border-[#198754] border-[3px] rounded-full'
+}
+
+const activeNotificationStyling = (notification) => {
+  if (!notification.is_active) return 'ml-[4.7rem]'
+}
 </script>
 
 <template>
@@ -74,7 +82,7 @@ const avatarLink = (notification) => {
                 :src="avatarLink(notification)"
                 alt="avatar"
                 class="w-[60px] h-[60px] rounded-full object-cover"
-                :class="notification.is_active && 'border-[#198754] border-[3px] rounded-full'"
+                :class="activeNotificationImageBorder(notification)"
               />
             </div>
             <div class="flex flex-col justify-center gap-1">
@@ -91,7 +99,7 @@ const avatarLink = (notification) => {
 
           <div class="flex md:flex-col-reverse md:justify-end whitespace-nowrap">
             <p v-show="notification.is_active" class="md:ml-0 ml-3 mr-7 text-[#198754]">New</p>
-            <p :class="!notification.is_active && 'ml-[4.7rem]'">
+            <p :class="activeNotificationStyling">
               {{ timeDiff(notification.created_at) }}
             </p>
           </div>

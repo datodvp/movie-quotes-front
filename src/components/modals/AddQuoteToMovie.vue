@@ -6,7 +6,7 @@ import ModalCard from '@/components/UI/ModalCard.vue'
 import DefaultAvatar from '@/assets/images/defaultAvatar.png'
 import { useAuthService } from '@/services/useAuthService'
 import { useUserStore } from '@/stores/user.js'
-import { onMounted, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import PrimaryButton from '@/components/Buttons/PrimaryButton.vue'
 import { useInterfaceStore } from '@/stores/interface'
 import IconPhoto from '@/components/icons/IconPhoto.vue'
@@ -77,6 +77,9 @@ const clearInputs = () => {
   imageInputElement.value.value = null
   imagePreview.value = null
 }
+
+const previewImageWidth = computed(() => imagePreview.value && 'w-[50%]')
+const previewImageColumn = computed(() => imagePreview.value && 'flex-col')
 </script>
 
 <template>
@@ -125,15 +128,11 @@ const clearInputs = () => {
           class="relative flex gap-4 border-[#6C757D] border rounded text-lg h-fit py-[21px] px-6"
           for="image-input"
         >
-          <img
-            class="max-h-[180px] object-cover"
-            :class="imagePreview && 'w-[50%]'"
-            :src="imagePreview"
-          />
+          <img class="max-h-[180px] object-cover" :class="previewImageWidth" :src="imagePreview" />
           <div class="flex items-center flex-1">
             <div class="flex flex-col items-center w-full">
               <p v-if="imagePreview" class="text-base">REPLACE PHOTO</p>
-              <div class="flex items-center gap-4" :class="imagePreview && 'flex-col'">
+              <div class="flex items-center gap-4" :class="previewImageColumn">
                 <div class="flex">
                   <IconPhoto class="ml-4 mr-2" />
                   <p class="text-xl">Drag & drop your image here or</p>

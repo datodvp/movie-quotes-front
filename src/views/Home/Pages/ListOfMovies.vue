@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import { useAuthService } from '@/services/useAuthService'
 import PrimaryButton from '@/components/Buttons/PrimaryButton.vue'
 import MovieCard from '@/components/UI/MovieCard.vue'
@@ -47,6 +47,19 @@ onMounted(async () => {
 
   setMovies(response.data.data.movies)
 })
+
+const searchStyling = computed(() =>
+  showSearch.value
+    ? 'w-[100%] flex items-start border-[#6C757D] bg-[#12101A] h-[90%] -right-0 top-0 md:bg-transparent'
+    : 'w-[30%] border-transparent top-7 '
+)
+const searchIconStyling = computed(() => (showSearch.value ? 'hidden md:block' : 'fixed md:static'))
+const searchHidden = computed(() => !showSearch.value && 'hidden md:block')
+const inputStyling = computed(() =>
+  showSearch.value
+    ? ' border-b p-3 pl-2 md:p-0 md:border-none w-full'
+    : 'opacity-0 fixed md:static w-[30px] md:w-full md:opacity-100'
+)
 </script>
 
 <template>
@@ -64,28 +77,20 @@ onMounted(async () => {
         <Form
           :onSubmit="search"
           class="fixed right-0 z-20 duration-500 ease-out rounded-md md:z-10 md:border md:p-3 md:gap-4 md:static md:flex"
-          :class="
-            showSearch
-              ? 'w-[100%] flex items-start border-[#6C757D] bg-[#12101A] h-[90%] -right-0 top-0 md:bg-transparent'
-              : 'w-[30%] border-transparent top-7 '
-          "
+          :class="searchStyling"
         >
           <IconBackArrow
             @click="closeSearch"
             class="md:hidden w-[32px] h-[32px] mt-3 ml-6 mr-3"
-            :class="showSearch ? '' : 'hidden md:block'"
+            :class="searchHidden"
           />
-          <IconSearch :class="showSearch ? 'hidden md:block' : 'fixed md:static'" />
+          <IconSearch :class="searchIconStyling" />
           <Field
             @click="openSearch"
             @focusout="closeSearch"
             name="search"
             :placeholder="$t('texts.search')"
-            :class="
-              showSearch
-                ? ' border-b p-3 pl-2 md:p-0 md:border-none w-full'
-                : 'opacity-0 fixed md:static w-[30px] md:w-full md:opacity-100'
-            "
+            :class="inputStyling"
             class="transition-all border-[#646363] duration-500 transform bg-transparent outline-none md:placeholder-current"
           />
         </Form>
