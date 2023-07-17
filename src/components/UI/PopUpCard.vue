@@ -6,7 +6,7 @@ const router = useRouter()
 const show = ref(false)
 
 const closePopUp = () => {
-  router.push('/')
+  router.push({ name: 'landing' })
 }
 
 onMounted(() => {
