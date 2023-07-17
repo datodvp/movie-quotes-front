@@ -97,7 +97,6 @@ onMounted(async () => {
         >
       </div>
     </div>
-
     <!-- section for movies list -->
     <section class="flex flex-wrap gap-x-12 gap-y-14 mt-14">
       <div v-for="movie in movies" :key="movie.id" class="w-fit">
