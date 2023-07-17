@@ -39,13 +39,11 @@ const handleClick = async (notification) => {
   router.push({ name: 'quotePage', params: { id: notification.quote.id } })
 }
 
-const backend_API_URL = import.meta.env.VITE_VUE_APP_API_URL
-
 const avatarLink = (notification) => {
   if (notification.notifiable.user && notification.notifiable.user.image) {
-    return `${backend_API_URL}/${notification.notifiable.user.image}`
+    return notification.notifiable.user.image
   } else if (notification.notifiable.image) {
-    return `${backend_API_URL}/${notification.notifiable.image}`
+    return notification.notifiable.image
   }
   return DefaultAvatar
 }

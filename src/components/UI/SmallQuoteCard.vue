@@ -28,7 +28,6 @@ const closeViewQuote = () => (showViewQuote.value = false)
 const showPopup = ref(false)
 
 const interfaceStore = useInterfaceStore()
-const backend_API_URL = import.meta.env.VITE_VUE_APP_API_URL
 </script>
 
 <template>
@@ -42,11 +41,7 @@ const backend_API_URL = import.meta.env.VITE_VUE_APP_API_URL
 
     <div class="flex items-center gap-[34px] relative">
       <div class="w-[226px] h-[140px]">
-        <img
-          :src="`${backend_API_URL}/${quote.image}`"
-          alt="quote image"
-          class="object-cover w-full h-full rounded-sm"
-        />
+        <img :src="quote.image" alt="quote image" class="object-cover w-full h-full rounded-sm" />
       </div>
       <div>
         <p class="text-2xl text-[#CED4DA]">"{{ quote.text[interfaceStore.getLocale] }}"</p>

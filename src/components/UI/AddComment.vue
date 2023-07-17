@@ -31,19 +31,13 @@ const onSubmit = () => {
 
   newComment.value = ''
 }
-
-const backend_API_URL = import.meta.env.VITE_VUE_APP_API_URL
 </script>
 
 <template>
   <div class="">
     <div class="flex items-center gap-6">
       <img
-        :src="
-          userStore.getUserData.image
-            ? `${backend_API_URL}/${userStore.getUserData.image}`
-            : DefaultAvatar
-        "
+        :src="userStore.getUserData.image ? userStore.getUserData.image : DefaultAvatar"
         alt="avatar"
         class="w-[52px] h-[52px] rounded-full object-cover"
       />

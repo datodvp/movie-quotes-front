@@ -107,7 +107,7 @@ const backend_API_URL = import.meta.env.VITE_VUE_APP_API_URL
           imagePreviewUrl
             ? imagePreviewUrl
             : userStore.getUserData.image
-            ? `${backend_API_URL}/${userStore.getUserData.image}`
+            ? userStore.getUserData.image
             : DefaultAvatar
         "
         alt="image"

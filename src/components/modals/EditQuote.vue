@@ -38,14 +38,13 @@ const quoteKa = ref('filled')
 
 const successMessage = ref('')
 const errorMessage = ref('')
-const backend_API_URL = import.meta.env.VITE_VUE_APP_API_URL
 
 onMounted(() => {
   authService.getQuote(props.quoteId).then((response) => {
     quote.value = response.data.data.quote
     quoteEn.value = quote.value.text.en
     quoteKa.value = quote.value.text.ka
-    imagePreview.value = `${backend_API_URL}/${quote.value.image}`
+    imagePreview.value = quote.value.image
   })
 })
 
@@ -87,7 +86,7 @@ const editQuote = async () => {
       >
         <div class="flex items-center gap-4 text-xl">
           <img
-            :src="userStore.image ? `${backend_API_URL}/${userStore.image}` : DefaultAvatar"
+            :src="userStore.image ? userStore.image : DefaultAvatar"
             alt="avatar"
             class="w-[60px] h-[60px] object-cover rounded-full"
           />

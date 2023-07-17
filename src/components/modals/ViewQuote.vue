@@ -29,7 +29,6 @@ onMounted(() => {
   authService.getQuote(props.quoteId).then((response) => (quote.value = response.data.data.quote))
 })
 
-const backend_API_URL = import.meta.env.VITE_VUE_APP_API_URL
 const userStore = useUserStore().getUserData
 
 const reversedComments = computed(() => quote.value.comments.slice().reverse())
@@ -74,7 +73,7 @@ const likePost = () => {
       <div class="flex flex-col overflow-x-hidden overflow-y-auto gap-7">
         <div class="flex items-center gap-4 text-xl">
           <img
-            :src="userStore.image ? `${backend_API_URL}/${userStore.image}` : DefaultAvatar"
+            :src="userStore.image ? userStore.image : DefaultAvatar"
             alt="avatar"
             class="w-[60px] h-[60px] object-cover rounded-full"
           />
@@ -92,11 +91,7 @@ const likePost = () => {
         </div>
 
         <div class="w-full h-[300px] md:h-[500px]">
-          <img
-            :src="`${backend_API_URL}/${quote.image}`"
-            alt="quote"
-            class="object-cover w-full h-full rounded-[10px]"
-          />
+          <img :src="quote.image" alt="quote" class="object-cover w-full h-full rounded-[10px]" />
         </div>
         <div class="flex gap-6 text-xl">
           <div class="flex gap-3">{{ quote.comments.length }}<IconComment /></div>

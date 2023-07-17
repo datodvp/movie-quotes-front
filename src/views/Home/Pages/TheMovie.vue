@@ -61,8 +61,6 @@ const deleteMovie = (movieId) => {
 }
 
 provide('updateQuote', updateQuote)
-
-const backend_API_URL = import.meta.env.VITE_VUE_APP_API_URL
 </script>
 
 <template>
@@ -89,11 +87,7 @@ const backend_API_URL = import.meta.env.VITE_VUE_APP_API_URL
     <h1 class="text-2xl">{{ $t('texts.movie_description') }}</h1>
     <div class="flex flex-col gap-5 mt-8 md:flex-row">
       <div class="min-w-[60%] h-[441px]">
-        <img
-          :src="`${backend_API_URL}/${movie.image}`"
-          alt="image"
-          class="object-cover w-full h-full rounded-xl"
-        />
+        <img :src="movie.image" alt="image" class="object-cover w-full h-full rounded-xl" />
       </div>
       <div class="w-full">
         <div class="flex justify-between">

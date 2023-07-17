@@ -108,8 +108,6 @@ const clearInputs = () => {
   imagePreview.value = null
 }
 
-const backend_API_URL = import.meta.env.VITE_VUE_APP_API_URL
-
 const yearRule = computed(() => ({ required: true, digits: 4 }))
 </script>
 
@@ -126,7 +124,7 @@ const yearRule = computed(() => ({ required: true, digits: 4 }))
       >
         <div class="flex items-center gap-4 text-xl">
           <img
-            :src="userStore.image ? `${backend_API_URL}/${userStore.image}` : DefaultAvatar"
+            :src="userStore.image ? userStore.image : DefaultAvatar"
             alt="avatar"
             class="w-[60px] h-[60px] object-cover rounded-full"
           />

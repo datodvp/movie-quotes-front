@@ -9,8 +9,6 @@ const route = useRoute()
 const userData = useUserStore().getUserData
 
 defineEmits(['close'])
-
-const backend_API_URL = import.meta.env.VITE_VUE_APP_API_URL
 </script>
 
 <template>
@@ -24,7 +22,7 @@ const backend_API_URL = import.meta.env.VITE_VUE_APP_API_URL
         class="flex items-center hover:text-[#6C757D] duration-300 gap-6 cursor-pointer"
       >
         <img
-          :src="userData.image ? `${backend_API_URL}/${userData.image}` : DefaultAvatar"
+          :src="userData.image ? userData.image : DefaultAvatar"
           alt="avatar"
           :class="route.name === 'profile' && 'border-red-700 border-2'"
           class="w-[60px] h-[60px] object-cover rounded-full"

@@ -21,7 +21,6 @@ const emit = defineEmits(['addLike', 'removeLike', 'addComment'])
 const reversedComments = computed(() => props.quote.comments.slice().reverse())
 const seeMore = ref(false)
 const interfaceStore = useInterfaceStore()
-const backend_API_URL = import.meta.env.VITE_VUE_APP_API_URL
 const userStore = useUserStore()
 const authService = useAuthService()
 
@@ -55,7 +54,7 @@ const addComment = (comment) => {
   <div class="w-full bg-[#11101A] p-6 rounded-xl mb-10">
     <div class="flex items-center gap-4 mb-4">
       <img
-        :src="quote.user.image ? `${backend_API_URL}/${quote.user.image}` : DefaultAvatar"
+        :src="quote.user.image ? quote.user.image : DefaultAvatar"
         alt="avatar"
         class="w-[52px] h-[52px] object-cover rounded-full"
       />
@@ -66,7 +65,7 @@ const addComment = (comment) => {
       {{ quote.movie.name[interfaceStore.getLocale] }} ({{ quote.movie.year }})
     </p>
     <img
-      :src="`${backend_API_URL}/${quote.image}`"
+      :src="quote.image"
       alt="avatar"
       class="w-full object-cover h-[250px] md:h-[500px] rounded-[10px] mb-6"
     />

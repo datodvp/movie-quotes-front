@@ -77,8 +77,6 @@ const clearInputs = () => {
   imageInputElement.value.value = null
   imagePreview.value = null
 }
-
-const backend_API_URL = import.meta.env.VITE_VUE_APP_API_URL
 </script>
 
 <template>
@@ -94,7 +92,7 @@ const backend_API_URL = import.meta.env.VITE_VUE_APP_API_URL
       >
         <div class="flex items-center gap-4 text-xl">
           <img
-            :src="userStore.image ? `${backend_API_URL}/${userStore.image}` : DefaultAvatar"
+            :src="userStore.image ? userStore.image : DefaultAvatar"
             alt="avatar"
             class="w-[60px] h-[60px] object-cover rounded-full"
           />
@@ -102,11 +100,7 @@ const backend_API_URL = import.meta.env.VITE_VUE_APP_API_URL
         </div>
         <div class="flex gap-[27px]">
           <div class="min-w-[35%] h-[158px]">
-            <img
-              :src="`${backend_API_URL}/${movie.image}`"
-              alt="image"
-              class="object-cover w-full h-full rounded-[12px]"
-            />
+            <img :src="movie.image" alt="image" class="object-cover w-full h-full rounded-[12px]" />
           </div>
           <div>
             <p class="mb-6 text-2xl font-medium text-[#DDCCAA]">

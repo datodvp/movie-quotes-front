@@ -11,7 +11,6 @@ defineProps({
   }
 })
 const interfaceStore = useInterfaceStore()
-const backend_API_URL = import.meta.env.VITE_VUE_APP_API_URL
 </script>
 
 <template>
@@ -20,7 +19,7 @@ const backend_API_URL = import.meta.env.VITE_VUE_APP_API_URL
     class="w-full md:max-w-[26rem] block min-h-[28.5rem] border-transparent border rounded-md p-4 hover:border-gray-500 hover:cursor-pointer hover:text-gray-500"
   >
     <img
-      :src="movie.image ? `${backend_API_URL}/${movie.image}` : DefaultAvatar"
+      :src="movie.image ? movie.image : DefaultAvatar"
       alt="image"
       class="h-[371px] w-[440px] bg-white object-cover rounded-xl"
     />
