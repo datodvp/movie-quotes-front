@@ -1,18 +1,17 @@
 <script setup>
-import PopUpCard from '@/components/PopUpCard.vue'
+import PopUpCard from '@/components/UI/PopUpCard.vue'
 import TextInput from '@/components/Form/TextInput.vue'
 import { Field, Form } from 'vee-validate'
-import { ref } from 'vue'
-import { RouterLink, useRouter } from 'vue-router'
+import { computed, ref } from 'vue'
+import { RouterLink } from 'vue-router'
 import IconGoogle from '@/components/icons/IconGoogle.vue'
 import PrimaryButton from '@/components/Buttons/PrimaryButton.vue'
 import SecondaryButton from '@/components/Buttons/SecondaryButton.vue'
-import ServerErrorMessage from '@/components/ServerErrorMessage.vue'
+import ServerErrorMessage from '@/components/UI/ServerErrorMessage.vue'
 import { useAuthService } from '@/services/useAuthService'
 import { useAuthStore } from '@/stores/auth'
 
 const authStore = useAuthStore()
-const router = useRouter()
 
 const authService = useAuthService()
 
@@ -26,7 +25,6 @@ const authorize = async (values) => {
   try {
     await authService.login(values)
     authStore.setIsAuthenticated(true)
-    router.push({ name: 'home' })
   } catch (error) {
     errorMessage.value = error.response.data.message
   }
@@ -35,6 +33,8 @@ const authorize = async (values) => {
 const loginGoogle = async () => {
   authService.authGoogle()
 }
+const loginRule = computed(() => ({ required: true }))
+const passwordRule = computed(() => ({ required: true, latin: true, min: 8, max: 15 }))
 </script>
 
 <template>
@@ -48,7 +48,7 @@ const loginGoogle = async () => {
           name="login"
           :placeholder="$t('auth.email_or_username_placeholder')"
           v-model="login"
-          :rules="{ required: true }"
+          :rules="loginRule"
         />
         <TextInput
           type="password"
@@ -56,7 +56,7 @@ const loginGoogle = async () => {
           name="password"
           :placeholder="$t('auth.password_placeholder')"
           v-model="password"
-          :rules="{ required: true, latin: true, min: 8, max: 15 }"
+          :rules="passwordRule"
         />
         <div class="flex justify-between mt-4">
           <label class="flex items-center gap-2 cursor-pointer w-fit">

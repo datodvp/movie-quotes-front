@@ -1,13 +1,13 @@
 <script setup>
-import PopUpCard from '@/components/PopUpCard.vue'
+import PopUpCard from '@/components/UI/PopUpCard.vue'
 import TextInput from '@/components/Form/TextInput.vue'
 import PrimaryButton from '@/components/Buttons/PrimaryButton.vue'
 import IconBackArrow from '@/components/icons/IconBackArrow.vue'
 import { useAuthService } from '@/services/useAuthService'
 import { Form } from 'vee-validate'
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import ServerErrorMessage from '@/components/ServerErrorMessage.vue'
+import ServerErrorMessage from '@/components/UI/ServerErrorMessage.vue'
 
 const authService = useAuthService()
 
@@ -31,6 +31,9 @@ const onSubmit = async (values) => {
     errorMessage.value = error.response.data.errors.message
   }
 }
+
+const passwordRules = computed(() => ({ required: true, min: 8, max: 15, latin: true }))
+const passwordConfirmationRules = computed(() => ({ required: true, confirmed: password.value }))
 </script>
 
 <template>
@@ -47,7 +50,7 @@ const onSubmit = async (values) => {
           name="password"
           :placeholder="$t('auth.password_placeholder')"
           v-model="password"
-          :rules="{ required: true, min: 8, max: 15, latin: true }"
+          :rules="passwordRules"
         />
 
         <TextInput
@@ -56,7 +59,7 @@ const onSubmit = async (values) => {
           name="password_confirmation"
           :placeholder="$t('auth.confirm_password_placeholder')"
           v-model="passwordConfirmation"
-          :rules="{ required: true, confirmed: password }"
+          :rules="passwordConfirmationRules"
         />
 
         <ServerErrorMessage :errorMessage="errorMessage" />

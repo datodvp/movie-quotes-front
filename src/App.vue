@@ -1,21 +1,16 @@
 <script setup>
 import { onMounted, watch } from 'vue'
-import { RouterView, useRoute, useRouter } from 'vue-router'
+import { RouterView, useRoute } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
+import { setLocale } from '@vee-validate/i18n'
+import instantiatePusher from '@/helpers/instantiatePusher'
 
 const authStore = useAuthStore()
-const router = useRouter()
 const route = useRoute()
 
 onMounted(async () => {
-  // checks if user authentication status changes and pushes on according page
-  authStore.$subscribe((_, state) => {
-    if (state.isAuthenticated) {
-      router.push({ name: 'home' })
-    } else if (!state.isAuthenticated) {
-      router.push({ name: 'landing' })
-    }
-  })
+  instantiatePusher()
+  setLocale(localStorage.getItem('locale') || 'en')
 
   // checks if route query has google token and sets user on authenticated
   watch(route, (state) => {
@@ -33,11 +28,17 @@ onMounted(async () => {
 </template>
 
 <style>
-html {
-  scroll-behavior: smooth;
+.modal-enter-from {
+  opacity: 0;
 }
-body {
-  color: #ddccaa;
-  background: #08080d;
+
+.modal-leave-to {
+  opacity: 0;
+}
+
+.modal-enter-from .modal-container,
+.modal-leave-to .modal-container {
+  -webkit-transform: scale(1.1);
+  transform: scale(1.1);
 }
 </style>

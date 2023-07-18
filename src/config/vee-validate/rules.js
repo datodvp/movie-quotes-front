@@ -1,11 +1,12 @@
 import { configure, defineRule } from 'vee-validate'
-import { required, email, min, max, confirmed } from '@vee-validate/rules'
+import { required, email, min, max, confirmed, digits } from '@vee-validate/rules'
 
 defineRule('required', required)
 defineRule('email', email)
 defineRule('min', min)
 defineRule('max', max)
 defineRule('confirmed', confirmed)
+defineRule('digits', digits)
 
 defineRule('latin', (value) => {
   if (!value || !value.length) {

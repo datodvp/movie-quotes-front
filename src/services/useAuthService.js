@@ -1,16 +1,20 @@
 import axios from 'axios'
-import { useUserStore } from '@/stores/user'
 import { useAuthStore } from '@/stores/auth'
+import { useInterfaceStore } from '@/stores/interface'
+import { useRouter } from 'vue-router'
 
 export const useAuthService = () => {
-  const userStore = useUserStore()
+  axios.defaults.withCredentials = true
+
+  const interfaceStore = useInterfaceStore()
+  const router = useRouter()
 
   const authClient = axios.create({
     baseURL: import.meta.env.VITE_VUE_APP_API_URL,
     // required to handle the CSRF token
     withCredentials: true,
     headers: {
-      'Accept-Language': userStore.getLocale
+      'Accept-Language': interfaceStore.getLocale
     }
   })
 
@@ -23,6 +27,12 @@ export const useAuthService = () => {
       const authStore = useAuthStore()
       if (error.response && [401, 419].includes(error.response.status)) {
         authStore.setIsAuthenticated(false)
+      }
+      if (error.response && [403].includes(error.response.status)) {
+        router.push({ name: 'forbidden' })
+      }
+      if (error.response && [404].includes(error.response.status)) {
+        router.push({ name: 'notFound' })
       }
       return Promise.reject(error)
     }
@@ -47,6 +57,69 @@ export const useAuthService = () => {
     },
     async resetPassword(payload) {
       return authClient.post('/api/reset-password', payload)
+    },
+    async getUserData() {
+      return authClient.get('/api/user')
+    },
+    async changePassword(payload) {
+      return authClient.post('/api/user', payload)
+    },
+    async getMovies() {
+      return authClient.get('/api/movies')
+    },
+    async postMovie(payload) {
+      return authClient.post('/api/movies', payload)
+    },
+    async getGenres() {
+      return authClient.get('/api/movie-genres')
+    },
+    async getQuotes(pageNumber) {
+      return authClient.get(`/api/quotes?page=${pageNumber}`)
+    },
+    async postQuote(payload) {
+      return authClient.post('/api/quotes', payload)
+    },
+    async postComment(payload) {
+      return authClient.post('/api/comment', payload)
+    },
+    async postLike(payload) {
+      return authClient.post('/api/quote-like', payload)
+    },
+    async removeLike(payload) {
+      return authClient.post('/api/quote-destroy-like', payload)
+    },
+    async getNotifications() {
+      return authClient.get('/api/notifications')
+    },
+    async markAllNotificationsRead() {
+      return authClient.post('/api/notifications/mark-all-read')
+    },
+    async markAsRead(notificationId) {
+      return authClient.get(`/api/notifications/${notificationId}`)
+    },
+    async searchQuotes(searchQuery) {
+      return authClient.get(`/api/quotes?search=${searchQuery}`)
+    },
+    async searchMovies(searchQuery) {
+      return authClient.get(`/api/movies?search=${searchQuery}`)
+    },
+    async getMovie(movieId) {
+      return authClient.get(`/api/movies/${movieId}`)
+    },
+    async getQuote(quoteId) {
+      return authClient.get(`/api/quotes/${quoteId}`)
+    },
+    async editQuote(quoteId, payload) {
+      return authClient.post(`/api/quotes/${quoteId}`, payload)
+    },
+    async editMovie(movieId, payload) {
+      return authClient.post(`/api/movies/${movieId}`, payload)
+    },
+    async deleteMovie(movieId) {
+      return authClient.delete(`/api/movies/${movieId}`)
+    },
+    async deleteQuote(quoteId) {
+      return authClient.delete(`/api/quotes/${quoteId}`)
     }
   }
 }

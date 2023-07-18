@@ -1,14 +1,14 @@
 <script setup>
-import PopUpCard from '@/components/PopUpCard.vue'
+import PopUpCard from '@/components/UI/PopUpCard.vue'
 import TextInput from '@/components/Form/TextInput.vue'
 import { Form } from 'vee-validate'
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import PrimaryButton from '@/components/Buttons/PrimaryButton.vue'
 import SecondaryButton from '@/components/Buttons/SecondaryButton.vue'
 import IconGoogle from '@/components/icons/IconGoogle.vue'
 import { useAuthService } from '@/services/useAuthService'
 import { useRouter } from 'vue-router'
-import ServerErrorMessage from '@/components/ServerErrorMessage.vue'
+import ServerErrorMessage from '@/components/UI/ServerErrorMessage.vue'
 
 const authService = useAuthService()
 const router = useRouter()
@@ -32,6 +32,11 @@ const register = async (values) => {
 const registerGoogle = async () => {
   authService.authGoogle()
 }
+
+const usernameRules = computed(() => ({ required: true, min: 3, max: 15, latin: true }))
+const emailRules = computed(() => ({ required: true, email: true }))
+const passwordRules = computed(() => ({ required: true, min: 8, max: 15, latin: true }))
+const passwordConfirmationRules = computed(() => ({ required: true, confirmed: password.value }))
 </script>
 
 <template>
@@ -45,14 +50,14 @@ const registerGoogle = async () => {
           name="username"
           :placeholder="$t('auth.name_placeholder')"
           v-model="username"
-          :rules="{ required: true, min: 3, max: 15, latin: true }"
+          :rules="usernameRules"
         />
         <TextInput
           :label="$t('auth.email')"
           name="email"
           :placeholder="$t('auth.email_placeholder')"
           v-model="email"
-          :rules="{ required: true, email: true }"
+          :rules="emailRules"
         />
         <TextInput
           type="password"
@@ -60,7 +65,7 @@ const registerGoogle = async () => {
           name="password"
           :placeholder="$t('auth.password_placeholder')"
           v-model="password"
-          :rules="{ required: true, latin: true, min: 8, max: 15 }"
+          :rules="passwordRules"
         />
         <TextInput
           type="password"
@@ -68,7 +73,7 @@ const registerGoogle = async () => {
           name="password_confirmation"
           :placeholder="$t('auth.confirm_password_placeholder')"
           v-model="passwordConfirmation"
-          :rules="{ required: true, confirmed: password }"
+          :rules="passwordConfirmationRules"
         />
 
         <ServerErrorMessage :errorMessage="errorMessage" />
