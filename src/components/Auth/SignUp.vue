@@ -19,14 +19,17 @@ const password = ref('')
 const passwordConfirmation = ref('')
 
 const errorMessage = ref('')
+const sendingMail = ref(false)
 
 const register = async (values) => {
+  sendingMail.value = true
   try {
     await authService.register(values)
     router.push({ name: 'mailSent' })
   } catch (error) {
     errorMessage.value = error.response.data.message
   }
+  sendingMail.value = false
 }
 
 const registerGoogle = async () => {
@@ -42,6 +45,12 @@ const passwordConfirmationRules = computed(() => ({ required: true, confirmed: p
 <template>
   <PopUpCard>
     <div class="flex flex-col items-center justify-center w-full">
+      <div
+        v-if="sendingMail"
+        class="absolute z-10 flex items-center justify-center w-full h-full text-2xl font-black bg-gray-700 bg-opacity-70"
+      >
+        <p>Sending mail...</p>
+      </div>
       <h1 class="p-4 text-3xl font-medium">{{ $t('auth.create_an_account') }}</h1>
       <p class="p-4 text-[#6C757D] mt-3">{{ $t('auth.start_your_journey') }}</p>
       <Form @submit="register" class="w-full px-4 md:px-0">

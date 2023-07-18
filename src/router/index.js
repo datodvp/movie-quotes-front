@@ -28,7 +28,7 @@ const router = createRouter({
       beforeEnter() {
         const authStore = useAuthStore()
         if (authStore.getIsAuthenticated) {
-          return { name: 'home' }
+          return { name: 'newsFeed' }
         }
       },
       children: [
