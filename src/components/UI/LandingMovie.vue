@@ -17,14 +17,17 @@ defineProps({
 })
 </script>
 <template>
-  <div class="z-10 h-screen" :style="`background-image:url('${image}')`">
+  <div
+    class="z-10 h-screen bg-center bg-no-repeat bg-cover"
+    :style="`background-image:url('${image}')`"
+  >
     <div class="relative">
       <div class="absolute top-[400px] left-[15%] flex">
         <div
           class="relative"
           v-motion
           :initial="{
-            x: -500,
+            x: -200,
             opacity: 0
           }"
           :visible="{
