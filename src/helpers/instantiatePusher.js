@@ -11,7 +11,7 @@ export default function instantiatePusher() {
     key: import.meta.env.VITE_PUSHER_APP_KEY,
     cluster: import.meta.env.VITE_PUSHER_APP_CLUSTER,
     forceTLS: true,
-    authorizer: (channel, options) => {
+    authorizer: (channel) => {
       return {
         authorize: (socketId, callback) => {
           axios
