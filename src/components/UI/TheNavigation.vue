@@ -4,10 +4,25 @@ import IconMoviesList from '@/components/icons/IconMoviesList.vue'
 import IconNewsFeed from '@/components/icons/IconNewsFeed.vue'
 import { useUserStore } from '@/stores/user'
 import { computed } from 'vue'
-import { RouterLink, useRoute } from 'vue-router'
+import { RouterLink, useRoute, useRouter } from 'vue-router'
+import { useAuthService } from '@/services/useAuthService.js'
+import { useAuthStore } from '@/stores/auth.js'
 
 const route = useRoute()
 const userData = useUserStore().getUserData
+const authService = useAuthService()
+const authStore = useAuthStore()
+const router = useRouter()
+
+const logout = async () => {
+  try {
+    await authService.logout()
+  } catch (error) {
+    // it will not throw unexpected error just logs out user
+  }
+  authStore.setIsAuthenticated(false)
+  router.push({ name: 'landing' })
+}
 
 defineEmits(['close'])
 
@@ -61,6 +76,9 @@ const routeIsMoviesList = computed(() => route.name === 'moviesList' && 'text-re
 
         <p class="text-xl md:text-2xl">{{ $t('texts.list_of_movies') }}</p>
       </RouterLink>
+      <div @click="logout" class="mt-10 text-xl cursor-pointer md:hidden hover:text-red-500">
+        Log out
+      </div>
     </div>
   </div>
 </template>
