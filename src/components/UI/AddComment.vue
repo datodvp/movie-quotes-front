@@ -19,16 +19,18 @@ const userStore = useUserStore()
 const emit = defineEmits(['addComment'])
 
 const onSubmit = () => {
-  const data = {
+  const commentData = {
     text: newComment.value,
-    quote_id: props.quoteId
+    quote_id: props.quoteId,
+    user: {
+      id: userStore.getUserData.id,
+      image: userStore.getUserData.image,
+      username: userStore.getUserData.username
+    }
   }
 
-  authService
-    .postComment(data)
-    .then((response) => response.data.data.comment)
-    .then((comment) => emit('addComment', comment))
-
+  authService.postComment(commentData)
+  emit('addComment', commentData)
   newComment.value = ''
 }
 </script>

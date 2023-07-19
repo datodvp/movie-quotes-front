@@ -32,16 +32,15 @@ const likePost = (quoteId) => {
   const data = {
     quote_id: quoteId
   }
+  const likeData = {
+    pivot: { user_id: userStore.getUserData.id, quote_id: quoteId }
+  }
   if (!hasLikedQuote.value) {
-    authService
-      .postLike(data)
-      .then((response) => response.data.data.like)
-      .then((like) => emit('addLike', like))
+    emit('addLike', likeData)
+    authService.postLike(data)
   } else {
-    authService
-      .removeLike(data)
-      .then((response) => response.data.data.like)
-      .then((like) => emit('removeLike', like))
+    emit('removeLike', likeData)
+    authService.removeLike(data)
   }
 }
 
