@@ -31,7 +31,7 @@ const interfaceStore = useInterfaceStore()
 </script>
 
 <template>
-  <div class="px-8 py-6 bg-[#11101A] rounded-[14px]">
+  <div class="px-8 py-6 bg-[#11101A] w-full rounded-[2.563rem]">
     <Transition name="modal">
       <EditQuote :quoteId="quote.id" v-if="showEditQuote" :closeModal="closeEditQuote" />
     </Transition>
@@ -39,22 +39,20 @@ const interfaceStore = useInterfaceStore()
       <ViewQuote :quoteId="quote.id" v-if="showViewQuote" :closeModal="closeViewQuote" />
     </Transition>
 
-    <div class="flex items-center gap-[34px] relative">
-      <div class="w-[226px] h-[140px]">
+    <div class="flex md:items-center md:flex-row flex-col gap-[2rem] w-full break-words relative">
+      <div class="md:w-[14.1rem] h-[8.75rem] min-w-[14.1rem]">
         <img :src="quote.image" alt="quote image" class="object-cover w-full h-full rounded-sm" />
       </div>
-      <div>
-        <p class="text-2xl text-[#CED4DA]">"{{ quote.text[interfaceStore.getLocale] }}"</p>
-      </div>
+      <div class="overflow-hidden">"{{ quote.text[interfaceStore.getLocale] }}"</div>
       <div
         @click="showPopup = !showPopup"
-        class="absolute top-0 right-0 hover:text-[#EFEFEF33] cursor-pointer duration-100"
+        class="absolute -bottom-20 md:top-0 right-0 hover:text-[#EFEFEF33] cursor-pointer duration-100"
       >
         <IconThreeDots />
       </div>
       <div
         v-if="showPopup"
-        class="absolute rounded-[10px] p-7 -right-[30%] top-8 w-[250px] h-[200px] bg-[#24222F]"
+        class="absolute rounded-[0.625rem] p-7 -right-[5%] md:-right-[30%] top-8 w-[15.6rem] h-[12.5rem] bg-[#24222F]"
       >
         <div class="flex flex-col justify-around h-full">
           <div

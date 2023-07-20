@@ -41,14 +41,14 @@ const onSubmit = () => {
       <img
         :src="userStore.getUserData.image ? userStore.getUserData.image : DefaultAvatar"
         alt="avatar"
-        class="w-[52px] h-[52px] rounded-full object-cover"
+        class="w-[3.25rem] h-[3.25rem] rounded-full object-cover"
       />
       <Form @submit="onSubmit" class="flex w-full">
         <Field
           v-model="newComment"
           name="comment"
           placeholder="Write a comment"
-          class="px-[27px] py-[11px] outline-none bg-[#24222F] w-full rounded-[10px]"
+          class="px-[1.688rem] py-[0.688rem] outline-none bg-[#24222F] w-full rounded-[0.625rem]"
           rules="required"
         />
       </Form>

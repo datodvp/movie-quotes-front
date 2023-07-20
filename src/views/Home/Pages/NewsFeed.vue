@@ -9,6 +9,7 @@ import IconBackArrow from '@/components/icons/IconBackArrow.vue'
 import TheNavigation from '@/components/UI/TheNavigation.vue'
 import { useUserStore } from '@/stores/user'
 import { Field, Form } from 'vee-validate'
+import TheHeader from '@/components/UI/TheHeader.vue'
 import _ from 'lodash'
 
 const quotes = ref([])
@@ -99,6 +100,9 @@ const LoadMoreQuotes = _.debounce(() => {
   currentPage.value = currentPage.value + 1
   authService.getQuotes(currentPage.value).then((response) => {
     const quotes = response.data.data.quotes
+    if (!quotes.length) {
+      window.removeEventListener('scroll', handleScroll)
+    }
     quotes.forEach((quote) => {
       loadQuote(quote)
     })
@@ -148,56 +152,59 @@ const searchIconStyling = computed(() => (showSearch.value ? 'hidden md:block' :
 const searchInputStyling = computed(() =>
   showSearch.value
     ? ' border-b p-3 pl-2 md:p-0 md:border-none w-full'
-    : 'opacity-0 fixed md:static w-[30px] md:w-full md:opacity-100'
+    : 'opacity-0 fixed md:static w-[1.875rem] md:w-full md:opacity-100'
 )
 </script>
 <template>
-  <TheNavigation class="hidden md:block" />
-  <div class="w-full pt-8">
-    <Transition name="modal">
-      <AddQuote v-if="showCreateQuote" @addQuote="addQuote" :closeModal="closeModal" />
-    </Transition>
+  <TheHeader />
+  <div class="flex">
+    <TheNavigation class="hidden md:block" />
+    <div class="w-full pt-8">
+      <Transition name="modal">
+        <AddQuote v-if="showCreateQuote" @addQuote="addQuote" :closeModal="closeModal" />
+      </Transition>
 
-    <div class="md:w-[67%] md:px-3" ref="scrollElement">
-      <div class="flex justify-between gap-6 h-[3.25rem] mb-6 items-center">
-        <button
-          @click="openModal"
-          class="bg-[#24222F] p-[11px] whitespace-nowrap hover:text-[#6C757D] duration-100 flex-1 rounded-[10px] flex text-xl gap-4"
-        >
-          <IconWriteQuote /> {{ $t('texts.write_new_quote') }}
-        </button>
-        <Form
-          :onSubmit="search"
-          class="fixed right-0 z-20 duration-500 ease-out md:z-10 md:border-b md:pb-3 md:p-3 md:gap-4 md:static md:flex"
-          :class="searchFormStyling"
-        >
-          <IconBackArrow
-            @click="closeSearch"
-            class="md:hidden w-[32px] h-[32px] mt-3 ml-6 mr-3"
-            :class="showSearch ? '' : 'hidden md:block'"
+      <div class="md:w-[67%] md:px-3" ref="scrollElement">
+        <div class="flex justify-between gap-6 h-[3.25rem] mb-6 items-center">
+          <button
+            @click="openModal"
+            class="bg-[#24222F] p-[0.688rem] whitespace-nowrap hover:text-[#6C757D] duration-100 flex-1 rounded-[0.625rem] flex text-xl gap-4"
+          >
+            <IconWriteQuote /> {{ $t('texts.write_new_quote') }}
+          </button>
+          <Form
+            :onSubmit="search"
+            class="fixed right-0 z-20 duration-500 ease-out md:z-10 md:border-b md:pb-3 md:p-3 md:gap-4 md:static md:flex"
+            :class="searchFormStyling"
+          >
+            <IconBackArrow
+              @click="closeSearch"
+              class="md:hidden w-[2rem] h-[2rem] mt-3 ml-6 mr-3"
+              :class="showSearch ? '' : 'hidden md:block'"
+            />
+            <IconSearch :class="searchIconStyling" />
+            <Field
+              @click="openSearch"
+              @focusout="closeSearch"
+              name="search"
+              :placeholder="showSearch ? $t('texts.enter_quote') : $t('texts.search_by')"
+              :class="searchInputStyling"
+              class="transition-all border-[#646363] duration-500 transform bg-transparent outline-none md:placeholder-current"
+            />
+          </Form>
+        </div>
+        <div v-for="quote in quotes" :key="quote.id" class="h-[fit]">
+          <QuoteCard
+            :quote="quote"
+            @addLike="addLike"
+            @removeLike="removeLike"
+            @addComment="addComment"
           />
-          <IconSearch :class="searchIconStyling" />
-          <Field
-            @click="openSearch"
-            @focusout="closeSearch"
-            name="search"
-            :placeholder="showSearch ? $t('texts.enter_quote') : $t('texts.search_by')"
-            :class="searchInputStyling"
-            class="transition-all border-[#646363] duration-500 transform bg-transparent outline-none md:placeholder-current"
-          />
-        </Form>
-      </div>
-      <div v-for="quote in quotes" :key="quote.id" class="h-[fit]">
-        <QuoteCard
-          :quote="quote"
-          @addLike="addLike"
-          @removeLike="removeLike"
-          @addComment="addComment"
-        />
-      </div>
-      <div v-if="!quotes.length" class="mt-24 text-3xl text-center">
-        We could not find any quotes!
-        <p>^^ :P</p>
+        </div>
+        <div v-if="!quotes.length" class="mt-24 text-3xl text-center">
+          We could not find any quotes!
+          <p>^^ :P</p>
+        </div>
       </div>
     </div>
   </div>

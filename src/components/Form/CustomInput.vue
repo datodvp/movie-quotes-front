@@ -55,7 +55,7 @@ defineEmits(['update:modelValue'])
       @input="$emit('update:modelValue', $event.target.value)"
     >
       <div
-        class="bg-transparent w-full border border-[#6C757D] flex items-center rounded-[4.8px] text-xl pl-4 pr-12 py-2"
+        class="bg-transparent w-full border border-[#6C757D] flex items-center rounded-[0.3rem] text-xl pl-4 pr-12 py-2"
       >
         <span class="text-[#6C757D] whitespace-nowrap text-base pr-2">{{ placeholder }}</span>
         <input
@@ -70,6 +70,6 @@ defineEmits(['update:modelValue'])
       </div>
     </Field>
     <p class="text-[#6C757D] absolute top-3 right-4">{{ language }}</p>
-    <ErrorMessage :name="name" class="max-w-[300px] text-[#DC3545] mt-1" />
+    <ErrorMessage :name="name" class="max-w-[18.75rem] text-[#DC3545] mt-1" />
   </div>
 </template>

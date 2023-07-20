@@ -21,7 +21,7 @@ const interfaceStore = useInterfaceStore()
     <img
       :src="movie.image ? movie.image : DefaultAvatar"
       alt="image"
-      class="h-[371px] w-[440px] bg-white object-cover rounded-xl"
+      class="h-[23.1rem] w-[27.5rem] bg-white object-cover rounded-xl"
     />
     <div class="my-4 text-2xl font-medium">
       {{ movie.name[interfaceStore.getLocale] }} {{ `(${movie.year})` }}

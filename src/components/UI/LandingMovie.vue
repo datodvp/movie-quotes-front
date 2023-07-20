@@ -22,7 +22,7 @@ defineProps({
     :style="`background-image:url('${image}')`"
   >
     <div class="relative">
-      <div class="absolute top-[400px] left-[15%] flex">
+      <div class="absolute top-[25rem] left-[15%] flex">
         <div
           class="relative"
           v-motion
@@ -38,12 +38,12 @@ defineProps({
             }
           }"
         >
-          <IconLine class="absolute w-[17px] -left-7 top-4 lg:-left-16 lg:top-10 lg:w-fit" />
-          <h2 class="text-[20px] lg:text-[50px] max-w-[761px] font-bold">
+          <IconLine class="absolute w-[1.063rem] -left-7 top-4 lg:-left-16 lg:top-10 lg:w-fit" />
+          <h2 class="text-[1.25rem] lg:text-[3.125rem] max-w-[47.5rem] font-bold">
             {{ text }}
           </h2>
 
-          <p class="lg:text-[30px] font-bold mt-4">{{ name }}</p>
+          <p class="lg:text-[1.875rem] font-bold mt-4">{{ name }}</p>
         </div>
       </div>
     </div>

@@ -64,7 +64,7 @@ const passwordRule = computed(() => ({ required: true, latin: true, min: 8, max:
               type="checkbox"
               name="remember"
               v-model="remember_me"
-              class="w-[16px] h-[16px]"
+              class="w-[1rem] h-[1rem]"
             />
             {{ $t('auth.remember_me') }}
           </label>

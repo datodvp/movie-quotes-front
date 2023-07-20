@@ -22,7 +22,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="max-w-[1920px] m-auto from-[#11101A] via-[#08080D] to-[#000000]">
+  <div class="max-w-[120rem] m-auto from-[#11101A] via-[#08080D] to-[#000000]">
     <RouterView />
   </div>
 </template>

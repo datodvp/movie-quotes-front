@@ -61,9 +61,9 @@ const commentedYourMovie = (notification) => notification.text === 'Commented to
 
 <template>
   <div
-    class="absolute md:w-[51%] md:right-[64px] rounded-xl flex flex-col w-full py-6 bg-black h-fit top-full px-11"
+    class="absolute md:w-[51%] md:right-[4rem] rounded-xl flex flex-col w-full py-6 bg-black h-fit top-full px-11"
   >
-    <IconPolygon class="absolute right-[30px] md:right-[265px] -top-4" />
+    <IconPolygon class="absolute right-[1.875rem] md:right-[16.563rem] -top-4" />
     <div class="flex items-center justify-between mb-6">
       <h2 class="text-xl font-medium">Notifications</h2>
       <p @click="markAllNotificationsRead" class="underline cursor-pointer hover:text-[#6C757D]">
@@ -71,19 +71,19 @@ const commentedYourMovie = (notification) => notification.text === 'Commented to
       </p>
     </div>
     <div
-      class="flex flex-col gap-4 md:h-fit md:max-h-[500px] h-fit max-h-[700px] overflow-y-auto pr-3"
+      class="flex flex-col gap-4 md:h-fit md:max-h-[31.25rem] h-fit max-h-[43.75rem] overflow-y-auto pr-3"
     >
       <template v-for="notification in notificationsStore.getNotifications" :key="notification.id">
         <div
           @click="handleClick(notification)"
-          class="flex hover:text-[#6C757D] duration-100 md:flex-row md:justify-between cursor-pointer flex-col py-[18px] px-[25px] border-[#6C757D80] border rounded-[4px]"
+          class="flex hover:text-[#6C757D] duration-100 md:flex-row md:justify-between cursor-pointer flex-col py-[1.125rem] px-[1.563rem] border-[#6C757D80] border rounded-[4px]"
         >
           <div class="flex">
-            <div class="min-w-[60px] mix-h-[60px] mr-4">
+            <div class="min-w-[3.25rem] mix-h-[3.25rem] mr-4">
               <img
                 :src="avatarLink(notification)"
                 alt="avatar"
-                class="w-[60px] h-[60px] rounded-full object-cover"
+                class="w-[3.25rem] h-[3.25rem] rounded-full object-cover"
                 :class="activeNotificationImageBorder(notification)"
               />
             </div>

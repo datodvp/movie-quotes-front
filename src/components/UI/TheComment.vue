@@ -15,7 +15,7 @@ defineProps({
       <img
         :src="comment.user.image ? comment.user.image : DefaultAvatar"
         alt="avatar"
-        class="w-[52px] h-[52px] object-cover rounded-full"
+        class="w-[3.25rem] h-[3.25rem] object-cover rounded-full"
       />
       <p class="text-xl font-medium">{{ comment.user.username }}</p>
     </div>

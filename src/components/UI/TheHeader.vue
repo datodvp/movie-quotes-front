@@ -120,10 +120,17 @@ const showNotificationsOnAuthenticated = computed(
         <IconBurger
           @click="toggleNavbar"
           v-if="authStore.getIsAuthenticated"
-          class="cursor-pointer md:hidden"
+          class="cursor-pointer md:hidden mr-11"
         />
-        <h1>MOVIE QUOTES</h1>
-        <div class="relative flex items-center gap-8">
+        <h1 :class="authStore.getIsAuthenticated && 'hidden md:block'">MOVIE QUOTES</h1>
+        <div
+          :class="
+            authStore.getIsAuthenticated
+              ? 'flex-row-reverse md:flex-row justify-between w-full md:w-min'
+              : ''
+          "
+          class="relative flex items-center gap-8"
+        >
           <div
             @click="toggleShowNotifications"
             v-if="authStore.getIsAuthenticated"
@@ -141,7 +148,8 @@ const showNotificationsOnAuthenticated = computed(
             tabindex="0"
             @click="toggleLanguage"
             @focusout="!isLanguageOpen && toggleLanguage"
-            class="items-center justify-center hidden gap-2 cursor-pointer md:flex mr-7"
+            class="cursor-pointer"
+            :class="!authStore.getIsAuthenticated && 'hidden'"
           >
             <div class="flex items-center gap-2 group">
               <p class="group-hover:text-[#6C757D]">{{ currentLanguageLabel }}</p>

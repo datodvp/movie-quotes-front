@@ -120,14 +120,18 @@ const yearRule = computed(() => ({ required: true, digits: 4 }))
         class="flex flex-col overflow-x-hidden overflow-y-auto gap-7"
       >
         <div class="flex items-center gap-4 text-xl">
-          <img :src="userImage" alt="avatar" class="w-[60px] h-[60px] object-cover rounded-full" />
+          <img
+            :src="userImage"
+            alt="avatar"
+            class="w-[3.75rem] h-[3.75rem] object-cover rounded-full"
+          />
           {{ userStore.username }}
         </div>
         <CustomInput name="name[en]" v-model="nameEn" placeholder="Movie name:" language="Eng" />
         <CustomInput name="name[ka]" v-model="nameKa" placeholder="ფილმის სახელი:" language="ქარ" />
         <div
           @click="toggleDropdown"
-          class="bg-transparent relative h-11 py-[11px] w-full border border-[#6C757D] flex items-center rounded-[4.8px] text-xl pl-4 pr-12"
+          class="bg-transparent relative py-[0.688rem] w-full border border-[#6C757D] flex flex-wrap h-fit gap-2 items-center rounded-[4.8px] text-xl pl-4 pr-12"
         >
           <div class="absolute left-0 z-10 w-full top-full bg-slate-600">
             <div v-if="showDropdown">
@@ -149,7 +153,7 @@ const yearRule = computed(() => ({ required: true, digits: 4 }))
             v-for="genre in genres"
             :key="genre.id"
             @click="removeChosenGenre(genre.id)"
-            class="text-sm bg-[#6C757D] mr-1 py-[5px] px-[6px]"
+            class="text-sm bg-[#6C757D] mr-1 py-[0.313rem] px-[0.375rem] whitespace-nowrap"
           >
             {{ genre.name[interfaceStore.getLocale] }} x
           </p>
@@ -180,10 +184,14 @@ const yearRule = computed(() => ({ required: true, digits: 4 }))
           language="ქარ"
         />
         <label
-          class="relative flex gap-4 border-[#6C757D] border rounded text-lg h-fit py-[21px] px-6"
+          class="relative flex gap-4 border-[#6C757D] border rounded text-lg h-fit py-[1.313rem] px-6"
           for="image-input"
         >
-          <img class="max-h-[180px] object-cover" :class="previewImageWidth" :src="imagePreview" />
+          <img
+            class="max-h-[11.25rem] object-cover"
+            :class="previewImageWidth"
+            :src="imagePreview"
+          />
           <div class="flex items-center flex-1">
             <div class="flex flex-col items-center w-full">
               <p v-if="imagePreview" class="text-base">REPLACE PHOTO</p>
@@ -193,7 +201,7 @@ const yearRule = computed(() => ({ required: true, digits: 4 }))
                   <p class="text-xl">Drag & drop your image here or</p>
                 </div>
 
-                <p class="bg-[#9747FF] p-[10px] ml-4">Choose file</p>
+                <p class="bg-[#9747FF] p-[0.625rem] ml-4">Choose file</p>
               </div>
             </div>
 
@@ -202,7 +210,7 @@ const yearRule = computed(() => ({ required: true, digits: 4 }))
               name="image"
               id="image-input"
               ref="imageInputElement"
-              class="absolute h-full left-0 text-[0px] w-full cursor-pointer opacity-0"
+              class="absolute h-full left-0 text-[0rem] w-full cursor-pointer opacity-0"
               @change="handleImagePreview"
             />
           </div>
@@ -210,7 +218,7 @@ const yearRule = computed(() => ({ required: true, digits: 4 }))
 
         <div class="flex justify-center">
           <ServerErrorMessage :errorMessage="errorMessage" />
-          <p class="text-green-700 text-center max-w-[384px]">{{ successMessage }}</p>
+          <p class="text-green-700 text-center max-w-[24rem]">{{ successMessage }}</p>
         </div>
         <PrimaryButton><button class="p-2">Edit movie</button></PrimaryButton>
       </Form>
