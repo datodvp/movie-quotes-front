@@ -101,7 +101,7 @@ const previewImageColumn = computed(() => imagePreview.value && 'flex-col')
           />
           {{ userStore.username }}
         </div>
-        <div class="flex gap-[27px]">
+        <div class="flex gap-[1.688rem]">
           <div class="min-w-[35%] h-[9.8rem]">
             <img :src="movie.image" alt="image" class="object-cover w-full h-full rounded-[12px]" />
           </div>
@@ -116,7 +116,7 @@ const previewImageColumn = computed(() => imagePreview.value && 'flex-col')
                 }}</span>
               </div>
             </div>
-            <div class="mt-5 text-lg flex gap-[10px]">
+            <div class="mt-5 text-lg flex gap-[0.625rem]">
               <span class="font-bold text-[#CED4DA]">Director:</span>
               <span class="font-medium">{{ movie.director[interfaceStore.getLocale] }}</span>
             </div>
@@ -125,7 +125,7 @@ const previewImageColumn = computed(() => imagePreview.value && 'flex-col')
         <CustomInput name="text[en]" v-model="quoteEn" placeholder="Quote:" language="Eng" />
         <CustomInput name="text[ka]" v-model="quoteKa" placeholder="ციტატა:" language="ქარ" />
         <label
-          class="relative flex gap-4 border-[#6C757D] border rounded text-lg h-fit py-[21px] px-6"
+          class="relative flex gap-4 border-[#6C757D] border rounded text-lg h-fit py-[1.313rem] px-6"
           for="image-input"
         >
           <img
@@ -142,7 +142,7 @@ const previewImageColumn = computed(() => imagePreview.value && 'flex-col')
                   <p class="text-xl">Drag & drop your image here or</p>
                 </div>
 
-                <p class="bg-[#9747FF] p-[10px] ml-4">Choose file</p>
+                <p class="bg-[#9747FF] p-[0.625rem] ml-4">Choose file</p>
               </div>
             </div>
 
@@ -151,7 +151,7 @@ const previewImageColumn = computed(() => imagePreview.value && 'flex-col')
               name="image"
               id="image-input"
               ref="imageInputElement"
-              class="absolute h-full left-0 text-[0px] w-full cursor-pointer opacity-0"
+              class="absolute h-full left-0 text-[0rem] w-full cursor-pointer opacity-0"
               @change="handleImagePreview"
             />
           </div>

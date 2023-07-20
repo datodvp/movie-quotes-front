@@ -9,7 +9,7 @@ import { RouterLink } from 'vue-router'
     <div>
       <img :src="ImageNotFound" alt="not found" />
     </div>
-    <h1 class="text-[47px] font-bold">Whoops!</h1>
+    <h1 class="text-[2.93rem] font-bold">Whoops!</h1>
     <p class="text-2xl font-medium">We can't see the page you are looking for</p>
     <PrimaryButton><RouterLink :to="{ name: 'newsFeed' }">Return home</RouterLink></PrimaryButton>
   </div>

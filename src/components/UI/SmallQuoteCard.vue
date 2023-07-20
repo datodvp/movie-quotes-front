@@ -31,7 +31,7 @@ const interfaceStore = useInterfaceStore()
 </script>
 
 <template>
-  <div class="px-8 py-6 bg-[#11101A] w-full rounded-[14px]">
+  <div class="px-8 py-6 bg-[#11101A] w-full rounded-[2.563rem]">
     <Transition name="modal">
       <EditQuote :quoteId="quote.id" v-if="showEditQuote" :closeModal="closeEditQuote" />
     </Transition>
@@ -52,7 +52,7 @@ const interfaceStore = useInterfaceStore()
       </div>
       <div
         v-if="showPopup"
-        class="absolute rounded-[10px] p-7 -right-[5%] md:-right-[30%] top-8 w-[15.6rem] h-[12.5rem] bg-[#24222F]"
+        class="absolute rounded-[0.625rem] p-7 -right-[5%] md:-right-[30%] top-8 w-[15.6rem] h-[12.5rem] bg-[#24222F]"
       >
         <div class="flex flex-col justify-around h-full">
           <div

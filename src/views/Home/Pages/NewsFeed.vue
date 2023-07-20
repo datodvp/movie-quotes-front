@@ -152,7 +152,7 @@ const searchIconStyling = computed(() => (showSearch.value ? 'hidden md:block' :
 const searchInputStyling = computed(() =>
   showSearch.value
     ? ' border-b p-3 pl-2 md:p-0 md:border-none w-full'
-    : 'opacity-0 fixed md:static w-[30px] md:w-full md:opacity-100'
+    : 'opacity-0 fixed md:static w-[1.875rem] md:w-full md:opacity-100'
 )
 </script>
 <template>
@@ -168,7 +168,7 @@ const searchInputStyling = computed(() =>
         <div class="flex justify-between gap-6 h-[3.25rem] mb-6 items-center">
           <button
             @click="openModal"
-            class="bg-[#24222F] p-[11px] whitespace-nowrap hover:text-[#6C757D] duration-100 flex-1 rounded-[10px] flex text-xl gap-4"
+            class="bg-[#24222F] p-[0.688rem] whitespace-nowrap hover:text-[#6C757D] duration-100 flex-1 rounded-[0.625rem] flex text-xl gap-4"
           >
             <IconWriteQuote /> {{ $t('texts.write_new_quote') }}
           </button>
@@ -179,7 +179,7 @@ const searchInputStyling = computed(() =>
           >
             <IconBackArrow
               @click="closeSearch"
-              class="md:hidden w-[32px] h-[32px] mt-3 ml-6 mr-3"
+              class="md:hidden w-[2rem] h-[2rem] mt-3 ml-6 mr-3"
               :class="showSearch ? '' : 'hidden md:block'"
             />
             <IconSearch :class="searchIconStyling" />

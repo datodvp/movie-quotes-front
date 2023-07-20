@@ -59,7 +59,7 @@ const searchHidden = computed(() => !showSearch.value && 'hidden md:block')
 const inputStyling = computed(() =>
   showSearch.value
     ? ' border-b p-3 pl-2 md:p-0 md:border-none w-full'
-    : 'opacity-0 fixed md:static w-[30px] md:w-full md:opacity-100'
+    : 'opacity-0 fixed md:static w-[1.875rem] md:w-full md:opacity-100'
 )
 </script>
 
@@ -84,7 +84,7 @@ const inputStyling = computed(() =>
           >
             <IconBackArrow
               @click="closeSearch"
-              class="md:hidden w-[32px] h-[32px] mt-3 ml-6 mr-3"
+              class="md:hidden w-[2rem] h-[2rem] mt-3 ml-6 mr-3"
               :class="searchHidden"
             />
             <IconSearch :class="searchIconStyling" />

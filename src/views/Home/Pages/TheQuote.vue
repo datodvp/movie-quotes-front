@@ -65,7 +65,7 @@ const hasLikedStyling = computed(() => hasLikedQuote.value && 'text-red-700')
   <TheHeader />
   <div class="flex">
     <TheNavigation class="hidden md:block" />
-    <div v-if="quote" class="w-full bg-[#11101A] p-6 mt-16 max-w-[900px] rounded-xl mb-10">
+    <div v-if="quote" class="w-full bg-[#11101A] p-6 mt-16 max-w-[56.25rem] rounded-xl mb-10">
       <div class="flex items-center gap-4 mb-4">
         <img
           :src="quote.user.image ? quote.user.image : DefaultAvatar"
@@ -81,7 +81,7 @@ const hasLikedStyling = computed(() => hasLikedQuote.value && 'text-red-700')
       <img
         :src="quote.image"
         alt="avatar"
-        class="w-full object-cover h-[15.6rem] md:h-[31.25rem] rounded-[10px] mb-6"
+        class="w-full object-cover h-[15.6rem] md:h-[31.25rem] rounded-[0.625rem] mb-6"
       />
       <div class="flex gap-6 text-xl">
         <p class="flex gap-3">{{ quote.comments.length }} <IconComment /></p>

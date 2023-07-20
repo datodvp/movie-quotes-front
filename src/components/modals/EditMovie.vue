@@ -131,7 +131,7 @@ const yearRule = computed(() => ({ required: true, digits: 4 }))
         <CustomInput name="name[ka]" v-model="nameKa" placeholder="ფილმის სახელი:" language="ქარ" />
         <div
           @click="toggleDropdown"
-          class="bg-transparent relative py-[11px] w-full border border-[#6C757D] flex flex-wrap h-fit gap-2 items-center rounded-[4.8px] text-xl pl-4 pr-12"
+          class="bg-transparent relative py-[0.688rem] w-full border border-[#6C757D] flex flex-wrap h-fit gap-2 items-center rounded-[4.8px] text-xl pl-4 pr-12"
         >
           <div class="absolute left-0 z-10 w-full top-full bg-slate-600">
             <div v-if="showDropdown">
@@ -153,7 +153,7 @@ const yearRule = computed(() => ({ required: true, digits: 4 }))
             v-for="genre in genres"
             :key="genre.id"
             @click="removeChosenGenre(genre.id)"
-            class="text-sm bg-[#6C757D] mr-1 py-[5px] px-[6px] whitespace-nowrap"
+            class="text-sm bg-[#6C757D] mr-1 py-[0.313rem] px-[0.375rem] whitespace-nowrap"
           >
             {{ genre.name[interfaceStore.getLocale] }} x
           </p>
@@ -184,7 +184,7 @@ const yearRule = computed(() => ({ required: true, digits: 4 }))
           language="ქარ"
         />
         <label
-          class="relative flex gap-4 border-[#6C757D] border rounded text-lg h-fit py-[21px] px-6"
+          class="relative flex gap-4 border-[#6C757D] border rounded text-lg h-fit py-[1.313rem] px-6"
           for="image-input"
         >
           <img
@@ -201,7 +201,7 @@ const yearRule = computed(() => ({ required: true, digits: 4 }))
                   <p class="text-xl">Drag & drop your image here or</p>
                 </div>
 
-                <p class="bg-[#9747FF] p-[10px] ml-4">Choose file</p>
+                <p class="bg-[#9747FF] p-[0.625rem] ml-4">Choose file</p>
               </div>
             </div>
 
@@ -210,7 +210,7 @@ const yearRule = computed(() => ({ required: true, digits: 4 }))
               name="image"
               id="image-input"
               ref="imageInputElement"
-              class="absolute h-full left-0 text-[0px] w-full cursor-pointer opacity-0"
+              class="absolute h-full left-0 text-[0rem] w-full cursor-pointer opacity-0"
               @change="handleImagePreview"
             />
           </div>

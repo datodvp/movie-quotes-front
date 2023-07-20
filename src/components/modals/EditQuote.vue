@@ -102,7 +102,7 @@ const previewImageStyling = imagePreview.value && 'w-full h-[18.75rem] md:h-[31.
         >
           <div class="absolute flex items-center justify-center w-full h-full">
             <div
-              class="bg-black opacity-80 w-[7.8rem] h-[5.3rem] flex items-center justify-center flex-col rounded-[10px]"
+              class="bg-black opacity-80 w-[7.8rem] h-[5.3rem] flex items-center justify-center flex-col rounded-[0.625rem]"
             >
               <IconPhoto />
               <p>Change Photo</p>
@@ -115,7 +115,7 @@ const previewImageStyling = imagePreview.value && 'w-full h-[18.75rem] md:h-[31.
               name="image"
               id="image-input"
               ref="imageInputElement"
-              class="absolute h-full left-0 text-[0px] w-full cursor-pointer opacity-0"
+              class="absolute h-full left-0 text-[0rem] w-full cursor-pointer opacity-0"
               @change="handleImagePreview"
             />
           </div>

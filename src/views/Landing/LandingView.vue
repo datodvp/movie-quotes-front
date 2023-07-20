@@ -18,7 +18,7 @@ import TheHeader from '@/components/UI/TheHeader.vue'
       </RouterView>
 
       <main
-        class="flex bg-scroll bg-gradient-to-b from-[#11101A] via-[#08080D] to-[#000000] items-center justify-center flex-grow min-h-[710px]"
+        class="flex bg-scroll bg-gradient-to-b from-[#11101A] via-[#08080D] to-[#000000] items-center justify-center flex-grow min-h-[44.375]"
       >
         <div
           class="text-2xl fixed text-[#DDCCAA] flex flex-col items-center gap-y-6 font-bold md:text-6xl w-72 md:w-[43rem] text-center"
@@ -53,7 +53,9 @@ import TheHeader from '@/components/UI/TheHeader.vue'
         name="The Lord of the rings, 2001"
         class="bg-fixed"
       />
-      <footer class="py-[15px] pl-[4%] text-xs">© 2022 movie quotes. All rights reserved.</footer>
+      <footer class="py-[0.938rem] pl-[4%] text-xs">
+        © 2022 movie quotes. All rights reserved.
+      </footer>
     </div>
   </div>
 </template>

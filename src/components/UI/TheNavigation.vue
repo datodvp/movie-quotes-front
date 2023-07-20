@@ -35,7 +35,7 @@ const routeIsMoviesList = computed(() => route.name === 'moviesList' && 'text-re
   <div
     class="bg-[#11101A] fixed md:static md:block pb-11 min-w-[25rem] z-10 pr-8 md:bg-transparent w-[90%] md:w-[28%]"
   >
-    <div class="flex flex-col sticky top-[84px] pt-10 md:pl-[4.5rem] md:pt-8 pl-11 gap-11">
+    <div class="flex flex-col sticky top-[5.25rem] pt-10 md:pl-[4.5rem] md:pt-8 pl-11 gap-11">
       <RouterLink
         :to="{ name: 'profile' }"
         @click="$emit('close')"
@@ -56,7 +56,7 @@ const routeIsMoviesList = computed(() => route.name === 'moviesList' && 'text-re
       <RouterLink
         :to="{ name: 'newsFeed' }"
         @click="$emit('close')"
-        class="flex items-center gap-[43px] ml-[10px] cursor-pointer duration-300 hover:text-[#6C757D]"
+        class="flex items-center gap-[2.688rem] ml-[0.625rem] cursor-pointer duration-300 hover:text-[#6C757D]"
       >
         <div class="flex items-center justify-center">
           <IconNewsFeed :class="routeIsNewsFeed" class="w-6 h-6 md:h-8 md:w-8" />
@@ -68,7 +68,7 @@ const routeIsMoviesList = computed(() => route.name === 'moviesList' && 'text-re
       <RouterLink
         :to="{ name: 'moviesList' }"
         @click="$emit('close')"
-        class="flex items-center gap-[43px] ml-[10px] cursor-pointer duration-300 hover:text-[#6C757D]"
+        class="flex items-center gap-[2.688rem] ml-[0.625rem] cursor-pointer duration-300 hover:text-[#6C757D]"
       >
         <div class="flex items-center justify-center">
           <IconMoviesList :class="routeIsMoviesList" class="w-6 h-6 md:h-8 md:w-8" />

@@ -48,7 +48,7 @@ const onSubmit = () => {
           v-model="newComment"
           name="comment"
           placeholder="Write a comment"
-          class="px-[27px] py-[11px] outline-none bg-[#24222F] w-full rounded-[10px]"
+          class="px-[1.688rem] py-[0.688rem] outline-none bg-[#24222F] w-full rounded-[0.625rem]"
           rules="required"
         />
       </Form>

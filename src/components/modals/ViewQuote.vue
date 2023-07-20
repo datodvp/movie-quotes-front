@@ -100,7 +100,11 @@ const moreThanTwoComments = computed(() => !seeMore.value && quote.value.comment
         </div>
 
         <div class="w-full h-[18.75rem] md:h-[31.25rem]">
-          <img :src="quote.image" alt="quote" class="object-cover w-full h-full rounded-[10px]" />
+          <img
+            :src="quote.image"
+            alt="quote"
+            class="object-cover w-full h-full rounded-[0.625rem]"
+          />
         </div>
         <div class="flex gap-6 text-xl">
           <div class="flex gap-3">{{ quote.comments.length }}<IconComment /></div>

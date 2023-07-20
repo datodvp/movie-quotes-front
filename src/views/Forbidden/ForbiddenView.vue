@@ -15,7 +15,7 @@ import { RouterLink } from 'vue-router'
         <img :src="ImageGandalf" alt="" />
       </div>
       <div class="flex flex-col items-center">
-        <h2 class="text-[47px] font-bold mt-8">You shall not pass!</h2>
+        <h2 class="text-[2.938rem] font-bold mt-8">You shall not pass!</h2>
         <p class="mt-4 text-2xl font-medium">
           Sorry, but you don’t have permission to access this page
         </p>

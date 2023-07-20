@@ -115,7 +115,7 @@ const showNotificationsOnAuthenticated = computed(
         :userStore="userStore"
       />
     </Transition>
-    <div class="w-full max-w-[1920px] px-9 py-6 md:px-16" :class="authenticatedBackground">
+    <div class="w-full max-w-[120rem] px-9 py-6 md:px-16" :class="authenticatedBackground">
       <nav class="flex items-center justify-between">
         <IconBurger
           @click="toggleNavbar"
@@ -132,7 +132,7 @@ const showNotificationsOnAuthenticated = computed(
             class="relative group"
           >
             <span
-              class="absolute cursor-pointer left-[14px] top-[-6px] bg-[#E33812] w-[25px] h-[25px] text-center rounded-full"
+              class="absolute cursor-pointer left-[2.563rem] top-[-0.375rem] bg-[#E33812] w-[1.563rem] h-[1.563rem] text-center rounded-full"
             >
               {{ activeNotificationsNumber }}
             </span>
@@ -176,7 +176,10 @@ const showNotificationsOnAuthenticated = computed(
               </RouterLink>
             </SecondaryButton>
           </div>
-          <div v-else class="flex-row-reverse hidden w-[130px] gap-2 md:flex md:gap-4 md:flex-row">
+          <div
+            v-else
+            class="flex-row-reverse hidden w-[8.125rem] gap-2 md:flex md:gap-4 md:flex-row"
+          >
             <SecondaryButton @click="logout">
               <a>{{ $t('header.log_out') }}</a>
             </SecondaryButton>

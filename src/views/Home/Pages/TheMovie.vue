@@ -68,7 +68,7 @@ provide('updateQuote', updateQuote)
   <TheHeader />
   <div class="flex">
     <TheNavigation class="hidden md:block" />
-    <div v-if="movie" class="pt-8 h-fit w-full p-[35px] md:pr-[72px]">
+    <div v-if="movie" class="pt-8 h-fit w-full p-[2.2rem] md:pr-[4.5rem]">
       <Transition name="modal">
         <AddQuoteToMovie
           :movie="movie"
@@ -89,7 +89,7 @@ provide('updateQuote', updateQuote)
 
       <h1 class="text-2xl">{{ $t('texts.movie_description') }}</h1>
       <div class="flex flex-col gap-5 mt-8 md:flex-row">
-        <div class="min-w-[60%] h-[441px]">
+        <div class="min-w-[60%] h-[27.5rem]">
           <img :src="movie.image" alt="image" class="object-cover w-full h-full rounded-xl" />
         </div>
         <div class="w-full">
@@ -97,7 +97,7 @@ provide('updateQuote', updateQuote)
             <h2 class="text-2xl whitespace-nowrap text-[#DDCCAA]">
               {{ movie.name[interfaceStore.getLocale] }} ({{ movie.year }})
             </h2>
-            <div class="flex items-center gap-6 px-5 py-2 bg-[#24222F] rounded-[10px]">
+            <div class="flex items-center gap-6 px-5 py-2 bg-[#24222F] rounded-[0.625rem]">
               <p @click="openEditMovie" class="cursor-pointer"><IconPencil /></p>
               <p class="text-[#6C757D]">|</p>
               <p @click="deleteMovie(movie.id)" class="cursor-pointer"><IconTrash /></p>
@@ -110,7 +110,7 @@ provide('updateQuote', updateQuote)
               </span>
             </div>
           </div>
-          <div class="flex mt-5 text-lg gap-[10px]">
+          <div class="flex mt-5 text-lg gap-[0.625rem]">
             <span class="text-[#CED4DA] font-bold">{{ $t('texts.director') }}:</span>
             <span class="font-medium">{{ movie.director[interfaceStore.getLocale] }}</span>
           </div>
@@ -134,7 +134,7 @@ provide('updateQuote', updateQuote)
           >
         </div>
       </div>
-      <div class="mt-[3.25rem] flex flex-col gap-10 max-w-[808px]">
+      <div class="mt-[3.25rem] flex flex-col gap-10 max-w-[50.5rem]">
         <div v-for="quote in quotes" :key="quote.id" class="w-full">
           <SmallQuoteCard :quote="quote" @removeQuote="removeQuote" />
         </div>
