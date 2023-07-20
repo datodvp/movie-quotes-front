@@ -72,7 +72,7 @@ const editQuote = async () => {
   }
 }
 
-const previewImageStyling = imagePreview.value && 'w-full h-[300px] md:h-[500px]'
+const previewImageStyling = imagePreview.value && 'w-full h-[18.75rem] md:h-[31.25rem]'
 </script>
 
 <template>
@@ -90,7 +90,7 @@ const previewImageStyling = imagePreview.value && 'w-full h-[300px] md:h-[500px]
           <img
             :src="userStore.image ? userStore.image : DefaultAvatar"
             alt="avatar"
-            class="w-[60px] h-[60px] object-cover rounded-full"
+            class="w-[3.25rem] h-[3.25rem] object-cover rounded-full"
           />
           {{ userStore.username }}
         </div>
@@ -102,7 +102,7 @@ const previewImageStyling = imagePreview.value && 'w-full h-[300px] md:h-[500px]
         >
           <div class="absolute flex items-center justify-center w-full h-full">
             <div
-              class="bg-black opacity-80 w-[135px] h-[85px] flex items-center justify-center flex-col rounded-[10px]"
+              class="bg-black opacity-80 w-[7.8rem] h-[5.3rem] flex items-center justify-center flex-col rounded-[10px]"
             >
               <IconPhoto />
               <p>Change Photo</p>
@@ -123,7 +123,7 @@ const previewImageStyling = imagePreview.value && 'w-full h-[300px] md:h-[500px]
 
         <div class="flex justify-center">
           <ServerErrorMessage :errorMessage="errorMessage" />
-          <p class="text-green-700 text-center max-w-[384px]">{{ successMessage }}</p>
+          <p class="text-green-700 text-center max-w-[24rem]">{{ successMessage }}</p>
         </div>
         <PrimaryButton><button class="p-2">Save changes</button></PrimaryButton>
       </Form>

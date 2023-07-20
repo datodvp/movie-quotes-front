@@ -84,7 +84,7 @@ const moreThanTwoComments = computed(() => !seeMore.value && quote.value.comment
           <img
             :src="userStore.image ? userStore.image : DefaultAvatar"
             alt="avatar"
-            class="w-[60px] h-[60px] object-cover rounded-full"
+            class="w-[3.25rem] h-[3.25rem] object-cover rounded-full"
           />
           {{ userStore.username }}
         </div>
@@ -99,7 +99,7 @@ const moreThanTwoComments = computed(() => !seeMore.value && quote.value.comment
           </div>
         </div>
 
-        <div class="w-full h-[300px] md:h-[500px]">
+        <div class="w-full h-[18.75rem] md:h-[31.25rem]">
           <img :src="quote.image" alt="quote" class="object-cover w-full h-full rounded-[10px]" />
         </div>
         <div class="flex gap-6 text-xl">

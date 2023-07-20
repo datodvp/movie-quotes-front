@@ -40,7 +40,7 @@ const interfaceStore = useInterfaceStore()
     </Transition>
 
     <div class="flex items-center gap-[34px] relative">
-      <div class="w-[226px] h-[140px]">
+      <div class="w-[14.1rem] h-[8.75rem]">
         <img :src="quote.image" alt="quote image" class="object-cover w-full h-full rounded-sm" />
       </div>
       <div>
@@ -54,7 +54,7 @@ const interfaceStore = useInterfaceStore()
       </div>
       <div
         v-if="showPopup"
-        class="absolute rounded-[10px] p-7 -right-[30%] top-8 w-[250px] h-[200px] bg-[#24222F]"
+        class="absolute rounded-[10px] p-7 -right-[30%] top-8 w-[15.6rem] h-[12.5rem] bg-[#24222F]"
       >
         <div class="flex flex-col justify-around h-full">
           <div

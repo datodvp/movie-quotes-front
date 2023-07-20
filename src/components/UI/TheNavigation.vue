@@ -33,7 +33,7 @@ const routeIsMoviesList = computed(() => route.name === 'moviesList' && 'text-re
 
 <template>
   <div
-    class="bg-[#11101A] fixed md:static md:block pb-11 min-w-[400px] z-10 pr-8 md:bg-transparent w-[90%] md:w-[28%]"
+    class="bg-[#11101A] fixed md:static md:block pb-11 min-w-[25rem] z-10 pr-8 md:bg-transparent w-[90%] md:w-[28%]"
   >
     <div class="flex flex-col sticky top-[84px] pt-10 md:pl-[4.5rem] md:pt-8 pl-11 gap-11">
       <RouterLink
@@ -45,7 +45,7 @@ const routeIsMoviesList = computed(() => route.name === 'moviesList' && 'text-re
           :src="userData.image ? userData.image : DefaultAvatar"
           alt="avatar"
           :class="routeIsProfile"
-          class="w-[60px] h-[60px] object-cover rounded-full"
+          class="w-[3.25rem] h-[3.25rem] object-cover rounded-full"
         />
         <div>
           <p class="text-xl md:text-2xl">{{ userData.username }}</p>

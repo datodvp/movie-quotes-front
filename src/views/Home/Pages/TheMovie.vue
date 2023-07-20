@@ -131,7 +131,7 @@ provide('updateQuote', updateQuote)
         >
       </div>
     </div>
-    <div class="mt-[60px] flex flex-col gap-10 max-w-[808px]">
+    <div class="mt-[3.25rem] flex flex-col gap-10 max-w-[808px]">
       <div v-for="quote in quotes" :key="quote.id">
         <SmallQuoteCard :quote="quote" @removeQuote="removeQuote" />
       </div>

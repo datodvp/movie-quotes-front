@@ -120,7 +120,11 @@ const yearRule = computed(() => ({ required: true, digits: 4 }))
         class="flex flex-col overflow-x-hidden overflow-y-auto gap-7"
       >
         <div class="flex items-center gap-4 text-xl">
-          <img :src="userImage" alt="avatar" class="w-[60px] h-[60px] object-cover rounded-full" />
+          <img
+            :src="userImage"
+            alt="avatar"
+            class="w-[3.75rem] h-[3.75rem] object-cover rounded-full"
+          />
           {{ userStore.username }}
         </div>
         <CustomInput name="name[en]" v-model="nameEn" placeholder="Movie name:" language="Eng" />
@@ -183,7 +187,11 @@ const yearRule = computed(() => ({ required: true, digits: 4 }))
           class="relative flex gap-4 border-[#6C757D] border rounded text-lg h-fit py-[21px] px-6"
           for="image-input"
         >
-          <img class="max-h-[180px] object-cover" :class="previewImageWidth" :src="imagePreview" />
+          <img
+            class="max-h-[11.25rem] object-cover"
+            :class="previewImageWidth"
+            :src="imagePreview"
+          />
           <div class="flex items-center flex-1">
             <div class="flex flex-col items-center w-full">
               <p v-if="imagePreview" class="text-base">REPLACE PHOTO</p>
@@ -210,7 +218,7 @@ const yearRule = computed(() => ({ required: true, digits: 4 }))
 
         <div class="flex justify-center">
           <ServerErrorMessage :errorMessage="errorMessage" />
-          <p class="text-green-700 text-center max-w-[384px]">{{ successMessage }}</p>
+          <p class="text-green-700 text-center max-w-[24rem]">{{ successMessage }}</p>
         </div>
         <PrimaryButton><button class="p-2">Edit movie</button></PrimaryButton>
       </Form>

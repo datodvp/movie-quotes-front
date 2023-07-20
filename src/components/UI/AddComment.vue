@@ -41,7 +41,7 @@ const onSubmit = () => {
       <img
         :src="userStore.getUserData.image ? userStore.getUserData.image : DefaultAvatar"
         alt="avatar"
-        class="w-[52px] h-[52px] rounded-full object-cover"
+        class="w-[3.25rem] h-[3.25rem] rounded-full object-cover"
       />
       <Form @submit="onSubmit" class="flex w-full">
         <Field

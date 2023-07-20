@@ -71,7 +71,7 @@ const commentedYourMovie = (notification) => notification.text === 'Commented to
       </p>
     </div>
     <div
-      class="flex flex-col gap-4 md:h-fit md:max-h-[500px] h-fit max-h-[700px] overflow-y-auto pr-3"
+      class="flex flex-col gap-4 md:h-fit md:max-h-[31.25rem] h-fit max-h-[700px] overflow-y-auto pr-3"
     >
       <template v-for="notification in notificationsStore.getNotifications" :key="notification.id">
         <div
@@ -79,11 +79,11 @@ const commentedYourMovie = (notification) => notification.text === 'Commented to
           class="flex hover:text-[#6C757D] duration-100 md:flex-row md:justify-between cursor-pointer flex-col py-[18px] px-[25px] border-[#6C757D80] border rounded-[4px]"
         >
           <div class="flex">
-            <div class="min-w-[60px] mix-h-[60px] mr-4">
+            <div class="min-w-[3.25rem] mix-h-[3.25rem] mr-4">
               <img
                 :src="avatarLink(notification)"
                 alt="avatar"
-                class="w-[60px] h-[60px] rounded-full object-cover"
+                class="w-[3.25rem] h-[3.25rem] rounded-full object-cover"
                 :class="activeNotificationImageBorder(notification)"
               />
             </div>

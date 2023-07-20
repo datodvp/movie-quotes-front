@@ -6,9 +6,9 @@ import IconMailSent from '@/components/icons/IconMailSent.vue'
 
 <template>
   <PopUpCard>
-    <div class="flex flex-col items-center justify-center max-w-[385px] text-center">
+    <div class="flex flex-col items-center justify-center max-w-[24rem] text-center">
       <IconMailSent />
-      <h1 class="font-medium text-[32px] mt-4 mb-6">{{ $t('auth.check_your_email') }}</h1>
+      <h1 class="font-medium text-[2rem] mt-4 mb-6">{{ $t('auth.check_your_email') }}</h1>
       <p class="mb-10">{{ $t('auth.we_have_sent_email') }}</p>
 
       <PrimaryButton>

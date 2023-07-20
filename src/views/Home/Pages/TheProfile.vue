@@ -220,7 +220,7 @@ const passwordConfirmationRules = computed(() => ({ required: true, confirmed: n
         </div>
       </div>
       <ServerErrorMessage :errorMessage="errorMessage" />
-      <p class="text-green-700 mt-5 text-center max-w-[384px]">{{ successMessage }}</p>
+      <p class="text-green-700 mt-5 text-center max-w-[24rem]">{{ successMessage }}</p>
     </Form>
 
     <div class="w-[70%]">

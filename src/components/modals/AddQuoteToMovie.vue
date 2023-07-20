@@ -97,12 +97,12 @@ const previewImageColumn = computed(() => imagePreview.value && 'flex-col')
           <img
             :src="userStore.image ? userStore.image : DefaultAvatar"
             alt="avatar"
-            class="w-[60px] h-[60px] object-cover rounded-full"
+            class="w-[3.75rem] h-[3.72rem] object-cover rounded-full"
           />
           {{ userStore.username }}
         </div>
         <div class="flex gap-[27px]">
-          <div class="min-w-[35%] h-[158px]">
+          <div class="min-w-[35%] h-[9.8rem]">
             <img :src="movie.image" alt="image" class="object-cover w-full h-full rounded-[12px]" />
           </div>
           <div>
@@ -128,7 +128,11 @@ const previewImageColumn = computed(() => imagePreview.value && 'flex-col')
           class="relative flex gap-4 border-[#6C757D] border rounded text-lg h-fit py-[21px] px-6"
           for="image-input"
         >
-          <img class="max-h-[180px] object-cover" :class="previewImageWidth" :src="imagePreview" />
+          <img
+            class="max-h-[11.25rem] object-cover"
+            :class="previewImageWidth"
+            :src="imagePreview"
+          />
           <div class="flex items-center flex-1">
             <div class="flex flex-col items-center w-full">
               <p v-if="imagePreview" class="text-base">REPLACE PHOTO</p>
@@ -155,7 +159,7 @@ const previewImageColumn = computed(() => imagePreview.value && 'flex-col')
 
         <div class="flex justify-center">
           <ServerErrorMessage :errorMessage="errorMessage" />
-          <p class="text-green-700 text-center max-w-[384px]">{{ successMessage }}</p>
+          <p class="text-green-700 text-center max-w-[24rem]">{{ successMessage }}</p>
         </div>
         <PrimaryButton><button class="p-2">Add movie</button></PrimaryButton>
       </Form>

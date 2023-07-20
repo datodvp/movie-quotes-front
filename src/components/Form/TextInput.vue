@@ -87,6 +87,6 @@ const typeIsPassword = computed(() => props.type === 'password')
       </div>
     </Field>
 
-    <ErrorMessage :name="name" class="max-w-[300px] text-[#DC3545] mt-1" />
+    <ErrorMessage :name="name" class="max-w-[18.75rem] text-[#DC3545] mt-1" />
   </div>
 </template>

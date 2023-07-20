@@ -27,7 +27,7 @@ defineProps({
   <div class="">
     <div @click="show = !show" class="flex items-center justify-between gap-3 p-5 bg-black">
       <IconCamera class="absolute" />
-      <p class="pl-[40px]">
+      <p class="pl-[2.5rem]">
         {{ (chosenItem.name && chosenItem.name[interfaceStore.getLocale]) || 'Choose a movie' }}
       </p>
 
@@ -36,7 +36,7 @@ defineProps({
     <div
       v-show="show"
       @click="show = !show"
-      class="absolute w-[90%] max-h-[150px] overflow-y-auto border"
+      class="absolute w-[90%] max-h-[9.3rem] overflow-y-auto border"
     >
       <div v-for="item in items" :key="item.id">
         <div @click="setChosenItem(item)" class="w-full px-5 py-2 bg-black hover:bg-gray-600">

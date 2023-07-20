@@ -58,7 +58,7 @@ const moreThanTwoComments = computed(() => !seeMore.value && props.quote.comment
       <img
         :src="quote.user.image ? quote.user.image : DefaultAvatar"
         alt="avatar"
-        class="w-[52px] h-[52px] object-cover rounded-full"
+        class="w-[3.25rem] h-[3.25rem] object-cover rounded-full"
       />
       <p class="text-xl">{{ quote.user.username }}</p>
     </div>
@@ -69,7 +69,7 @@ const moreThanTwoComments = computed(() => !seeMore.value && props.quote.comment
     <img
       :src="quote.image"
       alt="avatar"
-      class="w-full object-cover h-[250px] md:h-[500px] rounded-[10px] mb-6"
+      class="w-full object-cover h-[15.6rem] md:h-[31.25rem] rounded-[10px] mb-6"
     />
     <div class="flex gap-6 text-xl">
       <p class="flex gap-3">{{ quote.comments.length }} <IconComment /></p>
@@ -83,7 +83,7 @@ const moreThanTwoComments = computed(() => !seeMore.value && props.quote.comment
       </p>
     </div>
     <hr class="border-[#EFEFEF4D] mt-6" />
-    <div class="max-h-[500px] overflow-y-auto">
+    <div class="max-h-[31.25rem] overflow-y-auto">
       <template v-for="(comment, index) in reversedComments" :key="comment.id">
         <TheComment v-if="index < 2 && !seeMore" :comment="comment" />
         <TheComment v-else-if="seeMore" :comment="comment" />
