@@ -71,7 +71,7 @@ const hasLikedStyling = computed(() => hasLikedQuote.value && 'text-red-700')
       />
       <p class="text-xl">{{ quote.user.username }}</p>
     </div>
-    <p class="text-xl mb-7">
+    <p class="text-xl break-words mb-7">
       "{{ quote.text[interfaceStore.getLocale] }}" -
       {{ quote.movie.name[interfaceStore.getLocale] }} ({{ quote.movie.year }})
     </p>

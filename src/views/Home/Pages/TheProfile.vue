@@ -10,6 +10,7 @@ import { useAuthService } from '@/services/useAuthService'
 import { computed, ref } from 'vue'
 import { Form, Field } from 'vee-validate'
 import { useI18n } from 'vue-i18n'
+import MailSentNotification from '../../../components/Auth/MailSentNotification.vue'
 
 const { t } = useI18n()
 const userStore = useUserStore()
@@ -26,6 +27,8 @@ const changingPassword = ref(false)
 const changingUsername = ref(false)
 const changingEmail = ref(false)
 const changingImage = ref(false)
+
+const emailUpdated = ref(false)
 
 const errorMessage = ref('')
 const successMessage = ref('')
@@ -73,6 +76,9 @@ const changePassword = async () => {
     userStore.setUserData('username', userData.username)
     userStore.setUserData('email', userData.email)
     userStore.setUserData('image', userData.image)
+    if (changingEmail.value) {
+      emailUpdated.value = true
+    }
     closeAllInputs()
     successMessage.value = 'Your profile has been updated.'
   } catch (error) {
@@ -88,6 +94,7 @@ const passwordConfirmationRules = computed(() => ({ required: true, confirmed: n
 <template>
   <TheNavigation class="hidden md:block" />
   <div class="flex flex-col w-full">
+    <MailSentNotification v-if="emailUpdated" class="left-0" />
     <div class="mt-4 mb-4 ml-8 text-2xl md:mt-8 md:mb-32">
       <h2 class="hidden md:block">{{ $t('texts.my_profile') }}</h2>
       <RouterLink :to="{ name: 'newsFeed' }">
