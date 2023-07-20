@@ -99,6 +99,9 @@ const LoadMoreQuotes = _.debounce(() => {
   currentPage.value = currentPage.value + 1
   authService.getQuotes(currentPage.value).then((response) => {
     const quotes = response.data.data.quotes
+    if (!quotes.length) {
+      window.removeEventListener('scroll', handleScroll)
+    }
     quotes.forEach((quote) => {
       loadQuote(quote)
     })

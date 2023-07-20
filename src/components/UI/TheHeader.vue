@@ -122,8 +122,8 @@ const showNotificationsOnAuthenticated = computed(
           v-if="authStore.getIsAuthenticated"
           class="cursor-pointer md:hidden"
         />
-        <h1>MOVIE QUOTES</h1>
-        <div class="relative flex items-center gap-8">
+        <h1 class="hidden md:block">MOVIE QUOTES</h1>
+        <div class="relative flex flex-row-reverse items-center gap-8 md:flex-row">
           <div
             @click="toggleShowNotifications"
             v-if="authStore.getIsAuthenticated"
@@ -141,7 +141,7 @@ const showNotificationsOnAuthenticated = computed(
             tabindex="0"
             @click="toggleLanguage"
             @focusout="!isLanguageOpen && toggleLanguage"
-            class="items-center justify-center hidden gap-2 cursor-pointer md:flex mr-7"
+            class="items-center justify-center gap-2 cursor-pointer md:flex mr-7"
           >
             <div class="flex items-center gap-2 group">
               <p class="group-hover:text-[#6C757D]">{{ currentLanguageLabel }}</p>
