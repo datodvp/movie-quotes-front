@@ -75,42 +75,59 @@ const router = createRouter({
       ]
     },
     {
-      path: '/user',
-      name: 'home',
-      component: HomeView,
+      path: '/profile',
+      name: 'profile',
+      component: TheProfile,
       beforeEnter() {
         const authStore = useAuthStore()
         if (!authStore.getIsAuthenticated) {
           return { name: 'landing' }
         }
-      },
-      children: [
-        {
-          path: '',
-          name: 'profile',
-          component: TheProfile
-        },
-        {
-          path: 'news-feed',
-          name: 'newsFeed',
-          component: NewsFeed
-        },
-        {
-          path: 'movies-list',
-          name: 'moviesList',
-          component: ListOfMovies
-        },
-        {
-          path: 'movie/:id',
-          name: 'moviePage',
-          component: TheMovie
-        },
-        {
-          path: 'quote/:id',
-          name: 'quotePage',
-          component: TheQuote
+      }
+    },
+    {
+      path: '/news-feed',
+      name: 'newsFeed',
+      component: NewsFeed,
+      beforeEnter() {
+        const authStore = useAuthStore()
+        if (!authStore.getIsAuthenticated) {
+          return { name: 'landing' }
         }
-      ]
+      }
+    },
+    {
+      path: '/movies-list',
+      name: 'moviesList',
+      component: ListOfMovies,
+      beforeEnter() {
+        const authStore = useAuthStore()
+        if (!authStore.getIsAuthenticated) {
+          return { name: 'landing' }
+        }
+      }
+    },
+    {
+      path: '/movie/:id',
+      name: 'moviePage',
+      component: TheMovie,
+      beforeEnter() {
+        const authStore = useAuthStore()
+        if (!authStore.getIsAuthenticated) {
+          return { name: 'landing' }
+        }
+      }
+    },
+    {
+      path: '/quote/:id',
+      name: 'quotePage',
+      component: TheQuote,
+      beforeEnter() {
+        const authStore = useAuthStore()
+        if (!authStore.getIsAuthenticated) {
+          return { name: 'landing' }
+        }
+      }
     },
     {
       path: '/forbidden',

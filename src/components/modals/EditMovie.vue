@@ -131,7 +131,7 @@ const yearRule = computed(() => ({ required: true, digits: 4 }))
         <CustomInput name="name[ka]" v-model="nameKa" placeholder="ფილმის სახელი:" language="ქარ" />
         <div
           @click="toggleDropdown"
-          class="bg-transparent relative h-11 py-[11px] w-full border border-[#6C757D] flex items-center rounded-[4.8px] text-xl pl-4 pr-12"
+          class="bg-transparent relative py-[11px] w-full border border-[#6C757D] flex flex-wrap h-fit gap-2 items-center rounded-[4.8px] text-xl pl-4 pr-12"
         >
           <div class="absolute left-0 z-10 w-full top-full bg-slate-600">
             <div v-if="showDropdown">
@@ -153,7 +153,7 @@ const yearRule = computed(() => ({ required: true, digits: 4 }))
             v-for="genre in genres"
             :key="genre.id"
             @click="removeChosenGenre(genre.id)"
-            class="text-sm bg-[#6C757D] mr-1 py-[5px] px-[6px]"
+            class="text-sm bg-[#6C757D] mr-1 py-[5px] px-[6px] whitespace-nowrap"
           >
             {{ genre.name[interfaceStore.getLocale] }} x
           </p>

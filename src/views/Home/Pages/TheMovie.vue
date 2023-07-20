@@ -12,6 +12,7 @@ import EditMovie from '@/components/modals/EditMovie.vue'
 import { useRouter } from 'vue-router'
 import SmallQuoteCard from '@/components/UI/SmallQuoteCard.vue'
 import TheNavigation from '@/components/UI/TheNavigation.vue'
+import TheHeader from '@/components/UI/TheHeader.vue'
 
 const route = useRoute()
 const router = useRouter()
@@ -64,76 +65,79 @@ provide('updateQuote', updateQuote)
 </script>
 
 <template>
-  <TheNavigation class="hidden md:block" />
-  <div v-if="movie" class="pt-8 h-fit w-full p-[35px] md:pr-[72px]">
-    <Transition name="modal">
-      <AddQuoteToMovie
-        :movie="movie"
-        v-if="showAddQuoteToMovie"
-        @addQuote="addQuote"
-        :closeModal="closeAddQuoteToMovie"
-      />
-    </Transition>
+  <TheHeader />
+  <div class="flex">
+    <TheNavigation class="hidden md:block" />
+    <div v-if="movie" class="pt-8 h-fit w-full p-[35px] md:pr-[72px]">
+      <Transition name="modal">
+        <AddQuoteToMovie
+          :movie="movie"
+          v-if="showAddQuoteToMovie"
+          @addQuote="addQuote"
+          :closeModal="closeAddQuoteToMovie"
+        />
+      </Transition>
 
-    <Transition name="modal">
-      <EditMovie
-        :movie="movie"
-        :changeMovie="changeMovie"
-        v-if="showEditMovie"
-        :closeModal="closeEditMovie"
-      />
-    </Transition>
+      <Transition name="modal">
+        <EditMovie
+          :movie="movie"
+          :changeMovie="changeMovie"
+          v-if="showEditMovie"
+          :closeModal="closeEditMovie"
+        />
+      </Transition>
 
-    <h1 class="text-2xl">{{ $t('texts.movie_description') }}</h1>
-    <div class="flex flex-col gap-5 mt-8 md:flex-row">
-      <div class="min-w-[60%] h-[441px]">
-        <img :src="movie.image" alt="image" class="object-cover w-full h-full rounded-xl" />
-      </div>
-      <div class="w-full">
-        <div class="flex justify-between">
-          <h2 class="text-2xl whitespace-nowrap text-[#DDCCAA]">
-            {{ movie.name[interfaceStore.getLocale] }} ({{ movie.year }})
-          </h2>
-          <div class="flex items-center gap-6 px-5 py-2 bg-[#24222F] rounded-[10px]">
-            <p @click="openEditMovie" class="cursor-pointer"><IconPencil /></p>
-            <p class="text-[#6C757D]">|</p>
-            <p @click="deleteMovie(movie.id)" class="cursor-pointer"><IconTrash /></p>
+      <h1 class="text-2xl">{{ $t('texts.movie_description') }}</h1>
+      <div class="flex flex-col gap-5 mt-8 md:flex-row">
+        <div class="min-w-[60%] h-[441px]">
+          <img :src="movie.image" alt="image" class="object-cover w-full h-full rounded-xl" />
+        </div>
+        <div class="w-full">
+          <div class="flex justify-between">
+            <h2 class="text-2xl whitespace-nowrap text-[#DDCCAA]">
+              {{ movie.name[interfaceStore.getLocale] }} ({{ movie.year }})
+            </h2>
+            <div class="flex items-center gap-6 px-5 py-2 bg-[#24222F] rounded-[10px]">
+              <p @click="openEditMovie" class="cursor-pointer"><IconPencil /></p>
+              <p class="text-[#6C757D]">|</p>
+              <p @click="deleteMovie(movie.id)" class="cursor-pointer"><IconTrash /></p>
+            </div>
+          </div>
+          <div class="flex flex-wrap gap-4 mt-6">
+            <div v-for="genre in movie.genres" :key="genre.id">
+              <span class="px-4 py-2 text-lg font-bold bg-[#6C757D] rounded-[4px]">
+                {{ genre.name[interfaceStore.getLocale] }}
+              </span>
+            </div>
+          </div>
+          <div class="flex mt-5 text-lg gap-[10px]">
+            <span class="text-[#CED4DA] font-bold">{{ $t('texts.director') }}:</span>
+            <span class="font-medium">{{ movie.director[interfaceStore.getLocale] }}</span>
+          </div>
+          <div class="mt-5">
+            <p class="text-[#CED4DA] text-lg max-w-[33.125rem] break-words">
+              {{ movie.description[interfaceStore.getLocale] }}
+            </p>
           </div>
         </div>
-        <div class="flex flex-wrap gap-4 mt-6">
-          <div v-for="genre in movie.genres" :key="genre.id">
-            <span class="px-4 py-2 text-lg font-bold bg-[#6C757D] rounded-[4px]">
-              {{ genre.name[interfaceStore.getLocale] }}
-            </span>
-          </div>
+      </div>
+      <div class="flex gap-4 mt-12">
+        <div class="text-2xl">
+          {{ $t('texts.quotes') }} ({{ $t('texts.total') }} {{ quotes.length }})
         </div>
-        <div class="flex mt-5 text-lg gap-[10px]">
-          <span class="text-[#CED4DA] font-bold">{{ $t('texts.director') }}:</span>
-          <span class="font-medium">{{ movie.director[interfaceStore.getLocale] }}</span>
-        </div>
-        <div class="mt-5">
-          <p class="text-[#CED4DA] text-lg max-w-[33.125rem] break-words">
-            {{ movie.description[interfaceStore.getLocale] }}
-          </p>
+        <span class="text-[#6C757D] text-2xl"> | </span>
+        <div>
+          <PrimaryButton class="px-5"
+            ><button @click="openAddQuoteToMovie" class="flex gap-2">
+              <IconPlus />{{ $t('texts.add_quote') }}
+            </button></PrimaryButton
+          >
         </div>
       </div>
-    </div>
-    <div class="flex gap-4 mt-12">
-      <div class="text-2xl">
-        {{ $t('texts.quotes') }} ({{ $t('texts.total') }} {{ quotes.length }})
-      </div>
-      <span class="text-[#6C757D] text-2xl"> | </span>
-      <div>
-        <PrimaryButton class="px-5"
-          ><button @click="openAddQuoteToMovie" class="flex gap-2">
-            <IconPlus />{{ $t('texts.add_quote') }}
-          </button></PrimaryButton
-        >
-      </div>
-    </div>
-    <div class="mt-[3.25rem] flex flex-col gap-10 max-w-[808px]">
-      <div v-for="quote in quotes" :key="quote.id" class="w-full">
-        <SmallQuoteCard :quote="quote" @removeQuote="removeQuote" />
+      <div class="mt-[3.25rem] flex flex-col gap-10 max-w-[808px]">
+        <div v-for="quote in quotes" :key="quote.id" class="w-full">
+          <SmallQuoteCard :quote="quote" @removeQuote="removeQuote" />
+        </div>
       </div>
     </div>
   </div>
