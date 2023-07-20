@@ -100,7 +100,7 @@ provide('updateQuote', updateQuote)
             <p @click="deleteMovie(movie.id)" class="cursor-pointer"><IconTrash /></p>
           </div>
         </div>
-        <div class="flex flex-wrap gap-2 mt-6">
+        <div class="flex flex-wrap gap-4 mt-6">
           <div v-for="genre in movie.genres" :key="genre.id">
             <span class="px-4 py-2 text-lg font-bold bg-[#6C757D] rounded-[4px]">
               {{ genre.name[interfaceStore.getLocale] }}
@@ -112,7 +112,7 @@ provide('updateQuote', updateQuote)
           <span class="font-medium">{{ movie.director[interfaceStore.getLocale] }}</span>
         </div>
         <div class="mt-5">
-          <p class="text-[#CED4DA] text-lg">
+          <p class="text-[#CED4DA] text-lg max-w-[33.125rem] break-words">
             {{ movie.description[interfaceStore.getLocale] }}
           </p>
         </div>
@@ -132,7 +132,7 @@ provide('updateQuote', updateQuote)
       </div>
     </div>
     <div class="mt-[3.25rem] flex flex-col gap-10 max-w-[808px]">
-      <div v-for="quote in quotes" :key="quote.id">
+      <div v-for="quote in quotes" :key="quote.id" class="w-full">
         <SmallQuoteCard :quote="quote" @removeQuote="removeQuote" />
       </div>
     </div>
