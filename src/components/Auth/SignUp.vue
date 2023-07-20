@@ -51,8 +51,8 @@ const passwordConfirmationRules = computed(() => ({ required: true, confirmed: p
       >
         <p>Sending mail...</p>
       </div>
-      <h1 class="p-4 text-3xl font-medium">{{ $t('auth.create_an_account') }}</h1>
-      <p class="p-4 text-[#6C757D] mt-3">{{ $t('auth.start_your_journey') }}</p>
+      <h1 class="text-3xl font-medium">{{ $t('auth.create_an_account') }}</h1>
+      <p class="text-[#6C757D] mt-3">{{ $t('auth.start_your_journey') }}</p>
       <Form @submit="register" class="w-full px-4 md:px-0">
         <TextInput
           :label="$t('auth.name')"

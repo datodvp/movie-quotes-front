@@ -58,7 +58,7 @@ const typeIsPassword = computed(() => props.type === 'password')
       :rules="rules"
       @input="$emit('update:modelValue', $event.target.value)"
     >
-      <div class="relative flex items-center justify-end mt-2 md:w-full h-fit">
+      <div class="relative flex items-center justify-end mt-2 md:w-full md:min-w-[360px] h-fit">
         <input
           v-bind="field"
           :name="name"
