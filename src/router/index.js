@@ -1,6 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import LandingView from '@/views/Landing/LandingView.vue'
-import HomeView from '@/views/Home/HomeView.vue'
 import SignUp from '@/components/Auth/SignUp.vue'
 import TheLogin from '@/components/Auth/TheLogin.vue'
 import ForgotPassword from '@/components/Auth/ForgotPassword.vue'
