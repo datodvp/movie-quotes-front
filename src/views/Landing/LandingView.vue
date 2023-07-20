@@ -10,7 +10,7 @@ import TheHeader from '@/components/UI/TheHeader.vue'
 <template>
   <div class="bg-gradient-to-b from-[#11101A] via-[#08080D] to-[#00000000]">
     <TheHeader />
-    <div class="relative flex flex-col h-full bg-gradient-to-b">
+    <div class="relative flex flex-col min-h-screen bg-gradient-to-b">
       <RouterView v-slot="{ Component }" class="z-10">
         <Transition mode="out-in">
           <Component :is="Component" />
@@ -18,7 +18,7 @@ import TheHeader from '@/components/UI/TheHeader.vue'
       </RouterView>
 
       <main
-        class="flex bg-scroll bg-gradient-to-b from-[#11101A] via-[#08080D] to-[#000000] items-center justify-center flex-grow min-h-[44.375]"
+        class="flex bg-gradient-to-b from-[#11101A] via-[#08080D] to-[#000000] items-center justify-center flex-grow min-h-[35rem] h-[35rem] md:min-h-[44.375rem]"
       >
         <div
           class="text-2xl fixed text-[#DDCCAA] flex flex-col items-center gap-y-6 font-bold md:text-6xl w-72 md:w-[43rem] text-center"

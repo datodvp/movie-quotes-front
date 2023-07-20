@@ -115,16 +115,21 @@ const showNotificationsOnAuthenticated = computed(
         :userStore="userStore"
       />
     </Transition>
-    <div class="w-full max-w-[120rem] px-9 py-6 md:px-16" :class="authenticatedBackground">
+    <div class="w-full max-w-[1920px] px-9 py-6 md:px-16" :class="authenticatedBackground">
       <nav class="flex items-center justify-between">
         <IconBurger
           @click="toggleNavbar"
           v-if="authStore.getIsAuthenticated"
-          class="cursor-pointer md:hidden"
+          class="cursor-pointer md:hidden mr-11"
         />
-        <h1 class="hidden md:block">MOVIE QUOTES</h1>
+        <h1 :class="authStore.getIsAuthenticated && 'hidden md:block'">MOVIE QUOTES</h1>
         <div
-          class="relative flex flex-row-reverse items-center justify-between w-full gap-8 md:w-auto md:flex-row"
+          :class="
+            authStore.getIsAuthenticated
+              ? 'flex-row-reverse md:flex-row justify-between w-full md:w-min'
+              : ''
+          "
+          class="relative flex items-center gap-8"
         >
           <div
             @click="toggleShowNotifications"
@@ -132,7 +137,7 @@ const showNotificationsOnAuthenticated = computed(
             class="relative group"
           >
             <span
-              class="absolute cursor-pointer left-[2.563rem] top-[-0.375rem] bg-[#E33812] w-[1.563rem] h-[1.563rem] text-center rounded-full"
+              class="absolute cursor-pointer left-[14px] top-[-6px] bg-[#E33812] w-[25px] h-[25px] text-center rounded-full"
             >
               {{ activeNotificationsNumber }}
             </span>
@@ -143,7 +148,8 @@ const showNotificationsOnAuthenticated = computed(
             tabindex="0"
             @click="toggleLanguage"
             @focusout="!isLanguageOpen && toggleLanguage"
-            class="items-center justify-center gap-2 ml-10 cursor-pointer md:ml-0 md:flex mr-7"
+            class="cursor-pointer"
+            :class="!authStore.getIsAuthenticated && 'hidden'"
           >
             <div class="flex items-center gap-2 group">
               <p class="group-hover:text-[#6C757D]">{{ currentLanguageLabel }}</p>
@@ -176,10 +182,7 @@ const showNotificationsOnAuthenticated = computed(
               </RouterLink>
             </SecondaryButton>
           </div>
-          <div
-            v-else
-            class="flex-row-reverse hidden w-[8.125rem] gap-2 md:flex md:gap-4 md:flex-row"
-          >
+          <div v-else class="flex-row-reverse hidden w-[130px] gap-2 md:flex md:gap-4 md:flex-row">
             <SecondaryButton @click="logout">
               <a>{{ $t('header.log_out') }}</a>
             </SecondaryButton>
