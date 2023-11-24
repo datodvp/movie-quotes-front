@@ -48,8 +48,15 @@ onMounted(async () => {
 
 const handleImagePreview = (e) => {
   const image = e.target.files[0]
+  const maxSize = 2.8 * 1024 * 1024; // 2.8 MB in bytes
+
+  if(image.size > maxSize){
+       alert("Image is too big! Please choose smaller size.");
+       imagePreview.value = "";
+    }
   imagePreview.value = URL.createObjectURL(image)
 }
+
 
 const addQuote = async () => {
   errorMessage.value = ''
