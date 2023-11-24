@@ -45,16 +45,6 @@ onMounted(async () => {
   userStore.setUserData('googleId', userData.google_id)
   userStore.setUserData('image', userData.image)
 
-  const notificationsResponse = await authService.getNotifications()
-  notificationsStore.setNotifications(notificationsResponse.data.data.notifications.reverse())
-
-  window.Echo.private(`notifications.${userStore.getUserData.id}`).listen(
-    'NotificationAdded',
-    (data) => {
-      const { notification } = data
-      notificationsStore.addNotification(notification)
-    }
-  )
 })
 
 onMounted(async () => {})
