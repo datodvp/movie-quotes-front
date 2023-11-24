@@ -66,8 +66,9 @@ const handleImagePreview = (e) => {
   if(image.size > maxSize){
        alert("Image is too big! Please choose smaller size.");
        imagePreview.value = "";
+    } else {
+      imagePreview.value = URL.createObjectURL(image)
     }
-  imagePreview.value = URL.createObjectURL(image)
 }
 
 
