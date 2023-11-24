@@ -24,8 +24,8 @@ defineProps({
 </script>
 
 <template>
-  <div class="">
-    <div @click="show = !show" class="flex items-center justify-between gap-3 p-5 bg-black">
+  <div class="relative">
+    <div @click="show = !show" class="flex items-center justify-between gap-3 p-5 bg-black relative">
       <IconCamera class="absolute" />
       <p class="pl-[2.5rem]">
         {{ (chosenItem.name && chosenItem.name[interfaceStore.getLocale]) || 'Choose a movie' }}
